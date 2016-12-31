@@ -1,0 +1,23 @@
+{
+    "version": "0.1.0",
+    //"command": "/opt/clanton-tiny/1.4.2/sysroots/i686-pokysdk-linux/usr/bin/i586-poky-linux-uclibc/i586-poky-linux-uclibc-g++",
+    "command": "g++",
+    "isShellCommand": true,
+    "showOutput": "always",
+    "args": [
+            "main.cpp","libLKYDeepNN/InputLayer.cpp","libLKYDeepNN/HiddenLayer.cpp","libLKYDeepNN/OutputLayer.cpp",
+            "-Wall",
+            "-pthread",
+            "-I /usr/include/opencv2",
+            "-L /usr/lib",
+            "-lopencv_core",
+            "-lopencv_highgui",
+            "-lopencv_imgproc",
+            "/usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.3.0",
+            "-g",
+            //"-Ofast", 
+            "-std=c++14",
+            //"-D_GLIBCXX_USE_C99",
+            "-o",
+            "LKYDeepNN"]
+}
