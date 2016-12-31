@@ -14,10 +14,10 @@ void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector
 int main()
 {
     vector<vector<double>> trainData = classifyCircleData();//Make2DBinaryTrainingData();//
-    int numHiddenNodesInEachLayer = 4;
-    int numHiddenLayers = 2;
+    int numHiddenNodesInEachLayer = 8;
+    int numHiddenLayers = 3;
     LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
-    nn.SetActivation(new Tanh(), new Softmax());
+    nn.SetActivation(new ReLU(), new Softmax());
     nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
     cout << "訓練開始" <<endl;

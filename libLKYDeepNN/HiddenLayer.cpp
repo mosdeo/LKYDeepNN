@@ -11,9 +11,9 @@ void HiddenLayer::SetActivation(Activation* activation)
 
 void HiddenLayer::InitializeWeights()
 {   
-    this->intoWeights = MakeMatrix(this->previousLayer->nodes.size(), this->nodes.size(), 1.0);
+    this->intoWeights = MakeMatrix(this->nodes.size(), this->previousLayer->nodes.size(), 1.0);
     this->hiddenBiases = vector<double>(this->nodes.size() ,0); //numNodes double with value 0
-    this->wDelta = MakeMatrix(this->previousLayer->nodes.size(), this->nodes.size(), 0.0);
+    this->wDelta = MakeMatrix(this->nodes.size(), this->previousLayer->nodes.size(), 0.0);
     this->bDelta = vector<double>(this->hiddenBiases.size());
 
     const double hi = 1/(sqrt(this->nodes.size()));
@@ -59,7 +59,7 @@ void HiddenLayer::ForwardPropagation()
         //cout << "this->previousLayer->nodes.size() = " << this->previousLayer->nodes.size() << endl;
         for (size_t i = 0; i < this->previousLayer->nodes.size(); ++i)
         {
-            this->nodes[j] += this->previousLayer->nodes[i] * this->intoWeights[i][j]; // note +=
+            this->nodes[j] += this->previousLayer->nodes[i] * this->intoWeights[j][i]; // note +=
         }
 
         this->nodes[j] += this->hiddenBiases[j];
@@ -89,36 +89,38 @@ void HiddenLayer::BackPropagation(double learningRate)
         exit(EXIT_FAILURE);
     }
 
-    for(size_t j=0 ; j < this->wDelta.size() ; j++)
+
+    //[this][perv]
+    for(size_t j=0 ; j <  this->intoWeights.size() ; j++)
     {
-        for(size_t i=0 ; i < this->wDelta[j].size() ; i++)
+        //求出此節點所有順向影響的 sum(Delta*Weight)
+        double sigmaDeltaWeight = 0;
+        for(size_t k=0;k<this->nextLayer->nodes.size();k++)
         {
-            double pervGradSum = 0;
-            for(double g : this->nextLayer->wDelta[i])
-            {//取得下一層連結到此點算過的梯度總和
-                pervGradSum += g;
-            } 
-            double derivativeActivation = this->activation->Derivative(this->nodes[i]);//取得進出這個節點的梯度
-            double pervNode = this->previousLayer->nodes[j];//取得上一個節點的值
-            this->wDelta[j][i] = pervGradSum*derivativeActivation;
+            if(typeid(HiddenLayer) == typeid(*(this->nextLayer)))
+                sigmaDeltaWeight += this->nextLayer->wDelta[k][j] * ((HiddenLayer*)(this->nextLayer))->intoWeights[k][j];
+            else if(typeid(OutputLayer) == typeid(*(this->nextLayer))) 
+                sigmaDeltaWeight += this->nextLayer->wDelta[k][j] * ((OutputLayer*)(this->nextLayer))->intoWeights[k][j];
+            else{
+                cout << "ERROR: this->nextLayer type error" << endl;
+                exit(EXIT_FAILURE);}
+        }
+
+        //此節點微分值
+        double derivativeActivation = this->activation->Derivative(this->nodes[j]);
+
+        for(size_t i=0 ; i < this->intoWeights[j].size() ; i++)
+        {
+            this->wDelta[j][i] = sigmaDeltaWeight*derivativeActivation;
+            double pervNode = this->previousLayer->nodes[i];
 
             //更新權重
-            this->intoWeights[j][i] -= learningRate*(this->wDelta[j][i]*pervNode);
+            this->intoWeights[j][i] -= learningRate*this->wDelta[j][i]*pervNode;
         }
-    }
-
-    for(size_t i=0 ; i < this->hiddenBiases.size() ; i++)
-    {
-        double pervDeltaSum = 0;
-        for(double g : this->nextLayer->wDelta[i])
-        {//取得下一層連結到此點算過的梯度總和
-            pervDeltaSum += g;
-        }
-        double derivativeActivation = this->activation->Derivative(this->nodes[i]);
-        this->bDelta[i] = derivativeActivation;
 
         //更新基底權重
-        this->hiddenBiases[i] -= learningRate*(this->bDelta[i]*pervDeltaSum);
+        this->bDelta[j] = derivativeActivation;
+        this->hiddenBiases[j] -= learningRate*(this->bDelta[j]*sigmaDeltaWeight);
     }
     //cout << "end\n" << endl;
 }

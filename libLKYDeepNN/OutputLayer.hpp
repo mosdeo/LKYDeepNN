@@ -9,7 +9,7 @@ class HiddenLayer;
 class OutputLayer: public Layer
 {
     //順向進入的權重與基底
-    protected: vector<vector<double>> intoWeights;
+    public: vector<vector<double>> intoWeights;
     protected: vector<double> outBiases;
 
     //前層
