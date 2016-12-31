@@ -62,10 +62,7 @@ void HiddenLayer::ForwardPropagation()
             this->nodes[j] += this->previousLayer->nodes[i] * this->intoWeights[i][j]; // note +=
         }
 
-        //cout << "mark" << endl;
-        //cout << "this->hiddenBiases[j] = " << this->hiddenBiases[j] << endl;
         this->nodes[j] += this->hiddenBiases[j];
-        //cout << "mark" << endl;
     }
 
     //活化函數
@@ -90,18 +87,6 @@ void HiddenLayer::BackPropagation(double learningRate)
     {
         for(size_t i=0 ; i < this->wGrads[j].size() ; i++)
         {
-            // if(typeid(*(this->nextLayer)) == typeid(InputLayer))
-            // {
-            //     cout << "ERROR: HiddenLayer 的下一層不能是 InputLayer." << endl;
-            //     exit(EXIT_FAILURE);
-            // }
-
-            // if(typeid(*(this->nextLayer)) == typeid(OutputLayer))
-            // {
-            //     cout << "ERROR: HiddenLayer 的下一層不能是 OutputLayer." << endl;
-            //     exit(EXIT_FAILURE);
-            // }          
-
             if(NULL == this->previousLayer)
             {
                 cout << "NULL == this->previousLayer" << endl;

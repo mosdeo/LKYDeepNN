@@ -5,7 +5,7 @@
             "name": "C++ Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/lky/workspace/NeuralNetwork/NeuralNetwork",
+            "program": "/home/lky/workspace/LKYDeepNN/LKYDeepNN",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
@@ -25,7 +25,7 @@
             "name": "C++ Attach",
             "type": "cppdbg",
             "request": "attach",
-            "program": "/home/lky/workspace/NeuralNetwork/NeuralNetwork",
+            "program": "/home/lky/workspace/LKYDeepNN/LKYDeepNN",
             "processId": "${command.pickProcess}",
             "linux": {
                 "MIMode": "gdb"

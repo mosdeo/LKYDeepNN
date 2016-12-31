@@ -19,12 +19,27 @@ class LKYDeepNN
 
     public: ~LKYDeepNN()
     {
-        delete inputLayer;
-        for (auto hiddenLayer : this->hiddenLayerArray)
+        inputLayer->~InputLayer();
+        // if(NULL != inputLayer)
+        // {
+        //     delete inputLayer;
+        //     inputLayer = NULL;
+        // }
+        for (HiddenLayer* hiddenLayer : this->hiddenLayerArray)
         {
-            delete hiddenLayer;
+            hiddenLayer->~HiddenLayer();
+            //  if(NULL != hiddenLayer)
+            //  {
+            //     delete hiddenLayer;
+            //     hiddenLayer = NULL;
+            //  }
         }
-        delete outputLayer;
+        outputLayer->~OutputLayer();
+        // if(NULL != outputLayer)
+        // {
+        //     delete outputLayer;
+        //     outputLayer = NULL;
+        // }
         cout << "~LKYDeepNN() completed." << endl;
     }
     
@@ -155,23 +170,24 @@ class LKYDeepNN
         
         vector<double> inputValues(inputLayer->NodesSize(),0);  // features
         vector<double> targetValues(outputLayer->NodesSize(),0); // labels
-
-        // //分離出 feature & label
-        // for (size_t i = 0; i < trainData.size(); ++i)
-        // {
-        //     std::copy(trainData[i].begin(), trainData[i].begin() + inputLayer->NodesSize(), inputValues.begin());
-        //     std::copy(trainData[i].begin() + inputLayer->NodesSize(), trainData[i].begin() + inputLayer->NodesSize() + outputLayer->NodesSize(), targetValues.begin());
-        // }
         
         //開始訓練
         for(int currentEpochs=0 ; currentEpochs < epochs ; ++currentEpochs)
         {
             for (size_t i = 0; i < trainData.size(); ++i)
             {
+                //分離出 feature & label
                 std::copy(trainData[i].begin(), trainData[i].begin() + inputLayer->NodesSize(), inputValues.begin());
-                
-                //有記憶體問題
-                std::copy(trainData[i].begin() + inputLayer->NodesSize(), trainData[i].begin() + inputLayer->NodesSize() + outputLayer->NodesSize(), targetValues.begin());
+                std::copy(trainData[i].begin()+inputLayer->NodesSize(),
+                        trainData[i].begin()+inputLayer->NodesSize()+outputLayer->NodesSize(),
+                        targetValues.begin());
+
+                //檢驗資料是否正確被切開
+                // cout << "==================" << endl;
+                // for (double const output : trainData[i]){ printf("  %lf, ",output);}cout << endl;
+                // for (double const output : inputValues){ printf("x=%lf, ",output);}
+                // for (double const output : targetValues){ printf("t=%lf, ",output);}cout << endl;
+                // cout << "==================" << endl;
 
                 //順傳遞
                 this->ForwardPropagation(inputValues);                
@@ -185,8 +201,8 @@ class LKYDeepNN
             }
 
             trainError.push_back(this->MeanSquaredError(trainData));
-            //if(currentEpochs % 10)
-            cout << "MeanSquaredError = " << this->GetTrainError().back() << endl;
+            if(currentEpochs % 10)
+                cout << "MeanSquaredError = " << this->GetTrainError().back() << endl;
 
             if(NULL != this->eventInTraining) //繪製訓練過程testData
             {//呼叫事件
@@ -219,14 +235,23 @@ class LKYDeepNN
     {
         // MSE == average squared error per training item
         double sumSquaredError = 0.0;
-        vector<double> xValues(inputLayer->NodesSize(),0);  // first numInputNodes values in trainData
-        vector<double> tValues(outputLayer->NodesSize(),0); // last numOutputNodes values
+        vector<double> xValues(inputLayer->NodesSize());  // first numInputNodes values in trainData
+        vector<double> tValues(outputLayer->NodesSize()); // last numOutputNodes values
 
         // walk thru each training case
         for (size_t i = 0; i < data.size(); ++i)
         {
-            //std::copy(data[i].begin(), data[i].begin() + inputLayer->NodesSize(), xValues.begin());
-            //std::copy(data[i].begin() + inputLayer->NodesSize(), data[i].begin() + inputLayer->NodesSize() + outputLayer->NodesSize()-1, tValues.begin());
+            std::copy(data[i].begin(), data[i].begin() + inputLayer->NodesSize(), xValues.begin());
+            std::copy(data[i].begin() + inputLayer->NodesSize(),
+                    data[i].begin() + inputLayer->NodesSize() + outputLayer->NodesSize(),
+                    tValues.begin());
+
+            // //檢驗資料是否正確被切開
+            // cout << "==================" << endl;
+            // for (double const output : data[i]){ printf("  %lf, ",output);}cout << endl;
+            // for (double const output : xValues){ printf("x=%lf, ",output);}
+            // for (double const output : tValues){ printf("t=%lf, ",output);}cout << endl;
+            // cout << "==================" << endl;
 
             vector<double> yValues = this->outputLayer->GetOutput();
 
@@ -240,4 +265,27 @@ class LKYDeepNN
     } // Error
 
     public: void (*eventInTraining)(LKYDeepNN ,int ,int ,const vector<vector<double>>& displayData) = NULL;
+
+    // LKYDeepNN& operator=(const LKYDeepNN& Obj)
+    // {
+    //     cout << "LKYDeepNN& operator=(const LKYDeepNN& Obj)" << endl;
+    //     exit(EXIT_SUCCESS);
+    // }
+
+    // LKYDeepNN(const LKYDeepNN& Obj)
+    // {
+    //     cout << "LKYDeepNN(const LKYDeepNN& Obj)" << endl;
+
+    //     // private: InputLayer* inputLayer;
+    //     //this->inputLayer = Obj.inputLayer
+
+    //     // private: vector<HiddenLayer*> hiddenLayerArray;
+    //     // private: OutputLayer* outputLayer;
+    //     // private: Activation* activation = NULL;
+
+    //     // private: vector<double> trainError;
+    //     this->trainError = Obj.trainError;
+    //     exit(EXIT_SUCCESS);
+    // }
 };
+

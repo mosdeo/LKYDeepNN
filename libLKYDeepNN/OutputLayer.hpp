@@ -12,10 +12,6 @@ class OutputLayer: public Layer
     protected: vector<vector<double>> intoWeights;
     protected: vector<double> outBiases;
 
-    // //倒傳遞的梯度
-    // protected: vector<vector<double>> wGrads;
-    // protected: vector<double> oGrads;
-
     //前層
     protected: HiddenLayer* previousLayer;
 
@@ -25,8 +21,13 @@ class OutputLayer: public Layer
 
     public: ~OutputLayer()
     {
+        activation->~Activation();
         if(NULL != activation)
+        {
             delete activation;
+            activation = NULL;
+        }
+        cout << "~OutputLayer()" << endl;
     }
 
     public: void InitializeWeights();

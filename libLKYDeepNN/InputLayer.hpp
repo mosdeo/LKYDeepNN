@@ -12,7 +12,10 @@ class InputLayer: public Layer
     protected: HiddenLayer* nextLayer;
 
     public: InputLayer();
-    public: InputLayer(int, HiddenLayer*);
+    public: ~InputLayer()
+    {
+        cout << "~InputLayer()" << endl;
+    }
 
     public: void Input(const vector<double>);
 

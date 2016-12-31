@@ -18,6 +18,11 @@ class Tanh: public Activation
         cout << "Activation is Tanh." << endl;
     }
 
+    public: ~Tanh()
+    {
+        cout << "~Tanh()" << endl;
+    }
+
 
     public: vector<double> Forward(const vector<double>& nodeSum)
     {

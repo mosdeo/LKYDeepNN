@@ -5,11 +5,6 @@
 using namespace std;
 
 InputLayer::InputLayer(){};
-InputLayer::InputLayer(int numNodes, HiddenLayer* nextLayer)
-{
-    this->nextLayer = nextLayer;
-    this->nodes  = vector<double>(numNodes);
-}
 
 void InputLayer::Input(const vector<double> inputArray)
 {

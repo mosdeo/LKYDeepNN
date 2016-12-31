@@ -8,7 +8,7 @@ using namespace std;
 vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 40)
 {
     //make 2*numItems 2D vector
-    vector<vector<double>> trainData(numTariningData, vector<double>(3));
+    vector<vector<double>> trainData(numTariningData, vector<double>(4));
     std::mt19937 rng(0);    // random-number engine used (Mersenne-Twister in this case)
     std::uniform_real_distribution<double> uni_noise(-0.5, 0.5); // guaranteed unbiased
 
@@ -23,13 +23,15 @@ vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 40)
         {
             trainData[i][0] = A_centerX + noiseRate*uni_noise(rng);
             trainData[i][1] = A_centerY + noiseRate*uni_noise(rng);
-            trainData[i].back() = 1;
+            trainData[i][2] = 1;
+            trainData[i][3] = 0;
         }
         else
         {
             trainData[i][0] = B_centerX + noiseRate*uni_noise(rng);
             trainData[i][1] = B_centerY + noiseRate*uni_noise(rng);
-            trainData[i].back() = -1;
+            trainData[i][2] = 0;
+            trainData[i][3] = 1;
         }
     }
 
@@ -38,14 +40,14 @@ vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 40)
 
 vector<vector<double>> classifyCircleData(int numSamples=80, double noise=0.1)
 {
-    vector<vector<double>> points(0, vector<double>(3));
+    vector<vector<double>> points(0, vector<double>(4));
     double radius = 5;
 
     auto getCircleLabel = [](std::tuple<double, double> p, std::tuple<double, double> center, double radius)
     {
         double dist_p_to_center = pow((get<0>(p) - get<0>(center)),2) + pow((get<1>(p) - get<1>(center)),2);
         dist_p_to_center = pow(dist_p_to_center, 0.5);
-        return (dist_p_to_center < (radius * 0.5)) ? 1 : -1;
+        return (dist_p_to_center < (radius * 0.5)) ? 1 : 0;
     };
 
     //std::random_device rd;     // only used once to initialise (seed) engine
@@ -69,8 +71,9 @@ vector<vector<double>> classifyCircleData(int numSamples=80, double noise=0.1)
         double noiseY = uni_noise(rng) * noise;
         std::tuple<double, double> noise(x+noiseX, y+noiseY);
 
-        int label = getCircleLabel(noise, std::tuple<double, double>(0,0),radius);
-        points.push_back({x, y, (double)label});
+        //int label = getCircleLabel(noise, std::tuple<double, double>(0,0),radius);
+        //points.push_back({x, y, (double)label});
+        points.push_back({x, y, 1.0F, 0.0F});
     }
 
     // // Generate negative points outside the circle.
@@ -86,8 +89,9 @@ vector<vector<double>> classifyCircleData(int numSamples=80, double noise=0.1)
         double noiseY = uni_noise(rng) * noise;
         std::tuple<double, double> noise(x+noiseX, y+noiseY);
 
-        int label = getCircleLabel(noise, std::tuple<double, double>(0,0),radius);
-        points.push_back({x, y, (double)label});
+        //int label = getCircleLabel(noise, std::tuple<double, double>(0,0),radius);
+        //points.push_back({x, y, (double)label});
+        points.push_back({x, y, 0.0F, 1.0F});
     }
 
     return points;
@@ -110,7 +114,8 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
         {
             double resvY = pixel_Y/YscaleRate + Ymin; 
             double resvX = pixel_X/XscaleRate + Xmin;
-            vector<double> result = _nn.ForwardPropagation(vector<double>{resvX,resvY});
+            //vector<double> result = _nn.ForwardPropagation(vector<double>{resvX,resvY,0,0});
+            vector<double> result(2,0.5);
 
             if(result[0] < result[1])
             {
@@ -133,8 +138,8 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
         int newX = XscaleRate*(XYData[i][0]-Xmin);
 
         cv::Scalar circleColor;
-        if(XYData[i].back()== 1){circleColor = cv::Scalar(0, 0, 205);}//鮮紅色
-        if(XYData[i].back()==-1){circleColor = cv::Scalar(0, 205, 0);}//深綠色onst
+        if(XYData[i][2]== 1){circleColor = cv::Scalar(0, 0, 205);}//鮮紅色
+        if(XYData[i][3]== 1){circleColor = cv::Scalar(0, 205, 0);}//深綠色onst
 
         const int radius = 5;
         const int thickness = 2;

@@ -14,21 +14,21 @@ void DrawTraining(LKYDeepNN _nn, int maxEpochs, int currentEpochs, const vector<
 int main()
 {
     vector<vector<double>> trainData = Make2DBinaryTrainingData();
-    int numEachHiddenNodes = 2;
-    int numHiddenLayers = 4;
-    LKYDeepNN nn(2, vector<int>(numHiddenLayers, numEachHiddenNodes), 2);
+    int numHiddenNodesInEachLayer = 3;
+    int numHiddenLayers = 10;
+    LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
     nn.SetActivation(new Tanh());
     //nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
     cout << "訓練開始";
-    int epochs = 500;
-    nn.Training(0.001, epochs, trainData);
+    int epochs = 100;
+    //nn.Training(0.0001, epochs, trainData);
 
-    //outputArray = nn.ForwardPropagation(targetArray);
+    vector<double> outputArray = nn.ForwardPropagation(vector<double>{2,2});
     cout << "outputArray: ";
-    // for (double const output : outputArray)
-    // {//print
-    //     printf("%lf, ",output);
-    // }
+    for (double const output : outputArray)
+    {//print
+        printf("%lf, ",output);
+    }
     cout << "順傳遞測試完成" <<endl;
 }

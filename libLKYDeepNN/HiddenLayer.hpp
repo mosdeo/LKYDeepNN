@@ -5,6 +5,8 @@
 #include "InputLayer.hpp"
 #include "OutputLayer.hpp"
 
+#include <memory>
+
 class HiddenLayer: public Layer
 {
     friend class OutputLayer;
@@ -17,18 +19,19 @@ class HiddenLayer: public Layer
     protected: Layer* previousLayer;
     public: Layer* nextLayer;
 
-    // //倒傳遞的梯度
-    // protected: vector<vector<double>> wGrads;
-    // protected: vector<double> oGrads;
-
     //活化函數
     private: Activation* activation = NULL;
     public: void SetActivation(Activation*);
 
     public: ~HiddenLayer()
     {
+        activation->~Activation();
         if(NULL != activation)
+        {
             delete activation;
+            activation = NULL;
+        }
+        cout << "~HiddenLayer()" << endl;
     }
 
     public: void InitializeWeights();
