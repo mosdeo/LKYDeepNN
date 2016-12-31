@@ -82,6 +82,7 @@ void HiddenLayer::BackPropagation(double learningRate)
     // cout << "HiddenLayer::BackPropagation" << endl;
     // cout << "  prev Layer: " <<this->previousLayer->ToString() << endl;
     // cout << "  next Layer: " << this->nextLayer->ToString() << endl;
+    printf("HiddenLayer: this->wGrads.size() = %ld, this->wGrads[0].size() = %ld\n", this->wGrads.size(), this->wGrads[0].size());
 
     for(size_t j=0 ; j < this->wGrads.size() ; j++)
     {
@@ -93,10 +94,14 @@ void HiddenLayer::BackPropagation(double learningRate)
                 exit(EXIT_FAILURE);
             }
 
-            double pervGrad = this->nextLayer->wGrads[j][i]; //取得下一層算過的梯度
+            double pervGradSum = 0;
+            for(double g : this->nextLayer->wGrads[i])
+            {//取得下一層連結到此點算過的梯度總和
+                pervGradSum += g;
+            } 
             double derivativeActivation = this->activation->Derivative(this->nodes[i]);//取得進出這個節點的梯度
             double pervInput = this->previousLayer->nodes[j];//取得上一個節點的值
-            this->wGrads[j][i] = pervGrad*derivativeActivation*pervInput;
+            this->wGrads[j][i] = pervGradSum*derivativeActivation*pervInput;
 
             //更新權重
             this->intoWeights[j][i] -= learningRate*this->wGrads[j][i];

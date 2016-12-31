@@ -77,6 +77,8 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
         exit(EXIT_FAILURE);
     }
 
+    printf("OutputLayer: this->wGrads.size() = %ld, this->wGrads[0].size() = %ld\n", this->wGrads.size(), this->wGrads[0].size());
+
     for(size_t j=0 ; j < this->wGrads.size() ; j++)
     {
         for(size_t i=0 ; i < this->wGrads[j].size() ; i++)
