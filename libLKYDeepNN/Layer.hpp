@@ -16,6 +16,10 @@ class Layer
 
     //層節點
     protected: vector<double> nodes;
+    public: int NodesSize()
+    {
+        return this->nodes.size();
+    }
 
     //倒傳遞的梯度(對Input Layer來說沒用)
     protected: vector<vector<double>> wGrads;

@@ -1,3 +1,6 @@
+#ifndef _Activation_hpp_
+#define _Activation_hpp_
+
 #include <cmath>
 #include <vector>
 using namespace std;
@@ -59,3 +62,5 @@ class ReLU: public Activation
             return 0.01;}
     }
 };
+
+#endif

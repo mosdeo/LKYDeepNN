@@ -2,6 +2,9 @@
 #include "InputLayer.hpp"
 #include "HiddenLayer.hpp"
 #include "OutputLayer.hpp"
+#include <thread>
+#include <algorithm>
+using namespace std;
 
 class LKYDeepNN
 {
@@ -10,6 +13,9 @@ class LKYDeepNN
     private: vector<HiddenLayer*> hiddenLayerArray;
     private: OutputLayer* outputLayer;
     private: Activation* activation = NULL;
+
+    private: vector<double> trainError;
+    public: vector<double> GetTrainError(){return this->trainError;}
 
     public: ~LKYDeepNN()
     {
@@ -113,16 +119,20 @@ class LKYDeepNN
         {
             hiddenLayer->SetActivation(activation);
         }
-        //outputLayer->SetActivation(activation);
+        outputLayer->SetActivation(activation);
     }
 
-    public: vector<double> ForwardPropagation(vector<double> inputArray)
+    public: vector<double> ForwardPropagation(vector<double> aFeaturesAndLabels)
     {
         this->ActivationExistCheck();
 
+        //分離出 feature, 去除label
+        vector<double> features(inputLayer->NodesSize());  // features
+        std::copy(aFeaturesAndLabels.begin(), aFeaturesAndLabels.begin() + inputLayer->NodesSize(),features.begin());
+
         //輸入資料到輸入層節點
         //cout << "輸入資料到輸入層節點" << endl;
-        this->inputLayer->Input(inputArray);
+        this->inputLayer->Input(features);
 
         //隱藏層順傳遞
         //cout << "隱藏層順傳遞" << endl;
@@ -139,16 +149,54 @@ class LKYDeepNN
         return this->outputLayer->GetOutput();
     }
 
-    public: void Training(double learningRate, vector<double> desiredOutValues)
+    public: void Training(double learningRate, int epochs, vector<vector<double>> trainData)
     {
         this->ActivationExistCheck();
+        
+        vector<double> inputValues(inputLayer->NodesSize(),0);  // features
+        vector<double> targetValues(outputLayer->NodesSize(),0); // labels
 
-        this->outputLayer->BackPropagation(learningRate, desiredOutValues);
-
-        for(vector<HiddenLayer*>::reverse_iterator r_it=hiddenLayerArray.rbegin(); r_it!=hiddenLayerArray.rend(); r_it++)
+        // //分離出 feature & label
+        // for (size_t i = 0; i < trainData.size(); ++i)
+        // {
+        //     std::copy(trainData[i].begin(), trainData[i].begin() + inputLayer->NodesSize(), inputValues.begin());
+        //     std::copy(trainData[i].begin() + inputLayer->NodesSize(), trainData[i].begin() + inputLayer->NodesSize() + outputLayer->NodesSize(), targetValues.begin());
+        // }
+        
+        //開始訓練
+        for(int currentEpochs=0 ; currentEpochs < epochs ; ++currentEpochs)
         {
-            (*r_it)->BackPropagation(learningRate);
+            for (size_t i = 0; i < trainData.size(); ++i)
+            {
+                std::copy(trainData[i].begin(), trainData[i].begin() + inputLayer->NodesSize(), inputValues.begin());
+                
+                //有記憶體問題
+                std::copy(trainData[i].begin() + inputLayer->NodesSize(), trainData[i].begin() + inputLayer->NodesSize() + outputLayer->NodesSize(), targetValues.begin());
+
+                //順傳遞
+                this->ForwardPropagation(inputValues);                
+
+                //倒傳遞
+                this->outputLayer->BackPropagation(learningRate, targetValues);
+                for(vector<HiddenLayer*>::reverse_iterator r_it=hiddenLayerArray.rbegin(); r_it!=hiddenLayerArray.rend(); r_it++)
+                {
+                    (*r_it)->BackPropagation(learningRate);
+                }
+            }
+
+            trainError.push_back(this->MeanSquaredError(trainData));
+            //if(currentEpochs % 10)
+            cout << "MeanSquaredError = " << this->GetTrainError().back() << endl;
+
+            if(NULL != this->eventInTraining) //繪製訓練過程testData
+            {//呼叫事件
+                //this->eventInTraining(*this,maxEpochs,epoch);
+                thread th(this->eventInTraining, *this, epochs, currentEpochs, trainData);
+                th.join();
+            }
         }
+
+        cout << "訓練完成" << endl;
     }
 
     private: void ActivationExistCheck()
@@ -159,4 +207,37 @@ class LKYDeepNN
             exit(EXIT_FAILURE);
         }
     }
+
+    private: void Shuffle(vector<int> sequence) // an instance method
+    {
+        //std::default_random_engine{}; //relatively casual, inexpert, and/or lightweight use.
+        std::srand(time(NULL));
+        std::random_shuffle(sequence.begin(), sequence.end());
+    } // Shuffle
+
+    private: double MeanSquaredError(vector<vector<double>> data)
+    {
+        // MSE == average squared error per training item
+        double sumSquaredError = 0.0;
+        vector<double> xValues(inputLayer->NodesSize(),0);  // first numInputNodes values in trainData
+        vector<double> tValues(outputLayer->NodesSize(),0); // last numOutputNodes values
+
+        // walk thru each training case
+        for (size_t i = 0; i < data.size(); ++i)
+        {
+            //std::copy(data[i].begin(), data[i].begin() + inputLayer->NodesSize(), xValues.begin());
+            //std::copy(data[i].begin() + inputLayer->NodesSize(), data[i].begin() + inputLayer->NodesSize() + outputLayer->NodesSize()-1, tValues.begin());
+
+            vector<double> yValues = this->outputLayer->GetOutput();
+
+            for (int j = 0; j < outputLayer->NodesSize(); ++j)
+            {
+                double err = tValues[j] - yValues[j];
+                sumSquaredError += err * err;
+            }
+        }
+        return sumSquaredError / data.size();
+    } // Error
+
+    public: void (*eventInTraining)(LKYDeepNN ,int ,int ,const vector<vector<double>>& displayData) = NULL;
 };
