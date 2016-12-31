@@ -22,8 +22,8 @@ class Layer
     }
 
     //倒傳遞的梯度(對Input Layer來說沒用)
-    protected: vector<vector<double>> wGrads;
-    protected: vector<double> oGrads;
+    protected: vector<vector<double>> wDelta;
+    protected: vector<double> bDelta;
 
     protected: vector<vector<double>> MakeMatrix(int rows, int cols, double v) // helper for ctor, Train
     {

@@ -12,8 +12,8 @@ void OutputLayer::InitializeWeights()
 {
     this->intoWeights = MakeMatrix(this->previousLayer->nodes.size(), this->nodes.size(), 1.0);
     this->outBiases = vector<double>(this->nodes.size(), 0); //numNodes double with value 0
-    this->wGrads = MakeMatrix(this->previousLayer->nodes.size(), this->nodes.size(), 0.0);
-    this->oGrads = vector<double>(this->outBiases.size());
+    this->wDelta = MakeMatrix(this->previousLayer->nodes.size(), this->nodes.size(), 0.0);
+    this->bDelta = vector<double>(this->outBiases.size());
 
     const double hi = 1/(sqrt(this->nodes.size()));
     const double lo = -hi;
@@ -77,23 +77,32 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
         exit(EXIT_FAILURE);
     }
 
-    printf("OutputLayer: this->wGrads.size() = %ld, this->wGrads[0].size() = %ld\n", this->wGrads.size(), this->wGrads[0].size());
+    //printf("OutputLayer: this->wDelta.size() = %ld, this->wDelta[0].size() = %ld\n", this->wDelta.size(), this->wDelta[0].size());
 
-    for(size_t j=0 ; j < this->wGrads.size() ; j++)
+    for(size_t j=0 ; j < this->wDelta.size() ; j++)
     {
-        for(size_t i=0 ; i < this->wGrads[j].size() ; i++)
+        for(size_t i=0 ; i < this->wDelta[j].size() ; i++)
         {
             double err = this->nodes[i] - desiredOutValues[i];//Output-target
-            double derivativeActivation = (NULL == this->activation)?
-                1:
-                this->activation->Derivative(this->nodes[i]);
+            double derivativeActivation = this->activation->Derivative(this->nodes[i]);
             double pervInput = this->previousLayer->nodes[j];
-            this->wGrads[j][i] = err*derivativeActivation*pervInput;
+            this->wDelta[j][i] = err*derivativeActivation;
 
             //更新權重
-            this->intoWeights[j][i] -= learningRate*this->wGrads[j][i];
+            this->intoWeights[j][i] -= learningRate*(this->wDelta[j][i]*pervInput);
         }
     }
+
+    for(size_t i=0 ; i < this->outBiases.size() ; i++)
+    {
+        double err = this->nodes[i] - desiredOutValues[i];//Output-target
+        double derivativeActivation = this->activation->Derivative(this->nodes[i]);
+        this->bDelta[i] = err*derivativeActivation;
+
+        //更新基底權重
+        this->outBiases[i] -= learningRate*this->bDelta[i];
+    }
+
     //cout << "end\n" << endl;
 }
 

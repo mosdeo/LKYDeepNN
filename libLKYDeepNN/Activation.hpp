@@ -11,6 +11,42 @@ class Activation
     public: virtual double Derivative(const double)=0;
 };
 
+class Softmax: public Activation
+{
+    public: Softmax()
+    {
+        cout << "Activation is Softmax." << endl;
+    }
+
+    public: ~Softmax()
+    {
+        cout << "~Softmax()" << endl;
+    }
+
+    public: vector<double> Forward(const vector<double>& nodeSum)
+    {
+        // does all output nodes at once so scale
+        // doesn't have to be re-computed each time
+
+        // if (oSums.Length < 2) throw . . .
+        vector<double> result(nodeSum.size());
+
+        double sum = 0.0;
+        for (size_t i = 0; i < nodeSum.size(); ++i)
+            sum += exp(nodeSum[i]);
+
+        for (size_t i = 0; i < nodeSum.size(); ++i)
+            result[i] = exp(nodeSum[i]) / sum;
+
+        return result; // now scaled so that xi sum to 1.0
+    }
+
+    public: double Derivative(const double x)
+    {
+        return x*(1-x);
+    }
+};
+
 class Tanh: public Activation
 {
     public: Tanh()
@@ -61,7 +97,7 @@ class ReLU: public Activation
 
     public: double Derivative(const double x)
     {
-        if(x >= 0){
+        if(x > 0){
             return 1;}
         else{
             return 0.01;}

@@ -5,7 +5,7 @@
 #include <random>
 using namespace std;
 
-vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 40)
+vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 120)
 {
     //make 2*numItems 2D vector
     vector<vector<double>> trainData(numTariningData, vector<double>(4));
@@ -15,7 +15,7 @@ vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 40)
     //產生兩個類別的資料點
     double A_centerX = 2,   A_centerY = 2;
     double B_centerX = -2, B_centerY = -2;
-    double noiseRate = 7;
+    double noiseRate = 6;
 
     for (size_t i = 0; i < trainData.size(); ++i)
     {
@@ -38,7 +38,7 @@ vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 40)
     return trainData;
 }
 
-vector<vector<double>> classifyCircleData(int numSamples=80, double noise=0.1)
+vector<vector<double>> classifyCircleData(int numSamples=120, double noise=0.1)
 {
     vector<vector<double>> points(0, vector<double>(4));
     double radius = 5;
@@ -97,7 +97,7 @@ vector<vector<double>> classifyCircleData(int numSamples=80, double noise=0.1)
     return points;
 }
 
-cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XYData, LKYDeepNN& _nn, string strPutText="LKY",
+cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XYData, LKYDeepNN* _nn, string strPutText="LKY",
     double Xmin = -10, double Xmax = 10, double Ymin = -10, double Ymax = 10)
 {
     cv::Size canvasSize(400, 400); //畫布大小
@@ -114,19 +114,20 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
         {
             double resvY = pixel_Y/YscaleRate + Ymin; 
             double resvX = pixel_X/XscaleRate + Xmin;
-            //vector<double> result = _nn.ForwardPropagation(vector<double>{resvX,resvY,0,0});
-            vector<double> result(2,0.5);
+            vector<double> result = _nn->ForwardPropagation(vector<double>{resvX,resvY});
+            //printf("result[0]=%lf, result[1]=%lf\n",result[0],result[1]);
+            //vector<double> result(2,0.5);
 
             if(result[0] < result[1])
             {
-                //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[0], 255, 255*2*result[0]);
-                canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*(int)(result[0]+0.5), 255, 255*2*(int)(result[0]+0.5));
+                canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[0], 255, 255*2*result[0]);
+                //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*(int)(result[0]+0.5), 255, 255*2*(int)(result[0]+0.5));
 
             }
             if(result[1] < result[0])
             {
-                //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[1], 255*2*result[1], 255);
-                canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*(int)(result[1]+0.5), 255*2*(int)(result[1]+0.5), 255);
+                canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[1], 255*2*result[1], 255);
+                //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*(int)(result[1]+0.5), 255*2*(int)(result[1]+0.5), 255);
             }
         }
     }

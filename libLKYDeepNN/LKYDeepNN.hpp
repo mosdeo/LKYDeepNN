@@ -126,15 +126,15 @@ class LKYDeepNN
         this->outputLayer->InitializeWeights();
     }
 
-    public: void SetActivation(Activation* activation)
+    public: void SetActivation(Activation* hiddenLayerActivation, Activation* outputLayerActivation)
     {
-        this->activation = activation;
+        this->activation = hiddenLayerActivation;
 
         for (auto hiddenLayer : this->hiddenLayerArray)
         {
-            hiddenLayer->SetActivation(activation);
+            hiddenLayer->SetActivation(hiddenLayerActivation);
         }
-        outputLayer->SetActivation(activation);
+        outputLayer->SetActivation(outputLayerActivation);
     }
 
     public: vector<double> ForwardPropagation(vector<double> aFeaturesAndLabels)
@@ -171,15 +171,24 @@ class LKYDeepNN
         vector<double> inputValues(inputLayer->NodesSize(),0);  // features
         vector<double> targetValues(outputLayer->NodesSize(),0); // labels
         
+        vector<int> sequence(trainData.size());
+        for (size_t i = 0; i < trainData.size(); ++i)
+        {
+            sequence[i] = i;
+        } 
+        
         //開始訓練
         for(int currentEpochs=0 ; currentEpochs < epochs ; ++currentEpochs)
         {
+            Shuffle(sequence);//訓練順序洗牌
             for (size_t i = 0; i < trainData.size(); ++i)
             {
+                size_t rand_i = sequence[i];
+
                 //分離出 feature & label
-                std::copy(trainData[i].begin(), trainData[i].begin() + inputLayer->NodesSize(), inputValues.begin());
-                std::copy(trainData[i].begin()+inputLayer->NodesSize(),
-                        trainData[i].begin()+inputLayer->NodesSize()+outputLayer->NodesSize(),
+                std::copy(trainData[rand_i].begin(), trainData[rand_i].begin() + inputLayer->NodesSize(), inputValues.begin());
+                std::copy(trainData[rand_i].begin()+inputLayer->NodesSize(),
+                        trainData[rand_i].begin()+inputLayer->NodesSize()+outputLayer->NodesSize(),
                         targetValues.begin());
 
                 //檢驗資料是否正確被切開
@@ -201,13 +210,13 @@ class LKYDeepNN
             }
 
             trainError.push_back(this->MeanSquaredError(trainData));
-            if(currentEpochs % 10)
+            if(0 == currentEpochs % 200)
                 cout << "MeanSquaredError = " << this->GetTrainError().back() << endl;
 
             if(NULL != this->eventInTraining) //繪製訓練過程testData
             {//呼叫事件
                 //this->eventInTraining(*this,maxEpochs,epoch);
-                thread th(this->eventInTraining, *this, epochs, currentEpochs, trainData);
+                thread th(this->eventInTraining, this, epochs, currentEpochs, trainData);
                 th.join();
             }
         }
@@ -264,7 +273,7 @@ class LKYDeepNN
         return sumSquaredError / data.size();
     } // Error
 
-    public: void (*eventInTraining)(LKYDeepNN ,int ,int ,const vector<vector<double>>& displayData) = NULL;
+    public: void (*eventInTraining)(LKYDeepNN* ,int ,int ,const vector<vector<double>>& displayData) = NULL;
 
     // LKYDeepNN& operator=(const LKYDeepNN& Obj)
     // {
