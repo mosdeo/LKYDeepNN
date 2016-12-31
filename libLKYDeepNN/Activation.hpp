@@ -11,6 +11,37 @@ class Activation
     public: virtual double Derivative(const double)=0;
 };
 
+class WithoutActivation: public Activation
+{
+    public: WithoutActivation()
+    {
+        cout << "Activation is WithoutActivation." << endl;
+    }
+
+    public: ~WithoutActivation()
+    {
+        cout << "~WithoutActivation()" << endl;
+    }
+
+    public: vector<double> Forward(const vector<double>& nodeSum)
+    {
+        vector<double> result(nodeSum.size());
+        
+        for (size_t i = 0; i < nodeSum.size(); ++i)
+        {
+            result[i] = nodeSum[i];
+        }
+
+        return result; // now scaled so that xi sum to 1.0
+    }
+
+    public: double Derivative(const double x)
+    {
+        return 1;
+    }
+};
+
+
 class Softmax: public Activation
 {
     public: Softmax()

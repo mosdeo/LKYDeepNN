@@ -23,15 +23,15 @@ vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 120)
         {
             trainData[i][0] = A_centerX + noiseRate*uni_noise(rng);
             trainData[i][1] = A_centerY + noiseRate*uni_noise(rng);
-            trainData[i][2] = 1;
-            trainData[i][3] = 0;
+            trainData[i][2] = 0;
+            trainData[i][3] = 1;
         }
         else
         {
             trainData[i][0] = B_centerX + noiseRate*uni_noise(rng);
             trainData[i][1] = B_centerY + noiseRate*uni_noise(rng);
-            trainData[i][2] = 0;
-            trainData[i][3] = 1;
+            trainData[i][2] = 1;
+            trainData[i][3] = 0;
         }
     }
 

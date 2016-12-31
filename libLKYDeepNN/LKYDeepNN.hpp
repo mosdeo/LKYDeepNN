@@ -215,7 +215,6 @@ class LKYDeepNN
 
             if(NULL != this->eventInTraining) //繪製訓練過程testData
             {//呼叫事件
-                //this->eventInTraining(*this,maxEpochs,epoch);
                 thread th(this->eventInTraining, this, epochs, currentEpochs, trainData);
                 th.join();
             }
@@ -244,29 +243,29 @@ class LKYDeepNN
     {
         // MSE == average squared error per training item
         double sumSquaredError = 0.0;
-        vector<double> xValues(inputLayer->NodesSize());  // first numInputNodes values in trainData
-        vector<double> tValues(outputLayer->NodesSize()); // last numOutputNodes values
+        vector<double> features(inputLayer->NodesSize());  // first numInputNodes values in trainData
+        vector<double> targets(outputLayer->NodesSize()); // last numOutputNodes values
 
         // walk thru each training case
         for (size_t i = 0; i < data.size(); ++i)
         {
-            std::copy(data[i].begin(), data[i].begin() + inputLayer->NodesSize(), xValues.begin());
+            std::copy(data[i].begin(), data[i].begin() + inputLayer->NodesSize(), features.begin());
             std::copy(data[i].begin() + inputLayer->NodesSize(),
                     data[i].begin() + inputLayer->NodesSize() + outputLayer->NodesSize(),
-                    tValues.begin());
+                    targets.begin());
 
             // //檢驗資料是否正確被切開
             // cout << "==================" << endl;
             // for (double const output : data[i]){ printf("  %lf, ",output);}cout << endl;
-            // for (double const output : xValues){ printf("x=%lf, ",output);}
-            // for (double const output : tValues){ printf("t=%lf, ",output);}cout << endl;
+            // for (double const output : features){ printf("x=%lf, ",output);}
+            // for (double const output : targets){ printf("t=%lf, ",output);}cout << endl;
             // cout << "==================" << endl;
 
-            vector<double> yValues = this->outputLayer->GetOutput();
+            vector<double> yValues = this->ForwardPropagation(features);
 
-            for (int j = 0; j < outputLayer->NodesSize(); ++j)
+            for (size_t j = 0; j < yValues.size(); ++j)
             {
-                double err = tValues[j] - yValues[j];
+                double err = targets[j] - yValues[j];
                 sumSquaredError += err * err;
             }
         }
