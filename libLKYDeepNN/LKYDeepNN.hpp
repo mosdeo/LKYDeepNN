@@ -189,7 +189,7 @@ class LKYDeepNN
         for(int currentEpochs=0 ; currentEpochs < epochs ; ++currentEpochs)
         {
             Shuffle(sequence);//訓練順序亂數洗牌
-            for(int i: sequence){cout << i;}cout << endl;
+            for(int i: sequence){cout << i << ",";}cout << endl;
 
             for (size_t i = 0; i < trainData.size(); ++i)
             {
@@ -242,7 +242,7 @@ class LKYDeepNN
         }
     }
 
-    private: void Shuffle(vector<int> sequence) // an instance method
+    private: void Shuffle(vector<int>& sequence) // an instance method
     {
         //std::default_random_engine{}; //relatively casual, inexpert, and/or lightweight use.
         std::srand(time(NULL));
