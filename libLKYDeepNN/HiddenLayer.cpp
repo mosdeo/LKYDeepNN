@@ -8,7 +8,7 @@ int HiddenLayer::count = 0;
 
 void HiddenLayer::SetActivation(Activation* activation)
 {
-    this->activation = activation;
+    this->activation.reset(activation);
 }
 
 void HiddenLayer::InitializeWeights()
@@ -100,9 +100,9 @@ void HiddenLayer::BackPropagation(double learningRate)
         for(size_t k=0;k<this->nextLayer->nodes.size();k++)
         {
             if(typeid(HiddenLayer) == typeid(*(this->nextLayer)))
-                sigmaDeltaWeight += this->nextLayer->wDelta[k][j] * ((HiddenLayer*)(this->nextLayer))->intoWeights[k][j];
+                sigmaDeltaWeight += this->nextLayer->wDelta[k][j] * dynamic_pointer_cast<HiddenLayer>(this->nextLayer)->intoWeights[k][j];
             else if(typeid(OutputLayer) == typeid(*(this->nextLayer))) 
-                sigmaDeltaWeight += this->nextLayer->wDelta[k][j] * ((OutputLayer*)(this->nextLayer))->intoWeights[k][j];
+                sigmaDeltaWeight += this->nextLayer->wDelta[k][j] * dynamic_pointer_cast<OutputLayer>(this->nextLayer)->intoWeights[k][j];
             else{
                 cout << "ERROR: this->nextLayer type error" << endl;
                 exit(EXIT_FAILURE);}
@@ -134,10 +134,10 @@ vector<double> HiddenLayer::GetOutput()
 
 void HiddenLayer::SetNextLayer(Layer* nextLayer)
 {
-    this->nextLayer = nextLayer;
+    this->nextLayer.reset(nextLayer);
 }
 
 void HiddenLayer::SetPrevLayer(Layer* pervLayer)
 {
-    this->previousLayer = pervLayer;
+    this->previousLayer.reset(pervLayer);
 }

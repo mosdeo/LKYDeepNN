@@ -114,6 +114,11 @@ class ReLU: public Activation
         cout << "Activation is ReLU." << endl;
     }
 
+    public: ~ReLU()
+    {
+        cout << "~ReLU()" << endl;
+    }
+
     public: vector<double> Forward(const vector<double>& nodeSum)
     {
         vector<double> result(nodeSum.size());

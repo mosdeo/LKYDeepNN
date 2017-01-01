@@ -9,7 +9,7 @@ using namespace std;
 class InputLayer: public Layer
 {
     //後層
-    protected: HiddenLayer* nextLayer;
+    protected: shared_ptr<HiddenLayer> nextLayer;
 
     public: InputLayer();
     public: ~InputLayer()

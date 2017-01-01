@@ -19,24 +19,6 @@ class LKYDeepNN
 
     public: ~LKYDeepNN()
     {
-        if(NULL != inputLayer)
-        {
-            delete inputLayer;
-            inputLayer = NULL;
-        }
-        for (HiddenLayer* hiddenLayer : this->hiddenLayerArray)
-        {
-             if(NULL != hiddenLayer)
-             {
-                delete hiddenLayer;
-                hiddenLayer = NULL;
-             }
-        }
-        if(NULL != outputLayer)
-        {
-            delete outputLayer;
-            outputLayer = NULL;
-        }
         cout << "~LKYDeepNN() completed." << endl;
     }
     

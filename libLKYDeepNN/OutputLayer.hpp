@@ -3,6 +3,7 @@
 
 #include "Layer.hpp"
 #include "HiddenLayer.hpp"
+#include <memory>
 
 class HiddenLayer;
 
@@ -13,19 +14,19 @@ class OutputLayer: public Layer
     protected: vector<double> outBiases;
 
     //前層
-    protected: HiddenLayer* previousLayer;
+    protected: shared_ptr<HiddenLayer> previousLayer;
 
     //活化函數
-    private: Activation* activation = NULL;
+    private: shared_ptr<Activation> activation;
     public: void SetActivation(Activation*);
 
     public: ~OutputLayer()
     {
-        if(NULL != activation)
-        {
-            delete activation;
-            activation = NULL;
-        }
+        // if(NULL != activation)
+        // {
+        //     delete activation;
+        //     activation = NULL;
+        // }
         cout << "~OutputLayer()" << endl;
     }
 

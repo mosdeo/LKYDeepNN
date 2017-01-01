@@ -18,11 +18,11 @@ class HiddenLayer: public Layer
     protected: vector<double> hiddenBiases;
     
     //前後層
-    protected: Layer* previousLayer;
-    public: Layer* nextLayer;
+    protected: shared_ptr<Layer> previousLayer;
+    public: shared_ptr<Layer> nextLayer;
 
     //活化函數
-    private: Activation* activation = NULL;
+    private: shared_ptr<Activation> activation;
     public: void SetActivation(Activation*);
 
     public: HiddenLayer()
@@ -33,11 +33,11 @@ class HiddenLayer: public Layer
     public: ~HiddenLayer()
     {
         //if(NULL != activation)
-        if(1 == HiddenLayer::count)
-        {
-            delete activation;
-            activation = NULL;
-        }
+        // if(1 == HiddenLayer::count)
+        // {
+        //     delete activation;
+        //     activation = NULL;
+        // }
         cout << "~HiddenLayer(): " << HiddenLayer::count << endl;
         HiddenLayer::count--;
     }

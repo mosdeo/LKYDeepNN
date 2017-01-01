@@ -21,5 +21,5 @@ void InputLayer::Input(const vector<double> inputArray)
 
 void InputLayer::SetNextLayer(HiddenLayer* nextLayer)
 {
-    this->nextLayer = nextLayer;
+    this->nextLayer.reset(nextLayer);
 }

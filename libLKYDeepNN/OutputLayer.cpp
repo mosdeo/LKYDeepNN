@@ -5,7 +5,7 @@
 
 void OutputLayer::SetActivation(Activation* activation)
 {
-    this->activation = activation;
+    this->activation.reset(activation);//activation;
 }
 
 void OutputLayer::InitializeWeights()
@@ -109,5 +109,5 @@ vector<double> OutputLayer::GetOutput()
 
 void OutputLayer::SetPrevLayer(HiddenLayer* pervLayer)
 {
-    this->previousLayer = pervLayer;
+    this->previousLayer.reset(pervLayer);
 }

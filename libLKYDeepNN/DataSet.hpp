@@ -43,12 +43,12 @@ vector<vector<double>> classifyCircleData(int numSamples=120, double noise=0.1)
     vector<vector<double>> points(0, vector<double>(4));
     double radius = 5;
 
-    auto getCircleLabel = [](std::tuple<double, double> p, std::tuple<double, double> center, double radius)
-    {
-        double dist_p_to_center = pow((get<0>(p) - get<0>(center)),2) + pow((get<1>(p) - get<1>(center)),2);
-        dist_p_to_center = pow(dist_p_to_center, 0.5);
-        return (dist_p_to_center < (radius * 0.5)) ? 1 : 0;
-    };
+    // auto getCircleLabel = [](std::tuple<double, double> p, std::tuple<double, double> center, double radius)
+    // {
+    //     double dist_p_to_center = pow((get<0>(p) - get<0>(center)),2) + pow((get<1>(p) - get<1>(center)),2);
+    //     dist_p_to_center = pow(dist_p_to_center, 0.5);
+    //     return (dist_p_to_center < (radius * 0.5)) ? 1 : 0;
+    // };
 
     //std::random_device rd;     // only used once to initialise (seed) engine
     std::mt19937 rng(0);    // random-number engine used (Mersenne-Twister in this case)
@@ -177,7 +177,7 @@ cv::Mat Draw2DRegressionData(string strWindowName ,vector<vector<double>> XYData
     // }
 
     //畫上模型預結果
-    int numItems = 120;
+    size_t numItems = 120;
     vector<vector<double>> perdictData(numItems,vector<double>(2));
    
     for(size_t i=0;i<numItems;i++)
