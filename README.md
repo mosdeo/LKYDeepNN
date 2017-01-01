@@ -13,13 +13,13 @@
 
 
 ### 自由設定活化函數
-- SetActivation( /*隱藏層*/ , /*輸出層*/ )
+- SetActivation( 隱藏層 , 輸出層 )
 - SetActivation(new Tanh() ,new Linear())  //for 回歸
 - SetActivation(new ReLU() ,new Softmax()) //for 分類
 
 
 ### 訓練
-- void Training(double learningRate, int epochs, std::vector<vector<double\>\> trainData)
+- void Training(double learningRate, int epochs, std::vector<*vector<*double\>\> trainData)
 - 每一筆資料都需要先整理成std::vector<\double\>
 - std::vector<\vector<\double\>\> 就是很多筆資料
 
@@ -30,14 +30,14 @@
 - 看到很多論文都一些特殊的網路結構，例如 dropout、AutoEncode 等等都只能望洋興嘆，覺得應該寫出自己完全了解、完全掌握修改彈性的類神經網路。
 - 看到 [FukuML](https://github.com/fukuball/fuku-ml) 和 [libDNN](https://github.com/botonchou/libdnn/)，讓我覺得相當佩服，他們都是台灣人，所以我應該也能寫得出來吧？我也想要寫出自己的機器學習函式庫。
 - 真的寫下去，就要面對自己其實不那麼懂倒傳遞演算法的羞恥心。
-
+- 
 
 ### 未來預計處理issue
 - 可保存和讀取的 Weights 和 Biases
 - 更豐富得測試資料集
 - 更多活化函數
 - 訓練過程中可自適應的動態 Learning Rate
-- Weights 分析工具
+- Weights z分析工具
 - Convolution Layer
 
 
