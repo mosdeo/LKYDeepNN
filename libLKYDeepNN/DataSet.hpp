@@ -38,6 +38,35 @@ vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 120)
     return trainData;
 }
 
+vector<vector<double>> classifySpiralData(int numSamples=120, double noise=0.4)
+{
+    vector<vector<double>> points;
+    int n = numSamples / 2;
+
+    auto genSpiral = [](vector<vector<double>>& points, int numSamples, double noise, int deltaT, int label)
+    {
+        std::mt19937 rng(0);
+        std::uniform_real_distribution<double> uni_noise(-1, 1); // guaranteed unbiased
+
+        for(int i=0; i < numSamples ; i++)
+        {
+            double r = 8*(double)i/numSamples;
+            double t = 1.75 *i/numSamples*2 * M_PI + deltaT;
+            double x = r * sin(t) + uni_noise(rng) * noise;
+            double y = r * cos(t) + uni_noise(rng) * noise;
+
+            //printf(" %lf, %lf\n",x,y);
+            
+            if(1==label)  points.push_back({x, y, 1, 0});
+            if(-1==label) points.push_back({x, y, 0, 1});
+        }
+    };
+
+    genSpiral(points,n,noise,0, 1); // Positive examples.
+    genSpiral(points,n,noise,M_PI, -1); // Negative examples.
+    return points;
+}
+
 vector<vector<double>> classifyCircleData(int numSamples=120, double noise=0.1)
 {
     vector<vector<double>> points(0, vector<double>(4));
