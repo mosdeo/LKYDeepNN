@@ -12,7 +12,8 @@ class LKYDeepNN
     private: InputLayer* inputLayer;
     private: vector<HiddenLayer*> hiddenLayerArray;
     private: OutputLayer* outputLayer;
-    private: Activation* activation = NULL;
+    private: shared_ptr<Activation> hiddenActivation;
+    private: shared_ptr<Activation> outputActivation;
 
     private: vector<double> trainError;
     public: vector<double> GetTrainError(){return this->trainError;}
@@ -20,6 +21,23 @@ class LKYDeepNN
     public: ~LKYDeepNN()
     {
         cout << "~LKYDeepNN() completed." << endl;
+    }
+
+    public: string ToString()
+    {
+        string strMsg;
+        strMsg  = "====== LKYDeepNN ======\n";
+        strMsg += "Layer: \n";
+        strMsg += "   Input: "+to_string(inputLayer->NodesSize())+"\n";
+        strMsg += "  Hidden: ";for(HiddenLayer* numNode : hiddenLayerArray){strMsg += to_string(numNode->NodesSize()) + "-";} strMsg += "\n";
+        strMsg += "  Output: "+to_string(outputLayer->NodesSize())+"\n";
+
+        strMsg += "Activation Function: \n";
+        strMsg += "  Hidden: "+string(typeid(*hiddenActivation).name())+"\n";
+        strMsg += "  Output: "+string(typeid(*outputActivation).name())+"\n";
+        strMsg  = "=======================\n";
+
+        return strMsg;
     }
     
     public: LKYDeepNN(int numInputNodes, vector<int> numHiddenNodes, int numOutputNodes)
@@ -48,8 +66,6 @@ class LKYDeepNN
             this->hiddenLayerArray.front()->SetPrevLayer((Layer*)inputLayer);
             this->hiddenLayerArray.front()->SetNextLayer((Layer*)outputLayer);
             this->hiddenLayerArray.front()->SetNode(numNode);
-            //this->hiddenLayerArray.front()->SetActivation(new Tanh());
-            this->hiddenLayerArray.front()->SetActivation(this->activation);
         }
         else
         {//如果hidden layer是多層
@@ -76,22 +92,22 @@ class LKYDeepNN
                     //cout << "中間隱藏層連結配置" << endl;
                 }
 
-                //節點 & 活化函數配置
+                //節點配置
                 (*it)->SetNode(numNode);
-                //(*it)->SetActivation(new Tanh());
-                (*it)->SetActivation(this->activation);
             }
         }
 
-        //輸出層連結 & 活化函數配置
+        //輸出層連結
         this->outputLayer->SetPrevLayer(hiddenLayerArray.back());
-        this->outputLayer->SetNode(numOutputNodes);
-        //this->outputLayer->SetActivation(new Tanh());
-        
+        this->outputLayer->SetNode(numOutputNodes);        
         //printf("最後一個隱藏層位址=%p\n",hiddenLayerArray.back());
         
         //===================== step 3: 統一權重初始化 =====================
         this->InitializeWeights();
+
+        //===================== step 4: 預設活化函數配置 =====================
+        //this->SetActivation(new ReLU(), new Softmax());
+        this->SetActivation(make_shared<ReLU>(), make_shared<Softmax>());
     }
 
     public: void InitializeWeights()
@@ -105,15 +121,24 @@ class LKYDeepNN
         this->outputLayer->InitializeWeights();
     }
 
-    public: void SetActivation(Activation* hiddenLayerActivation, Activation* outputLayerActivation)
+    public: void SetActivation(shared_ptr<Activation> hiddenLayerActivation, shared_ptr<Activation> outputLayerActivation)
     {
-        this->activation = hiddenLayerActivation;
+        //if(NULL != this->hiddenActivation) delete this->hiddenActivation, this->hiddenActivation=NULL;
+        //if(NULL != this->outputActivation) delete this->outputActivation, this->outputActivation=NULL;
+
+        //this->hiddenActivation.reset(hiddenLayerActivation);
+        //this->outputActivation.reset(outputLayerActivation);
+
+        this->hiddenActivation = hiddenLayerActivation;
+        this->outputActivation = outputLayerActivation;
 
         for (auto hiddenLayer : this->hiddenLayerArray)
         {
-            hiddenLayer->SetActivation(hiddenLayerActivation);
+            //hiddenLayer->SetActivation(hiddenLayerActivation);
+            hiddenLayer->SetActivation(hiddenLayerActivation.get());
         }
-        outputLayer->SetActivation(outputLayerActivation);
+        //outputLayer->SetActivation(outputLayerActivation);
+        outputLayer->SetActivation(outputLayerActivation.get());
     }
 
     public: vector<double> ForwardPropagation(vector<double> aFeaturesAndLabels)
@@ -204,7 +229,7 @@ class LKYDeepNN
 
     private: void ActivationExistCheck()
     {//活化函數檢查
-        if(NULL == this->activation)
+        if(NULL == this->hiddenActivation)
         {
             cout << "ERROR: 沒有配置活化函數." << endl;
             exit(EXIT_FAILURE);

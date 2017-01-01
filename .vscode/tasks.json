@@ -16,7 +16,7 @@
             "/usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.3.0",
             "-g",
             //"-Ofast", 
-            "-std=c++14",
+            "-std=c++11",
             //"-D_GLIBCXX_USE_C99",
             "-o",
             "LKYDeepNN"]
