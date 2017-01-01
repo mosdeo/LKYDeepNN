@@ -16,7 +16,7 @@ class Layer
 
     //層節點
     protected: vector<double> nodes;
-    public: int NodesSize()
+    public: size_t NodesSize()
     {
         return this->nodes.size();
     }

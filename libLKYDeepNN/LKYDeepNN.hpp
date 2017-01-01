@@ -1,3 +1,6 @@
+#ifndef _LKYDEEPNN_HPP_
+#define _LKYDEEPNN_HPP_
+
 #include "Layer.hpp"
 #include "InputLayer.hpp"
 #include "HiddenLayer.hpp"
@@ -174,6 +177,14 @@ class LKYDeepNN
 
     public: void Training(double learningRate, int epochs, vector<vector<double>> trainData)
     {
+        //檢查資料長度是否正確
+        if(trainData.front().size() != (inputLayer->NodesSize()+outputLayer->NodesSize()))
+        {
+            cout << "ERROR: trainData.front().size() != (inputLayer->NodesSize()+outputLayer->NodesSize())" << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        //檢查是否已經設置活化函數
         this->ActivationExistCheck();
         
         vector<double> inputValues(inputLayer->NodesSize(),0);  // features
@@ -189,7 +200,7 @@ class LKYDeepNN
         for(int currentEpochs=0 ; currentEpochs < epochs ; ++currentEpochs)
         {
             Shuffle(sequence);//訓練順序亂數洗牌
-            for(int i: sequence){cout << i << ",";}cout << endl;
+            //for(int i: sequence){cout << i << ",";}cout << endl;
 
             for (size_t i = 0; i < trainData.size(); ++i)
             {
@@ -307,3 +318,4 @@ class LKYDeepNN
     // }
 };
 
+#endif

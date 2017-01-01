@@ -11,16 +11,16 @@ class Activation
     public: virtual double Derivative(const double)=0;
 };
 
-class WithoutActivation: public Activation
+class Linear: public Activation
 {
-    public: WithoutActivation()
+    public: Linear()
     {
-        cout << "Activation is WithoutActivation." << endl;
+        cout << "Activation is Linear." << endl;
     }
 
-    public: ~WithoutActivation()
+    public: ~Linear()
     {
-        cout << "~WithoutActivation()" << endl;
+        cout << "~Linear()" << endl;
     }
 
     public: vector<double> Forward(const vector<double>& nodeSum)
