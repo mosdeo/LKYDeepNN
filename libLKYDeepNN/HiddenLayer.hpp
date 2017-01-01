@@ -10,6 +10,8 @@
 class HiddenLayer: public Layer
 {
     friend class OutputLayer;
+    private: static int count;
+    public: int GetCount(){return count;}
 
     //順向進入的權重與基底
     protected: vector<vector<double>> intoWeights;
@@ -23,15 +25,21 @@ class HiddenLayer: public Layer
     private: Activation* activation = NULL;
     public: void SetActivation(Activation*);
 
+    public: HiddenLayer()
+    {
+        HiddenLayer::count++;
+    }
+
     public: ~HiddenLayer()
     {
-        activation->~Activation();
-        if(NULL != activation)
+        //if(NULL != activation)
+        if(1 == HiddenLayer::count)
         {
             delete activation;
             activation = NULL;
         }
-        cout << "~HiddenLayer()" << endl;
+        cout << "~HiddenLayer(): " << HiddenLayer::count << endl;
+        HiddenLayer::count--;
     }
 
     public: void InitializeWeights();

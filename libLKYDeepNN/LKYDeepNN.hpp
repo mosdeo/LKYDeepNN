@@ -19,27 +19,24 @@ class LKYDeepNN
 
     public: ~LKYDeepNN()
     {
-        inputLayer->~InputLayer();
-        // if(NULL != inputLayer)
-        // {
-        //     delete inputLayer;
-        //     inputLayer = NULL;
-        // }
+        if(NULL != inputLayer)
+        {
+            delete inputLayer;
+            inputLayer = NULL;
+        }
         for (HiddenLayer* hiddenLayer : this->hiddenLayerArray)
         {
-            hiddenLayer->~HiddenLayer();
-            //  if(NULL != hiddenLayer)
-            //  {
-            //     delete hiddenLayer;
-            //     hiddenLayer = NULL;
-            //  }
+             if(NULL != hiddenLayer)
+             {
+                delete hiddenLayer;
+                hiddenLayer = NULL;
+             }
         }
-        outputLayer->~OutputLayer();
-        // if(NULL != outputLayer)
-        // {
-        //     delete outputLayer;
-        //     outputLayer = NULL;
-        // }
+        if(NULL != outputLayer)
+        {
+            delete outputLayer;
+            outputLayer = NULL;
+        }
         cout << "~LKYDeepNN() completed." << endl;
     }
     
@@ -180,7 +177,7 @@ class LKYDeepNN
         //開始訓練
         for(int currentEpochs=0 ; currentEpochs < epochs ; ++currentEpochs)
         {
-            Shuffle(sequence);//訓練順序洗牌
+            Shuffle(sequence);//訓練順序亂數洗牌
             for (size_t i = 0; i < trainData.size(); ++i)
             {
                 size_t rand_i = sequence[i];

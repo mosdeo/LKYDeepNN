@@ -159,7 +159,7 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
 };
 
 
-cv::Mat Draw2DRegressionData(string strWindowName ,vector<vector<double>> XYData, string strPutText="LKY", double Xmin = 0, double Xmax = 6.4, double Ymin = -3, double Ymax = 3)
+cv::Mat Draw2DRegressionData(string strWindowName ,vector<vector<double>> XYData, LKYDeepNN* _nn,string strPutText="LKY", double Xmin = 0, double Xmax = 6.4, double Ymin = -3, double Ymax = 3)
 {
     cv::Size canvasSize(640, 480); //畫布大小
     cv::Mat canvas(canvasSize, CV_8U, cv::Scalar(0));//產生畫布
@@ -168,11 +168,27 @@ cv::Mat Draw2DRegressionData(string strWindowName ,vector<vector<double>> XYData
     double XscaleRate = canvasSize.width/(Xmax-Xmin);
     double YscaleRate = canvasSize.height/(Ymax-Ymin);
     
-    //寫入每個資料點畫素
-    for (size_t i = 0 ; i < XYData.size() ; i++)
+    //畫上原始訓練資料
+    // for (size_t i = 0 ; i < XYData.size() ; i++)
+    // {
+    //     int newY = YscaleRate*(XYData[i][1]-Ymin);
+    //     int newX = XscaleRate*(XYData[i][0]-Xmin);
+    //     canvas.at<unsigned char>(newY, newX)=255;//pixel write
+    // }
+
+    //畫上模型預結果
+    int numItems = 120;
+    vector<vector<double>> perdictData(numItems,vector<double>(2));
+   
+    for(size_t i=0;i<numItems;i++)
+    {//產生所有取樣點
+        perdictData[i][0] = i*(2*M_PI)/(double)numItems;
+        perdictData[i][1] =_nn->ForwardPropagation(vector<double>{perdictData[i][0]}).front();
+    }
+    for (size_t i = 0 ; i < perdictData.size() ; i++)
     {
-        int newY = YscaleRate*(XYData[i][1]-Ymin);
-        int newX = XscaleRate*(XYData[i][0]-Xmin);
+        int newY = YscaleRate*(perdictData[i][1]-Ymin);
+        int newX = XscaleRate*(perdictData[i][0]-Xmin);
         canvas.at<unsigned char>(newY, newX)=255;//pixel write
     }
 
@@ -187,5 +203,30 @@ cv::Mat Draw2DRegressionData(string strWindowName ,vector<vector<double>> XYData
 
     return canvas;
 };
+
+vector<vector<double>> WaveData(int numTrainingData=80)
+{
+    //make 2*numItems 2D vector
+    vector<vector<double>> trainData(numTrainingData, vector<double>(2));
+
+    //std::random_device rd;     // only used once to initialise (seed) engine
+    std::mt19937 rng(0);    // random-number engine used (Mersenne-Twister in this case)
+    //std::minstd_rand0 rng();
+    std::uniform_real_distribution<double> uni_noise(0, 1); // guaranteed unbiased
+    //auto random_integer = uni(rng);
+
+    //產生一個周期內的80個sin取樣點
+    for (int i = 0; i < numTrainingData; ++i)
+    {
+        double x = 2*M_PI*uni_noise(rng); // [0 to 2PI]
+        double sx = cos(2*x);
+        trainData[i][0] = x;
+        //trainData[i][1] = sin(x);
+        trainData[i].back() = sx;
+        //printf("x=%lf, sx=%lf\n", x, sx);
+    }
+
+    return trainData;
+}
 
 #endif

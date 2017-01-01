@@ -4,6 +4,8 @@
 #include "OutputLayer.hpp"
 using namespace std;
 
+int HiddenLayer::count = 0;
+
 void HiddenLayer::SetActivation(Activation* activation)
 {
     this->activation = activation;

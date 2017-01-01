@@ -21,7 +21,6 @@ class OutputLayer: public Layer
 
     public: ~OutputLayer()
     {
-        activation->~Activation();
         if(NULL != activation)
         {
             delete activation;
