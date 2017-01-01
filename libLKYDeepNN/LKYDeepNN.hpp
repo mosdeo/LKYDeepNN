@@ -106,7 +106,7 @@ class LKYDeepNN
         this->InitializeWeights();
 
         //===================== step 4: 預設活化函數配置 =====================
-        this->SetActivation(new Tanh(), new Softmax());
+        //this->SetActivation(new Tanh(), new Softmax());
         //this->SetActivation(make_shared<ReLU>(), make_shared<Softmax>());
     }
 

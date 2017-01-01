@@ -18,8 +18,8 @@ void OutputLayer::InitializeWeights()
     const double hi = 1/(sqrt(this->nodes.size()));
     const double lo = -hi;
 
-    //std::random_device rd;     // only used once to initialise (seed) engine
-    std::mt19937 rng(0);    // random-number engine used (Mersenne-Twister in this case)
+    std::random_device rd;     // only used once to initialise (seed) engine
+    std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
     std::uniform_real_distribution<double> uni_noise(lo, hi); // guaranteed unbiased
 
     for (size_t j = 0; j < this->intoWeights.size(); ++j)

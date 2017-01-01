@@ -22,7 +22,7 @@ int main()
     //int numHiddenLayers = 3;
     LKYDeepNN nn(5, vector<int>{16,16}, 2);
     //LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
-    //nn.SetActivation(new Tanh(), new Softmax());
+    nn.SetActivation(new ReLU(), new Softmax());
     cout << nn.ToString() << endl;
     nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
