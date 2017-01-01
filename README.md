@@ -18,9 +18,9 @@
 
 
 ### 訓練
-- void Training(double learningRate, int epochs, vector\<vector\<double\> trainData)
-- 每一筆資料都需要先整理成vector\<double\>
-- vector\<\<vector\<double\>\> 就是很多筆資料
+- void Training(double learningRate, int epochs, std::vector<vector<double\>\> trainData)
+- 每一筆資料都需要先整理成std::vector<double\>
+- std::vector<<vector<double\>\> 就是很多筆資料
 
 
 ### 歷史
