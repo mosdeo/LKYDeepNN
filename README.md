@@ -20,8 +20,8 @@
 
 ### 訓練
 - void Training(double learningRate, int epochs, std::vector<*vector<*double\>\> trainData)
-- 每一筆資料都需要先整理成std::vector<\double\>
-- std::vector<\vector<\double\>\> 就是很多筆資料
+- 每一筆資料都需要先整理成std::vector<*double\>
+- std::vector<*vector<*double\>\> 就是很多筆資料
 
 
 ### 歷史
@@ -35,9 +35,11 @@
 ### 未來預計處理issue
 - 可保存和讀取的 Weights 和 Biases
 - 更豐富得測試資料集
+- Copy Constructor
+- 資料正規化工具
 - 更多活化函數
 - 訓練過程中可自適應的動態 Learning Rate
-- Weights z分析工具
+- Weights 分析工具
 - Convolution Layer
 
 

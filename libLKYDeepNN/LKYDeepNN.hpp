@@ -177,7 +177,7 @@ class LKYDeepNN
 
     public: void Training(double learningRate, int epochs, vector<vector<double>> trainData)
     {
-        //檢查資料長度是否正確
+        //檢查資料長度是否正確，單一資料長度必須要等於(輸入點+輸出點)
         if(trainData.front().size() != (inputLayer->NodesSize()+outputLayer->NodesSize()))
         {
             cout << "ERROR: trainData.front().size() != (inputLayer->NodesSize()+outputLayer->NodesSize())" << endl;
