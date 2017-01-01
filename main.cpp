@@ -28,7 +28,7 @@ int main()
 
     cout << "訓練開始" <<endl;
     double learningRate = 0.0001;
-    int epochs = 9999999;
+    int epochs = 9;//999999;
     printf("learningRate=%lf\n",learningRate);
     nn.Training(learningRate, epochs, trainData);
     //nn.Training(0.001, epochs, trainData);

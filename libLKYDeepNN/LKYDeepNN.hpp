@@ -189,6 +189,8 @@ class LKYDeepNN
         for(int currentEpochs=0 ; currentEpochs < epochs ; ++currentEpochs)
         {
             Shuffle(sequence);//訓練順序亂數洗牌
+            for(int i: sequence){cout << i;}cout << endl;
+
             for (size_t i = 0; i < trainData.size(); ++i)
             {
                 size_t rand_i = sequence[i];

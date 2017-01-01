@@ -55,7 +55,7 @@ vector<vector<double>> classifySpiralData(int numSamples=120, double noise=0.4)
             double x = r * sin(t) + uni_noise(rng) * noise;
             double y = r * cos(t) + uni_noise(rng) * noise;
 
-            //printf(" %lf, %lf\n",x,y);
+            printf(" %lf, %lf, %lf, %lf, %lf\n",x, y, x*y, 5*sin(x), 5*sin(y));
 //            if(1==label)  points.push_back({5*sin(x), 5*sin(y), 1, 0});
   //          if(-1==label) points.push_back({5*sin(x), 5*sin(y), 0, 1});
             if(1==label)  points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 1, 0});
