@@ -35,9 +35,14 @@
 ### 未來預計處理issue
 - 可保存和讀取的 Weights 和 Biases
 - 更豐富得測試資料集
+- 更多活化函數
 - 訓練過程中可自適應的動態 Learning Rate
+- Weights 分析工具
+- Convolution Layer
 
 
 ### reference
-- [A Step by Step Backpropagation Example](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/) 倒傳遞演算法是看這篇文章做的
-- [Tensorflow Playground](https://github.com/tensorflow/playground) 測試資料的產生函式，大多是從這邊抓 js 來改。
+- James D. McCaffrey 的類神經網路 [Coding Neural Network Back-Propagation Using C#](https://visualstudiomagazine.com/articles/2015/04/01/back-propagation-using-c.aspx)
+- 這是我用 C++ 修改後的版本，有一個 branch 是 2-Hidden-Layer [mosdeo/NeuralNetwork](https://github.com/mosdeo/NeuralNetwork)
+- 倒傳遞演算法是看這篇文章做的 [A Step by Step Backpropagation Example](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/)
+- 測試資料的產生函式，大多是從這邊抓 js 來改 [Tensorflow Playground](https://github.com/tensorflow/playground) 
