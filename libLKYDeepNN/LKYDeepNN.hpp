@@ -35,7 +35,7 @@ class LKYDeepNN
         strMsg += "Activation Function: \n";
         strMsg += "  Hidden: "+string(typeid(*hiddenActivation).name())+"\n";
         strMsg += "  Output: "+string(typeid(*outputActivation).name())+"\n";
-        strMsg  = "=======================\n";
+        strMsg += "=======================\n";
 
         return strMsg;
     }
@@ -106,8 +106,8 @@ class LKYDeepNN
         this->InitializeWeights();
 
         //===================== step 4: 預設活化函數配置 =====================
-        //this->SetActivation(new ReLU(), new Softmax());
-        this->SetActivation(make_shared<ReLU>(), make_shared<Softmax>());
+        this->SetActivation(new ReLU(), new Softmax());
+        //this->SetActivation(make_shared<ReLU>(), make_shared<Softmax>());
     }
 
     public: void InitializeWeights()
@@ -121,25 +121,29 @@ class LKYDeepNN
         this->outputLayer->InitializeWeights();
     }
 
-    public: void SetActivation(shared_ptr<Activation> hiddenLayerActivation, shared_ptr<Activation> outputLayerActivation)
+    public: void SetActivation(Activation* hiddenLayerActivation, Activation* outputLayerActivation)
     {
-        //if(NULL != this->hiddenActivation) delete this->hiddenActivation, this->hiddenActivation=NULL;
-        //if(NULL != this->outputActivation) delete this->outputActivation, this->outputActivation=NULL;
-
-        //this->hiddenActivation.reset(hiddenLayerActivation);
-        //this->outputActivation.reset(outputLayerActivation);
-
-        this->hiddenActivation = hiddenLayerActivation;
-        this->outputActivation = outputLayerActivation;
+        this->hiddenActivation.reset(hiddenLayerActivation);
+        this->outputActivation.reset(outputLayerActivation);
 
         for (auto hiddenLayer : this->hiddenLayerArray)
         {
-            //hiddenLayer->SetActivation(hiddenLayerActivation);
-            hiddenLayer->SetActivation(hiddenLayerActivation.get());
+            hiddenLayer->SetActivation(hiddenLayerActivation);
         }
-        //outputLayer->SetActivation(outputLayerActivation);
-        outputLayer->SetActivation(outputLayerActivation.get());
+        outputLayer->SetActivation(outputLayerActivation);
     }
+
+    // public: void SetActivation(shared_ptr<Activation> hiddenLayerActivation, shared_ptr<Activation> outputLayerActivation)
+    // {
+    //     this->hiddenActivation = hiddenLayerActivation;
+    //     this->outputActivation = outputLayerActivation;
+
+    //     for (auto hiddenLayer : this->hiddenLayerArray)
+    //     {
+    //         hiddenLayer->SetActivation(hiddenLayerActivation.get());
+    //     }
+    //     outputLayer->SetActivation(outputLayerActivation.get());
+    // }
 
     public: vector<double> ForwardPropagation(vector<double> aFeaturesAndLabels)
     {
