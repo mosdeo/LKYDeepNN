@@ -33,8 +33,8 @@ class LKYDeepNN
         strMsg += "  Output: "+to_string(outputLayer->NodesSize())+"\n";
 
         strMsg += "Activation Function: \n";
-        strMsg += "  Hidden: "+string(typeid(*hiddenActivation).name())+"\n";
-        strMsg += "  Output: "+string(typeid(*outputActivation).name())+"\n";
+        strMsg += "  Hidden: "+string(typeid(*hiddenActivation).name()).substr(1)+"\n";
+        strMsg += "  Output: "+string(typeid(*outputActivation).name()).substr(1)+"\n";
         strMsg += "=======================\n";
 
         return strMsg;
@@ -106,7 +106,7 @@ class LKYDeepNN
         this->InitializeWeights();
 
         //===================== step 4: 預設活化函數配置 =====================
-        this->SetActivation(new ReLU(), new Softmax());
+        this->SetActivation(new Tanh(), new Softmax());
         //this->SetActivation(make_shared<ReLU>(), make_shared<Softmax>());
     }
 

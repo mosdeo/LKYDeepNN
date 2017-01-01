@@ -56,9 +56,10 @@ vector<vector<double>> classifySpiralData(int numSamples=120, double noise=0.4)
             double y = r * cos(t) + uni_noise(rng) * noise;
 
             //printf(" %lf, %lf\n",x,y);
-            
-            if(1==label)  points.push_back({x, y, 1, 0});
-            if(-1==label) points.push_back({x, y, 0, 1});
+//            if(1==label)  points.push_back({5*sin(x), 5*sin(y), 1, 0});
+  //          if(-1==label) points.push_back({5*sin(x), 5*sin(y), 0, 1});
+            if(1==label)  points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 1, 0});
+            if(-1==label) points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 0, 1});
         }
     };
 
@@ -168,8 +169,8 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
         int newX = XscaleRate*(XYData[i][0]-Xmin);
 
         cv::Scalar circleColor;
-        if(XYData[i][2]== 1){circleColor = cv::Scalar(0, 0, 205);}//鮮紅色
-        if(XYData[i][3]== 1){circleColor = cv::Scalar(0, 205, 0);}//深綠色onst
+        if(*(XYData[i].end()-2) == 1){circleColor = cv::Scalar(0, 0, 205);}//鮮紅色
+        if(*(XYData[i].end()-1) == 1){circleColor = cv::Scalar(0, 205, 0);}//深綠色onst
 
         const int radius = 5;
         const int thickness = 2;
