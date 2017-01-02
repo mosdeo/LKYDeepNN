@@ -9,7 +9,7 @@
 ### 附有訓練視覺化 demo 程式
 - 訓練視覺化程式以 OpenCV 撰寫，但 LKYDeepNN 本身不依賴 OpenCV。
 
-![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/training_demo_classification.gif "Classification Demo")　　![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/training_demo_regression.gif "Regression Demo")
+![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/training_demo_classification.gif "Classification Demo")　　![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/training_demo_regression.gif "Cos(2*x) Regression Demo")
 
 
 
