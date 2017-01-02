@@ -11,6 +11,8 @@ class HiddenLayer: public BackPropagationLayer
 {
     friend class OutputLayer;
     private: static int count;
+    private: int serialNum;
+    public: int GetSerialNum(){return this->serialNum;}
     public: int GetCount(){return count;}
     
     //前後層
@@ -20,6 +22,7 @@ class HiddenLayer: public BackPropagationLayer
     public: HiddenLayer()
     {
         HiddenLayer::count++;
+        this->serialNum = HiddenLayer::count;
     }
 
     public: ~HiddenLayer()

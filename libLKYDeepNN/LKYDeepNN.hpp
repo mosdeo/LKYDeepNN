@@ -43,24 +43,46 @@ class LKYDeepNN
         return strMsg;
     }
 
-    public: void WeightsToString()
+    public: string WeightsToString()
     {
-        vector<double> nodes;
-
-        printf("Input Layer\n");
-        nodes = this->inputLayer->GetNodes();
-        for(double d: nodes){printf("%lf ",d);} printf("\n");
+        string strMsg = "";
 
         for(HiddenLayer* aHiddenLayer : this->hiddenLayerArray)
         {
-            printf("Hidden Layer\n");
-            nodes = aHiddenLayer->GetNodes();
-            for(double d : nodes){printf("%lf ",d);} printf("\n");
+            strMsg += "Hidden Layer " + to_string(aHiddenLayer->GetSerialNum())+ " Weights\n";
+            vector<vector<double>> array2D = aHiddenLayer->GetWeights();
+            for(vector<double> array1D: array2D)
+            {
+                for(double d: array1D)
+                {
+                    strMsg += to_string(d) + " ";
+                }
+            }strMsg += "\n\n";
+
+            strMsg += "Hidden Layer " + to_string(aHiddenLayer->GetSerialNum())+ " Biases\n";
+            for(double d: aHiddenLayer->GetBiases())
+            {
+                strMsg += to_string(d) + " ";
+            }strMsg += "\n\n";
         }
 
-        printf("Output Layer\n");
-        nodes = this->outputLayer->GetNodes();
-        for(double d: nodes){printf("%lf ",d);} printf("\n");
+        strMsg += "Output Layer Weights\n";
+        vector<vector<double>> array2D = this->outputLayer->GetWeights();
+        for(vector<double> array1D: array2D)
+        {
+            for(double d: array1D)
+            {
+                strMsg += to_string(d) + " ";
+            }
+        }strMsg += "\n\n";
+
+        strMsg += "Output Layer Biases\n";
+        for(double d: this->outputLayer->GetBiases())
+        {
+            strMsg += to_string(d) + " ";
+        }strMsg += "\n\n";
+
+        return strMsg;
     }
     
     public: LKYDeepNN(int numInputNodes, vector<int> numHiddenNodes, int numOutputNodes)

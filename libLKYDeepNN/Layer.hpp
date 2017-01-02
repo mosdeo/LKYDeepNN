@@ -21,11 +21,6 @@ class Layer
         return this->nodes.size();
     }
 
-    public: vector<double> GetNodes()
-    {
-        return this->nodes;
-    }
-
     protected: vector<vector<double>> MakeMatrix(int rows, int cols, double v) // helper for ctor, Train
     {
         vector<double> row;
@@ -51,6 +46,9 @@ class BackPropagationLayer : public Layer
     //順向進入的權重與基底
     protected: vector<vector<double>> intoWeights;
     protected: vector<double> intoBiases;
+
+    public: vector<vector<double>> GetWeights(){ return intoWeights;}
+    public: vector<double> GetBiases(){ return intoBiases;}
 
     //倒傳遞的梯度
     protected: vector<vector<double>> wDelta;

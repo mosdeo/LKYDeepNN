@@ -20,7 +20,7 @@ int main()
     //vector<vector<double>> trainData = classifySpiralData();
     int numHiddenNodesInEachLayer = 8;
     int numHiddenLayers = 3;
-    LKYDeepNN nn(2, vector<int>{8,4,3}, 2);
+    LKYDeepNN nn(trainData.front().size()-2, vector<int>{8,8,8}, 2);
     //LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
     nn.SetActivation(new ReLU(), new Softmax());
     cout << nn.ToString() << endl;
@@ -28,10 +28,10 @@ int main()
 
     cout << "訓練開始" <<endl;
     double learningRate = 0.03;
-    int epochs = 300;
+    int epochs = 30;
     printf("learningRate=%lf\n",learningRate);
     nn.Training(learningRate, epochs, trainData);
-    nn.WeightsToString();
+    cout << nn.WeightsToString()<<endl;
     //nn.Training(0.001, epochs, trainData);
     cout << "訓練完成" <<endl;
 }

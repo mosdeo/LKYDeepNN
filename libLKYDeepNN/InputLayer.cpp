@@ -8,13 +8,13 @@ InputLayer::InputLayer(){};
 
 void InputLayer::Input(const vector<double> inputArray)
 {
-    if(this->nodes.size() <= inputArray.size())
+    if(this->nodes.size() == inputArray.size())
     {
         this->nodes = inputArray;
     }
     else
     {//長度檢查未通過
-        cout << "ERROR: this->nodes.size() > inputArray.size()" << endl;
+        cout << "ERROR: this->nodes.size() != inputArray.size()" << endl;
         exit(EXIT_FAILURE);
     }
 }
