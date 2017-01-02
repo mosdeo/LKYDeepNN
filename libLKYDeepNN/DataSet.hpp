@@ -153,8 +153,8 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
         int newX = XscaleRate*(XYData[i][0]-Xmin);
 
         cv::Scalar circleColor;
-        if(*(XYData[i].end()-2) == 1){circleColor = violet*0.8;}//鮮紅色
-        if(*(XYData[i].end()-1) == 1){circleColor = yellow*0.8;}//深綠色onst
+        if(*(XYData[i].end()-2) == 1){circleColor = violet*0.7;}//顏色稍微調暗
+        if(*(XYData[i].end()-1) == 1){circleColor = yellow*0.7;}//顏色稍微調暗
 
         const int radius = 5;
         const int thickness = 2;
