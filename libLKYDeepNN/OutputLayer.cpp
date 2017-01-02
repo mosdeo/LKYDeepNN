@@ -3,11 +3,6 @@
 #include "HiddenLayer.hpp"
 #include "OutputLayer.hpp"
 
-// void OutputLayer::SetActivation(Activation* activation)
-// {
-//     this->activation.reset(activation);//activation;
-// }
-
 void OutputLayer::InitializeWeights()
 {
     this->intoWeights = MakeMatrix(this->nodes.size(), this->previousLayer->nodes.size(), 1.0);

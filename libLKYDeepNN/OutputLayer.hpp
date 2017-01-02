@@ -9,16 +9,8 @@ class HiddenLayer;
 
 class OutputLayer: public BackPropagationLayer
 {
-    // //順向進入的權重與基底
-    // public: vector<vector<double>> intoWeights;
-    // protected: vector<double> outBiases;
-
     //前層
     protected: shared_ptr<HiddenLayer> previousLayer;
-
-    // //活化函數
-    // private: shared_ptr<Activation> activation;
-    // public: void SetActivation(Activation*);
 
     public: ~OutputLayer()
     {
