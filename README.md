@@ -5,8 +5,8 @@
 - 輕量，核心部份只依賴 C++11 標準函式庫，低相依性、好移植，方便在嵌入式系統上使用。
 
 
-### 附有視覺化 demo 程式
-- 視覺化程式部份以 OpenCV 撰寫，但 LKYDeepNN 本身不需要依賴 OpenCV。
+### 附有訓練視覺化 demo 程式
+- 訓練視覺化程式以 OpenCV 撰寫，但 LKYDeepNN 本身不依賴 OpenCV。
 
 ![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/classification_demo.png "Classification Demo")　　![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/regression_demo.png "Regression Demo")
 
@@ -21,8 +21,8 @@
 
 ### 自由設定活化函數
 - SetActivation( 隱藏層 , 輸出層 )
-- SetActivation(new Tanh() ,new Linear())  //for 回歸
-- SetActivation(new ReLU() ,new Softmax()) //for 分類
+- SetActivation(new Tanh() ,new Linear())  //for 回歸推薦使用
+- SetActivation(new ReLU() ,new Softmax()) //for 分類推薦使用
 
 
 ### 訓練
