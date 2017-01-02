@@ -7,23 +7,15 @@
 
 #include <memory>
 
-class HiddenLayer: public Layer
+class HiddenLayer: public BackPropagationLayer
 {
     friend class OutputLayer;
     private: static int count;
     public: int GetCount(){return count;}
-
-    //順向進入的權重與基底
-    protected: vector<vector<double>> intoWeights;
-    protected: vector<double> hiddenBiases;
     
     //前後層
     protected: shared_ptr<Layer> previousLayer;
-    public: shared_ptr<Layer> nextLayer;
-
-    //活化函數
-    private: shared_ptr<Activation> activation;
-    public: void SetActivation(Activation*);
+    public: shared_ptr<BackPropagationLayer> nextLayer;
 
     public: HiddenLayer()
     {
@@ -52,7 +44,7 @@ class HiddenLayer: public Layer
 
     public: string ToString(){ return "class HiddenLayer";} 
 
-    public: void SetNextLayer(Layer*);
+    public: void SetNextLayer(BackPropagationLayer*);
     public: void SetPrevLayer(Layer*);
 };
 

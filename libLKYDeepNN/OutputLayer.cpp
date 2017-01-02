@@ -3,17 +3,17 @@
 #include "HiddenLayer.hpp"
 #include "OutputLayer.hpp"
 
-void OutputLayer::SetActivation(Activation* activation)
-{
-    this->activation.reset(activation);//activation;
-}
+// void OutputLayer::SetActivation(Activation* activation)
+// {
+//     this->activation.reset(activation);//activation;
+// }
 
 void OutputLayer::InitializeWeights()
 {
     this->intoWeights = MakeMatrix(this->nodes.size(), this->previousLayer->nodes.size(), 1.0);
-    this->outBiases = vector<double>(this->nodes.size(), 0); //numNodes double with value 0
+    this->intoBiases = vector<double>(this->nodes.size(), 0); //numNodes double with value 0
     this->wDelta = MakeMatrix(this->nodes.size(), this->previousLayer->nodes.size(), 0.0);
-    this->bDelta = vector<double>(this->outBiases.size());
+    this->bDelta = vector<double>(this->intoBiases.size());
 
     const double hi = 1/(sqrt(this->nodes.size()));
     const double lo = -hi;
@@ -30,7 +30,7 @@ void OutputLayer::InitializeWeights()
         }
     }
 
-    for(double& bias : this->outBiases)
+    for(double& bias : this->intoBiases)
     {
         bias = uni_noise(rng);
     }
@@ -51,7 +51,7 @@ void OutputLayer::ForwardPropagation()
             this->nodes[j] += this->previousLayer->nodes[i] * this->intoWeights[j][i]; // note +=
         }
 
-        this->nodes[j] += this->outBiases[j];
+        this->nodes[j] += this->intoBiases[j];
     }
 
     //活化函數
@@ -96,7 +96,7 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
 
         //更新基底權重
         this->bDelta[j] = err*derivativeActivation;
-        this->outBiases[j] -= learningRate*this->bDelta[j];
+        this->intoBiases[j] -= learningRate*this->bDelta[j];
     }
 
     //cout << "end\n" << endl;

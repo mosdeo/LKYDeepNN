@@ -6,13 +6,13 @@
 #include <vector>
 #include <random>
 #include <typeinfo>
+#include <memory>
 #include "Activation.hpp"
 using namespace std;
 
 class Layer
 {
     friend class HiddenLayer;
-    //friend class OutputLayer;
 
     //層節點
     protected: vector<double> nodes;
@@ -20,10 +20,6 @@ class Layer
     {
         return this->nodes.size();
     }
-
-    //倒傳遞的梯度(對Input Layer來說沒用)
-    protected: vector<vector<double>> wDelta;
-    protected: vector<double> bDelta;
 
     protected: vector<vector<double>> MakeMatrix(int rows, int cols, double v) // helper for ctor, Train
     {
@@ -40,6 +36,26 @@ class Layer
     public: void SetNode(int numNodes)
     {
         this->nodes  = vector<double>(numNodes);
+    }
+};
+
+class BackPropagationLayer : public Layer
+{
+    friend class HiddenLayer;
+
+    //順向進入的權重與基底
+    protected: vector<vector<double>> intoWeights;
+    protected: vector<double> intoBiases;
+
+    //倒傳遞的梯度
+    protected: vector<vector<double>> wDelta;
+    protected: vector<double> bDelta;
+
+    //活化函數
+    protected: shared_ptr<Activation> activation;
+    public: void SetActivation(Activation* activation)
+    {
+        this->activation.reset(activation);//activation;
     }
 };
 

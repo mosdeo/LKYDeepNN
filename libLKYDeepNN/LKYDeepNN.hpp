@@ -67,7 +67,7 @@ class LKYDeepNN
         {//如果hidden layer只有一層就這樣處理
             int numNode = numHiddenNodes.front();
             this->hiddenLayerArray.front()->SetPrevLayer((Layer*)inputLayer);
-            this->hiddenLayerArray.front()->SetNextLayer((Layer*)outputLayer);
+            this->hiddenLayerArray.front()->SetNextLayer((BackPropagationLayer*)outputLayer);
             this->hiddenLayerArray.front()->SetNode(numNode);
         }
         else
@@ -80,18 +80,18 @@ class LKYDeepNN
                 if(it==hiddenLayerArray.begin())
                 {//第一個隱藏層連結配置
                     this->hiddenLayerArray.front()->SetPrevLayer((Layer*)inputLayer);
-                    this->hiddenLayerArray.front()->SetNextLayer((Layer*)*(it+1));
+                    this->hiddenLayerArray.front()->SetNextLayer((BackPropagationLayer*)*(it+1));
                 }
                 else if(it==hiddenLayerArray.end()-1)
                 {//最後一個隱藏層連結配置
                     this->hiddenLayerArray.back()->SetPrevLayer((Layer*)*(it-1));
-                    this->hiddenLayerArray.back()->SetNextLayer((Layer*)outputLayer);
+                    this->hiddenLayerArray.back()->SetNextLayer((BackPropagationLayer*)outputLayer);
                     //printf("最後一個隱藏層位址=%p\n",*it);
                 }
                 else
                 {//中間隱藏層連結配置
                     (*it)->SetPrevLayer((Layer*)*(it-1));
-                    (*it)->SetNextLayer((Layer*)*(it+1));
+                    (*it)->SetNextLayer((BackPropagationLayer*)*(it+1));
                     //cout << "中間隱藏層連結配置" << endl;
                 }
 
