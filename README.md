@@ -50,6 +50,8 @@
 - Weights 分析工具
 - Convolution Layer
 
+### 編譯參數
+- 在 .vscode/tasks.json 裡
 
 ### Reference:
 - James D. McCaffrey 的類神經網路 [Coding Neural Network Back-Propagation Using C#](https://visualstudiomagazine.com/articles/2015/04/01/back-propagation-using-c.aspx)。有一個我用 C++ 修改後的版本，其中一個 branch 是 2-Hidden-Layer [mosdeo/NeuralNetwork](https://github.com/mosdeo/NeuralNetwork)
