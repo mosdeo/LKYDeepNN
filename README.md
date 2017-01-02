@@ -23,8 +23,8 @@
 
 ### 自由設定活化函數
 - LKYDeepNN::SetActivation( 隱藏層 , 輸出層 )
-- LKYDeepNN::SetActivation(new Tanh() ,new Linear())  //for 回歸推薦使用
-- LKYDeepNN::SetActivation(new ReLU() ,new Softmax()) //for 分類推薦使用
+- LKYDeepNN::SetActivation(new Tanh() ,new Linear())  //回歸推薦使用
+- LKYDeepNN::SetActivation(new ReLU() ,new Softmax()) //分類推薦使用
 
 
 ### 訓練
@@ -59,3 +59,6 @@
 - James D. McCaffrey 的類神經網路 [Coding Neural Network Back-Propagation Using C#](https://visualstudiomagazine.com/articles/2015/04/01/back-propagation-using-c.aspx)。有一個我用 C++ 修改後的版本，其中一個 branch 是 2-Hidden-Layer [mosdeo/NeuralNetwork](https://github.com/mosdeo/NeuralNetwork)
 - 倒傳遞演算法是看這篇文章做的 [A Step by Step Backpropagation Example](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/)
 - 測試資料的產生函式，大多是從這邊抓 js 來改 [Tensorflow Playground](https://github.com/tensorflow/playground) 
+
+### 致謝
+- 由 ![MP](http://imgur.com/F904bhP) 贊助上班時間產出XD
