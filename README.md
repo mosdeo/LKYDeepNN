@@ -25,6 +25,7 @@
 - LKYDeepNN::SetActivation( 隱藏層 , 輸出層 )
 - LKYDeepNN::SetActivation( new Tanh() ,new Linear() )  //回歸推薦使用
 - LKYDeepNN::SetActivation( new ReLU() ,new Softmax() ) //分類推薦使用
+- 目前已經有: ReLU, Tanh, Softmax, Sigmoid, Linear
 - 可以繼承 abstract class Activation 自由實作任意活化函數
 
 ### 訓練
@@ -49,7 +50,7 @@
 - L1 & L2 Regularization
 - Copy Constructor
 - 資料正規化工具
-- 更多活化函數。目前已經有: ReLU, Tanh, Softmax, Sigmoid, Linear
+- 更多活化函數。
 - 訓練過程中可自適應的動態 Learning Rate
 - Weights 分析工具
 - Convolution Layer
