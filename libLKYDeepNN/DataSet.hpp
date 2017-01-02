@@ -183,12 +183,12 @@ cv::Mat Draw2DRegressionData(string strWindowName ,vector<vector<double>> XYData
     double YscaleRate = canvasSize.height/(Ymax-Ymin);
     
     //畫上原始訓練資料
-    // for (size_t i = 0 ; i < XYData.size() ; i++)
-    // {
-    //     int newY = YscaleRate*(XYData[i][1]-Ymin);
-    //     int newX = XscaleRate*(XYData[i][0]-Xmin);
-    //     canvas.at<unsigned char>(newY, newX)=255;//pixel write
-    // }
+    for (size_t i = 0 ; i < XYData.size() ; i++)
+    {
+        int newY = YscaleRate*(XYData[i][1]-Ymin);
+        int newX = XscaleRate*(XYData[i][0]-Xmin);
+        canvas.at<unsigned char>(newY, newX)=127;//pixel write
+    }
 
     //畫上模型預結果
     size_t numItems = 120;
