@@ -116,6 +116,10 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
     //計算修正參數
     double XscaleRate = canvasSize.width/(Xmax-Xmin);
     double YscaleRate = canvasSize.height/(Ymax-Ymin);
+
+    cv::Vec3b violet(255, 0, 204);
+    cv::Vec3b yellow(51, 153, 255);
+    cv::Vec3b white(255, 255, 255);
     
     //寫入機率密度分佈
     for (int pixel_X = 0 ; pixel_X < canvasSize.width ; pixel_X++)
@@ -125,18 +129,18 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
             double resvY = pixel_Y/YscaleRate + Ymin; 
             double resvX = pixel_X/XscaleRate + Xmin;
             vector<double> result = _nn->ForwardPropagation(vector<double>{resvX,resvY});
-            //printf("result[0]=%lf, result[1]=%lf\n",result[0],result[1]);
-            //vector<double> result(2,0.5);
 
-            if(result[0] < result[1])
+            if(result[0] > result[1])
             {
-                canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[0], 255, 255*2*result[0]);
+                canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = violet + (white-violet)*(1-(result[0]-result[1]));
+                //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[0], 255, 255*2*result[0]);
                 //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*(int)(result[0]+0.5), 255, 255*2*(int)(result[0]+0.5));
 
             }
-            if(result[1] < result[0])
+            if(result[1] > result[0])
             {
-                canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[1], 255*2*result[1], 255);
+                canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = yellow + (white-yellow)*(1-(result[1]-result[0]));
+                //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[1], 255*2*result[1], 255);
                 //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*(int)(result[1]+0.5), 255*2*(int)(result[1]+0.5), 255);
             }
         }
@@ -149,8 +153,8 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
         int newX = XscaleRate*(XYData[i][0]-Xmin);
 
         cv::Scalar circleColor;
-        if(*(XYData[i].end()-2) == 1){circleColor = cv::Scalar(0, 0, 205);}//鮮紅色
-        if(*(XYData[i].end()-1) == 1){circleColor = cv::Scalar(0, 205, 0);}//深綠色onst
+        if(*(XYData[i].end()-2) == 1){circleColor = violet*0.8;}//鮮紅色
+        if(*(XYData[i].end()-1) == 1){circleColor = yellow*0.8;}//深綠色onst
 
         const int radius = 5;
         const int thickness = 2;
