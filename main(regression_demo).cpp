@@ -2,7 +2,7 @@
 #include "libLKYDeepNN/DataSet.hpp"
 
 void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector<vector<double>>& displayData)
-{   //size_t numItems = 80;
+{
     string strPngName = "png/訓練途中" + to_string(currentEpochs) + ".png";
     string strPutText = "Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainError().back());
 
@@ -24,7 +24,7 @@ int main()
 
     cout << "訓練開始" <<endl;
     double learningRate = 0.005;
-    int epochs = 900000;
+    int epochs = 3000;
     printf("learningRate=%lf\n",learningRate);
     nn.Training(learningRate, epochs, trainData);
     cout << nn.WeightsToString()<<endl;
