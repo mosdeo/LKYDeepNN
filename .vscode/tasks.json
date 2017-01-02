@@ -5,7 +5,9 @@
     "isShellCommand": true,
     "showOutput": "always",
     "args": [
-            "main.cpp","libLKYDeepNN/InputLayer.cpp","libLKYDeepNN/HiddenLayer.cpp","libLKYDeepNN/OutputLayer.cpp",
+            //"main.cpp",
+            "main(regression_demo).cpp",
+            "libLKYDeepNN/InputLayer.cpp","libLKYDeepNN/HiddenLayer.cpp","libLKYDeepNN/OutputLayer.cpp",
             "-Wall",
             "-pthread",
             "-I /usr/include/opencv2",

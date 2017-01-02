@@ -277,18 +277,18 @@ class LKYDeepNN
             //if(0 == currentEpochs % 200)
             cout << "Mean Squared Error = " << this->GetTrainError().back() << endl;
 
-            if(minusMSE > this->GetTrainError().back())
-            {
-                minusMSE = this->GetTrainError().back();
-            }
-            else
-            {
-                if(minusMSE*1.1 < this->GetTrainError().back())
-                {
-                    cout << "MSE training 過大，提早終止, currentEpochs = " << currentEpochs << endl;
-                    break;
-                }
-            }
+            // if(minusMSE > this->GetTrainError().back())
+            // {
+            //     minusMSE = this->GetTrainError().back();
+            // }
+            // else
+            // {
+            //     if(minusMSE*1.1 < this->GetTrainError().back())
+            //     {
+            //         cout << "MSE training 過大，提早終止, currentEpochs = " << currentEpochs << endl;
+            //         break;
+            //     }
+            // }
 
             if(NULL != this->eventInTraining) //繪製訓練過程testData
             {//呼叫事件

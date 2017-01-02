@@ -175,7 +175,7 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
 
 cv::Mat Draw2DRegressionData(string strWindowName ,vector<vector<double>> XYData, LKYDeepNN* _nn,string strPutText="LKY", double Xmin = 0, double Xmax = 6.4, double Ymin = -3, double Ymax = 3)
 {
-    cv::Size canvasSize(640, 480); //畫布大小
+    cv::Size canvasSize(400, 400); //畫布大小
     cv::Mat canvas(canvasSize, CV_8U, cv::Scalar(0));//產生畫布
 
     //計算修正參數
@@ -203,6 +203,10 @@ cv::Mat Draw2DRegressionData(string strWindowName ,vector<vector<double>> XYData
     {
         int newY = YscaleRate*(perdictData[i][1]-Ymin);
         int newX = XscaleRate*(perdictData[i][0]-Xmin);
+        
+        newY = min(newY, canvasSize.height); //防止數值爆掉造成記憶體錯誤
+        newY = max(newY, 0);
+
         canvas.at<unsigned char>(newY, newX)=255;//pixel write
     }
 
@@ -225,9 +229,7 @@ vector<vector<double>> WaveData(int numTrainingData=80)
 
     //std::random_device rd;     // only used once to initialise (seed) engine
     std::mt19937 rng(0);    // random-number engine used (Mersenne-Twister in this case)
-    //std::minstd_rand0 rng();
     std::uniform_real_distribution<double> uni_noise(0, 1); // guaranteed unbiased
-    //auto random_integer = uni(rng);
 
     //產生一個周期內的80個sin取樣點
     for (int i = 0; i < numTrainingData; ++i)
