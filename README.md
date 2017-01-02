@@ -39,11 +39,14 @@
 - 看到很多論文都一些特殊的網路結構，例如 dropout、AutoEncode 等等都只能望洋興嘆，覺得應該寫出自己完全了解、完全掌握修改彈性的類神經網路。
 - 看到 [FukuML](https://github.com/fukuball/fuku-ml) 和 [libDNN](https://github.com/botonchou/libdnn/)，讓我覺得相當佩服，他們都是台灣人，所以我應該也能寫得出來吧？我也想要寫出自己的機器學習函式庫。
 - 真的寫下去，就要面對自己其實不那麼懂倒傳遞演算法的羞恥心。
-- 
+
 
 ### 未來預計處理issue
 - 可保存和讀取的 Weights 和 Biases
 - 更豐富得測試資料集
+- Cross Entropy BP
+- Early Stopping
+- L1 & L2 Regularization
 - Copy Constructor
 - 資料正規化工具
 - 更多活化函數
@@ -52,7 +55,7 @@
 - Convolution Layer
 
 
-### reference
+### Reference:
 - James D. McCaffrey 的類神經網路 [Coding Neural Network Back-Propagation Using C#](https://visualstudiomagazine.com/articles/2015/04/01/back-propagation-using-c.aspx)
 - 這是我用 C++ 修改後的版本，有一個 branch 是 2-Hidden-Layer [mosdeo/NeuralNetwork](https://github.com/mosdeo/NeuralNetwork)
 - 倒傳遞演算法是看這篇文章做的 [A Step by Step Backpropagation Example](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/)
