@@ -15,6 +15,7 @@
 
 
 ### 隱藏層的層數和節點數可以任意設定，簡單又有彈性
+- 目前只能 Fully-Connected
 - vector<int>(4,7) 4個隱藏層，每層都是7個節點。
 - vector<int>{5,5,6,6} 4個隱藏層，每層節點數分別是:5個、5個、6個、6個。
 - LKYDeepNN(5, vector<int>{8,7}, 4)
@@ -56,7 +57,6 @@
 
 
 ### Reference:
-- James D. McCaffrey 的類神經網路 [Coding Neural Network Back-Propagation Using C#](https://visualstudiomagazine.com/articles/2015/04/01/back-propagation-using-c.aspx)
-- 這是我用 C++ 修改後的版本，有一個 branch 是 2-Hidden-Layer [mosdeo/NeuralNetwork](https://github.com/mosdeo/NeuralNetwork)
+- James D. McCaffrey 的類神經網路 [Coding Neural Network Back-Propagation Using C#](https://visualstudiomagazine.com/articles/2015/04/01/back-propagation-using-c.aspx)。有一個我用 C++ 修改後的版本，其中一個 branch 是 2-Hidden-Layer [mosdeo/NeuralNetwork](https://github.com/mosdeo/NeuralNetwork)
 - 倒傳遞演算法是看這篇文章做的 [A Step by Step Backpropagation Example](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/)
 - 測試資料的產生函式，大多是從這邊抓 js 來改 [Tensorflow Playground](https://github.com/tensorflow/playground) 
