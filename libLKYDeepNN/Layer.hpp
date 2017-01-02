@@ -21,6 +21,11 @@ class Layer
         return this->nodes.size();
     }
 
+    public: vector<double> GetNodes()
+    {
+        return this->nodes;
+    }
+
     protected: vector<vector<double>> MakeMatrix(int rows, int cols, double v) // helper for ctor, Train
     {
         vector<double> row;

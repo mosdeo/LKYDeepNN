@@ -42,6 +42,26 @@ class LKYDeepNN
 
         return strMsg;
     }
+
+    public: void WeightsToString()
+    {
+        vector<double> nodes;
+
+        printf("Input Layer\n");
+        nodes = this->inputLayer->GetNodes();
+        for(double d: nodes){printf("%lf ",d);} printf("\n");
+
+        for(HiddenLayer* aHiddenLayer : this->hiddenLayerArray)
+        {
+            printf("Hidden Layer\n");
+            nodes = aHiddenLayer->GetNodes();
+            for(double d : nodes){printf("%lf ",d);} printf("\n");
+        }
+
+        printf("Output Layer\n");
+        nodes = this->outputLayer->GetNodes();
+        for(double d: nodes){printf("%lf ",d);} printf("\n");
+    }
     
     public: LKYDeepNN(int numInputNodes, vector<int> numHiddenNodes, int numOutputNodes)
     {
@@ -197,6 +217,7 @@ class LKYDeepNN
         } 
         
         //開始訓練
+        double minusMSE = std::numeric_limits<double>::max();
         for(int currentEpochs=0 ; currentEpochs < epochs ; ++currentEpochs)
         {
             Shuffle(sequence);//訓練順序亂數洗牌
@@ -231,8 +252,21 @@ class LKYDeepNN
             }
 
             trainError.push_back(this->MeanSquaredError(trainData));
-            if(0 == currentEpochs % 200)
-                cout << "MeanSquaredError = " << this->GetTrainError().back() << endl;
+            //if(0 == currentEpochs % 200)
+            cout << "Mean Squared Error = " << this->GetTrainError().back() << endl;
+
+            if(minusMSE > this->GetTrainError().back())
+            {
+                minusMSE = this->GetTrainError().back();
+            }
+            else
+            {
+                if(minusMSE*1.1 < this->GetTrainError().back())
+                {
+                    cout << "MSE training 過大，提早終止, currentEpochs = " << currentEpochs << endl;
+                    break;
+                }
+            }
 
             if(NULL != this->eventInTraining) //繪製訓練過程testData
             {//呼叫事件
