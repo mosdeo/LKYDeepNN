@@ -292,7 +292,7 @@ class LKYDeepNN
 
             if(NULL != this->eventInTraining) //繪製訓練過程testData
             {//呼叫事件
-                thread th(this->eventInTraining, this, epochs, currentEpochs, trainData);
+                thread th(this->eventInTraining, this, epochs, currentEpochs+1, trainData);
                 th.join();
             }
         }

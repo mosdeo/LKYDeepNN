@@ -3,11 +3,12 @@
 
 void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector<vector<double>>& displayData)
 {
-    string strPngName = "png/訓練途中" + to_string(currentEpochs) + ".png";
+    string strPngName = "regression_demo_PNGs/訓練途中" + to_string(currentEpochs) + ".png";
     string strPutText = "Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainError().back());
-
-    //cv::imwrite(strPngName.c_str(),DrawData("訓練途中", displayData, strPutText));
-    Draw2DRegressionData("訓練途中", displayData, _nn, strPutText);
+    cv::Mat shot = Draw2DRegressionData("訓練途中", displayData, _nn, strPutText);
+    //PNG maker
+     if(0 == currentEpochs % 10)
+         cv::imwrite(strPngName.c_str(), shot);
     //fgetc(stdin);
 }
 
@@ -24,7 +25,7 @@ int main()
 
     cout << "訓練開始" <<endl;
     double learningRate = 0.005;
-    int epochs = 3000;
+    int epochs = 3500;
     printf("learningRate=%lf\n",learningRate);
     nn.Training(learningRate, epochs, trainData);
     cout << nn.WeightsToString()<<endl;
