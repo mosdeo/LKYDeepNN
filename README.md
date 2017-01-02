@@ -4,7 +4,13 @@
 - 可訓練的深度類神經網路 (Deep Neural Network) 函式庫
 - 輕量，核心部份只依賴 C++11 標準函式庫，低相依性、好移植，方便在嵌入式系統上使用。
 
+
+### 附有視覺化 demo 程式
+- 視覺化程式部份以 OpenCV 撰寫，但 LKYDeepNN 本身不需要依賴 OpenCV。
+
 ![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/classification_demo.png "Classification Demo")　　![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/regression_demo.png "Regression Demo")
+
+
 
 ### 隱藏層的層數和節點數可以任意設定，簡單又有彈性
 - vector<int>(4,7) 4個隱藏層，每層都是7個節點。
