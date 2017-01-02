@@ -11,17 +11,34 @@ class Activation
     public: virtual double Derivative(const double)=0;
 };
 
-class Linear: public Activation
+class Sigmoid: public Activation
 {
-    public: Linear()
+    public: Sigmoid(){ cout << "Activation is Sigmoid." << endl;}
+    public: ~Sigmoid(){cout << "~Sigmoid()" << endl;}
+
+    public: vector<double> Forward(const vector<double>& nodeSum)
     {
-        cout << "Activation is Linear." << endl;
+        vector<double> result(nodeSum.size());
+        
+        for (size_t i = 0; i < nodeSum.size(); ++i)
+        {
+            result[i] = 1 / (1 + exp(-nodeSum[i]));
+        }
+
+        return result; // now scaled so that xi sum to 1.0
     }
 
-    public: ~Linear()
+    public: double Derivative(const double x)
     {
-        cout << "~Linear()" << endl;
+        double output = 1 / (1 + exp(-x));
+        return output * (1 - output);
     }
+};
+
+class Linear: public Activation
+{
+    public: Linear(){ cout << "Activation is Linear." << endl;}
+    public: ~Linear(){cout << "~Linear()" << endl;}
 
     public: vector<double> Forward(const vector<double>& nodeSum)
     {
@@ -44,15 +61,8 @@ class Linear: public Activation
 
 class Softmax: public Activation
 {
-    public: Softmax()
-    {
-        cout << "Activation is Softmax." << endl;
-    }
-
-    public: ~Softmax()
-    {
-        cout << "~Softmax()" << endl;
-    }
+    public: Softmax(){ cout << "Activation is Softmax." << endl;}
+    public: ~Softmax(){cout << "~Softmax()" << endl;}
 
     public: vector<double> Forward(const vector<double>& nodeSum)
     {
@@ -80,16 +90,8 @@ class Softmax: public Activation
 
 class Tanh: public Activation
 {
-    public: Tanh()
-    {
-        cout << "Activation is Tanh." << endl;
-    }
-
-    public: ~Tanh()
-    {
-        cout << "~Tanh()" << endl;
-    }
-
+    public: Tanh(){ cout << "Activation is Tanh." << endl;}
+    public: ~Tanh(){cout << "~Tanh()" << endl;}
 
     public: vector<double> Forward(const vector<double>& nodeSum)
     {
@@ -109,15 +111,8 @@ class Tanh: public Activation
 
 class ReLU: public Activation
 {
-    public: ReLU()
-    {
-        cout << "Activation is ReLU." << endl;
-    }
-
-    public: ~ReLU()
-    {
-        cout << "~ReLU()" << endl;
-    }
+    public: ReLU() {cout << "Activation is ReLU." << endl;}
+    public: ~ReLU(){cout << "~ReLU()" << endl;}
 
     public: vector<double> Forward(const vector<double>& nodeSum)
     {
