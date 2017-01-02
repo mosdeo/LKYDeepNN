@@ -9,7 +9,7 @@ vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 120)
 {
     //make 2*numItems 2D vector
     vector<vector<double>> trainData(numTariningData, vector<double>(4));
-    std::mt19937 rng(0);    // random-number engine used (Mersenne-Twister in this case)
+    std::mt19937_64 rng(0);    // random-number engine used (Mersenne-Twister in this case)
     std::uniform_real_distribution<double> uni_noise(-0.5, 0.5); // guaranteed unbiased
 
     //產生兩個類別的資料點
@@ -45,7 +45,7 @@ vector<vector<double>> classifySpiralData(int numSamples=120, double noise=0.4)
 
     auto genSpiral = [](vector<vector<double>>& points, int numSamples, double noise, int deltaT, int label)
     {
-        std::mt19937 rng(0);
+        std::mt19937_64 rng(0);
         std::uniform_real_distribution<double> uni_noise(-1, 1); // guaranteed unbiased
 
         for(int i=0; i < numSamples ; i++)
@@ -55,9 +55,6 @@ vector<vector<double>> classifySpiralData(int numSamples=120, double noise=0.4)
             double x = r * sin(t) + uni_noise(rng) * noise;
             double y = r * cos(t) + uni_noise(rng) * noise;
 
-            //printf(" %lf, %lf, %lf, %lf, %lf\n",x, y, x*y, 5*sin(x), 5*sin(y));
-//            if(1==label)  points.push_back({5*sin(x), 5*sin(y), 1, 0});
-  //          if(-1==label) points.push_back({5*sin(x), 5*sin(y), 0, 1});
             if(1==label)  points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 1, 0});
             if(-1==label) points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 0, 1});
 

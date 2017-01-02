@@ -14,9 +14,9 @@ class HiddenLayer: public BackPropagationLayer
     private: int serialNum;
     public: int GetSerialNum(){return this->serialNum;}
     public: int GetCount(){return count;}
-    
+
     //前後層
-    protected: shared_ptr<Layer> previousLayer;
+    //protected: shared_ptr<Layer> previousLayer;
     public: shared_ptr<BackPropagationLayer> nextLayer;
 
     public: HiddenLayer()
@@ -37,7 +37,7 @@ class HiddenLayer: public BackPropagationLayer
         HiddenLayer::count--;
     }
 
-    public: void InitializeWeights();
+    //public: void InitializeWeights();
 
     public: void ForwardPropagation();
 

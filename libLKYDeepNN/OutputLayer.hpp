@@ -10,7 +10,7 @@ class HiddenLayer;
 class OutputLayer: public BackPropagationLayer
 {
     //前層
-    protected: shared_ptr<HiddenLayer> previousLayer;
+    //protected: shared_ptr<HiddenLayer> previousLayer;
 
     public: ~OutputLayer()
     {
@@ -22,7 +22,7 @@ class OutputLayer: public BackPropagationLayer
         cout << "~OutputLayer()" << endl;
     }
 
-    public: void InitializeWeights();
+    //public: void InitializeWeights();
 
     public: void ForwardPropagation();
 
