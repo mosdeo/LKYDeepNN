@@ -4,13 +4,11 @@
 - 可訓練的深度類神經網路 (Deep Neural Network) 函式庫
 - 輕量，核心部份只依賴 C++11 標準函式庫，低相依性、好移植，方便在嵌入式系統上使用。
 
-
-
 ### 附有訓練視覺化 demo 程式
 - 訓練視覺化程式以 OpenCV 撰寫，但 LKYDeepNN 本身不依賴 OpenCV。
+- 繪圖功能僅以 function pointer 傳入物件中，在訓練過程中呼叫。
 
 ![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/training_demo_classification.gif "Classification Demo")　　![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/training_demo_regression.gif "Cos(2*x) Regression Demo")
-
 
 
 
@@ -33,14 +31,12 @@
 - 每一筆資料都需要先整理成std::vector<double&gt;
 - std::vector<vector<double&gt;&gt; 就是很多筆資料
 
-
 ### 歷史
 - 最早寫[論文](http://handle.ncl.edu.tw/11296/ndltd/22213658258720259065)用了 James D. McCaffrey 在 Blog 上公開的單隱藏層倒傳遞類神經網路做出成果。雖然自己小小修 bug 還增加功能，但是最核心的部份依然不夠了解。
 - 之後還從1層改為2層，但是改的過程中，才發現自己不懂倒傳遞的相關理論，但是自己卻能寫出應用類神經網路的論文，覺得相當慚愧。
 - 看到很多論文都一些特殊的網路結構，例如 Dropout、AutoEncode 等等都只能望洋興嘆，覺得應該寫出自己完全了解、完全掌握修改彈性的類神經網路。
 - 看到 [FukuML](https://github.com/fukuball/fuku-ml) 和 [libDNN](https://github.com/botonchou/libdnn/)，讓我覺得相當佩服，他們都是台灣人，所以我應該也能寫得出來吧？我也想要寫出自己的機器學習函式庫。
 - 真的寫下去，就要面對自己其實不懂倒傳遞演算法的羞恥心，紮實的拿起紙筆推導演算，不能再期望 code 亂打能 build 就會動。
-
 
 ### 未來預計處理issue
 - 可保存和讀取的 Weights 和 Biases
