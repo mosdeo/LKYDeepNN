@@ -15,9 +15,9 @@
 
 
 ### 隱藏層的層數和節點數可以任意設定，簡單又有彈性
-- std::vector<*int\>(4,7) 4個隱藏層，每層都是7個節點。
-- std::vector<*int\>{5,5,6,6} 4個隱藏層，每層節點數分別是:5個、5個、6個、6個。
-- LKYDeepNN::LKYDeepNN(5, std::vector<*int\>{8,7}, 4)
+- std::vector<int&gt;(4,7) 4個隱藏層，每層都是7個節點。
+- std::vector<int&gt;{5,5,6,6} 4個隱藏層，每層節點數分別是:5個、5個、6個、6個。
+- LKYDeepNN::LKYDeepNN(5, std::vector<int&gt;{8,7}, 4)
 - 代表輸入點5個、2個隱藏層分別是8節點和7節點，最後輸出層有5個節點。
 - 目前只能 Fully-Connected，未來會考慮實作 Dropout-Connected 或 Fuzzy-Connected
 
@@ -28,9 +28,9 @@
 
 
 ### 訓練
-- void LKYDeepNN::Training(double learningRate, int epochs, std::vector<*vector<*double\>\> trainData)
+- void LKYDeepNN::Training(double learningRate, int epochs, std::vector<vector<double&gt;&gt; trainData)
 - 每一筆資料都需要先整理成std::vector<*double\>
-- std::vector<*vector<*double\>\> 就是很多筆資料
+- std::vector<vector<double&gt;&gt; 就是很多筆資料
 
 
 ### 歷史
