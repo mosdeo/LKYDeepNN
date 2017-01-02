@@ -1,7 +1,7 @@
 # LKYDeepNN
 =============
 [LKYDeepNN](https://github.com/mosdeo/LKYDeepNN) 
-- 可訓練的深度類神經網路 (Deep Neural Network) 函式庫
+- 可訓練的深度類神經網路 (Deep Neural Network) 函式庫。
 - 輕量，核心部份只依賴 C++11 標準函式庫，低相依性、好移植，方便在嵌入式系統上使用。
 
 ### 附有訓練視覺化 demo 程式
@@ -27,8 +27,8 @@
 
 ### 訓練
 - void LKYDeepNN::Training(double learningRate, int epochs, std::vector<vector<double&gt;&gt; trainData)
-- 每一筆資料都需要先整理成std::vector<double&gt;
-- std::vector<vector<double&gt;&gt; 就是很多筆資料
+- 每一筆資料都需要先整理成 std::vector<double&gt;
+- std::vector<vector<double&gt;&gt; 就是很多筆資料，這個才能餵給模型。
 
 ### 歷史
 - 最早寫[論文](http://handle.ncl.edu.tw/11296/ndltd/22213658258720259065)用了 James D. McCaffrey 在 Blog 上公開的單隱藏層倒傳遞類神經網路做出成果。雖然自己小小修 bug 還增加功能，但是最核心的部份依然不夠了解。
