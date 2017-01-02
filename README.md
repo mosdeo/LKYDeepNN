@@ -4,6 +4,7 @@
 - 可訓練的深度類神經網路 (Deep Neural Network) 函式庫
 - 輕量，核心部份只依賴 C++11 標準函式庫，低相依性、好移植，方便在嵌入式系統上使用。
 
+![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/classification_demo.png "Classification Demo")
 
 ### 隱藏層的層數和節點數可以任意設定，簡單又有彈性
 - vector<int>(4,7) 4個隱藏層，每層都是7個節點。
