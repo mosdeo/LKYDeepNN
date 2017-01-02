@@ -49,8 +49,7 @@
 - L1 & L2 Regularization
 - Copy Constructor
 - 資料正規化工具
-- 更多活化函數。目前已經有
-⋅⋅* ReLU, Tanh, Softmax, Sigmoid, Linear
+- 更多活化函數。目前已經有: ReLU, Tanh, Softmax, Sigmoid, Linear
 - 訓練過程中可自適應的動態 Learning Rate
 - Weights 分析工具
 - Convolution Layer
