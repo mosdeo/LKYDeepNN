@@ -15,17 +15,17 @@
 
 
 ### 隱藏層的層數和節點數可以任意設定，簡單又有彈性
-- std::vector<int&gt;(4,7) 4個隱藏層，每層都是7個節點。
+- std::vector<int&gt;(8,7) 8個隱藏層，每層都是7個節點，還可以再高，只要記憶體夠大的話。
 - std::vector<int&gt;{5,5,6,6} 4個隱藏層，每層節點數分別是:5個、5個、6個、6個。
-- LKYDeepNN::LKYDeepNN(5, std::vector<int&gt;{8,7}, 4)
-- 代表輸入點5個、2個隱藏層分別是8節點和7節點，最後輸出層有5個節點。
+- LKYDeepNN::LKYDeepNN(9, std::vector<int&gt;{4,8}, 7)
+- 代表輸入點9個、2個隱藏層分別是4節點和8節點，最後輸出層有7個節點。
 - 目前只能 Fully-Connected，未來會考慮實作 Dropout-Connected 或 Fuzzy-Connected
 
 ### 自由設定活化函數
 - LKYDeepNN::SetActivation( 隱藏層 , 輸出層 )
-- LKYDeepNN::SetActivation(new Tanh() ,new Linear())  //回歸推薦使用
-- LKYDeepNN::SetActivation(new ReLU() ,new Softmax()) //分類推薦使用
-
+- LKYDeepNN::SetActivation( new Tanh() ,new Linear() )  //回歸推薦使用
+- LKYDeepNN::SetActivation( new ReLU() ,new Softmax() ) //分類推薦使用
+- 可以繼承 abstract class Activation 自由實作任意活化函數
 
 ### 訓練
 - void LKYDeepNN::Training(double learningRate, int epochs, std::vector<vector<double&gt;&gt; trainData)
@@ -35,10 +35,10 @@
 
 ### 歷史
 - 最早寫[論文](http://handle.ncl.edu.tw/11296/ndltd/22213658258720259065)用了 James D. McCaffrey 在 Blog 上公開的單隱藏層倒傳遞類神經網路做出成果。雖然自己小小修 bug 還增加功能，但是最核心的部份依然不夠了解。
-... 之後還從1層改為2層，但是改的過程中，才發現自己不懂倒傳遞的相關理論，但是自己卻能寫出應用類神經網路的論文，覺得相當慚愧。
-- 看到很多論文都一些特殊的網路結構，例如 dropout、AutoEncode 等等都只能望洋興嘆，覺得應該寫出自己完全了解、完全掌握修改彈性的類神經網路。
+- 之後還從1層改為2層，但是改的過程中，才發現自己不懂倒傳遞的相關理論，但是自己卻能寫出應用類神經網路的論文，覺得相當慚愧。
+- 看到很多論文都一些特殊的網路結構，例如 Dropout、AutoEncode 等等都只能望洋興嘆，覺得應該寫出自己完全了解、完全掌握修改彈性的類神經網路。
 - 看到 [FukuML](https://github.com/fukuball/fuku-ml) 和 [libDNN](https://github.com/botonchou/libdnn/)，讓我覺得相當佩服，他們都是台灣人，所以我應該也能寫得出來吧？我也想要寫出自己的機器學習函式庫。
-- 真的寫下去，就要面對自己其實不那麼懂倒傳遞演算法的羞恥心。
+- 真的寫下去，就要面對自己其實不懂倒傳遞演算法的羞恥心，紮實的拿起紙筆推導演算，不能再期望 code 亂打能 build 就會動。
 
 
 ### 未來預計處理issue
