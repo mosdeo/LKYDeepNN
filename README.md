@@ -29,7 +29,7 @@
 
 ### 訓練
 - void LKYDeepNN::Training(double learningRate, int epochs, std::vector<vector<double&gt;&gt; trainData)
-- 每一筆資料都需要先整理成std::vector<*double\>
+- 每一筆資料都需要先整理成std::vector<double&gt;
 - std::vector<vector<double&gt;&gt; 就是很多筆資料
 
 
