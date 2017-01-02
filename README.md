@@ -15,8 +15,7 @@
 ### 隱藏層的層數和節點數可以任意設定，簡單又有彈性
 - std::vector<int&gt;(8,7) 8個隱藏層，每層都是7個節點，還可以再高，只要記憶體夠大的話。
 - std::vector<int&gt;{5,5,6,6} 4個隱藏層，每層節點數分別是:5個、5個、6個、6個。
-- LKYDeepNN::LKYDeepNN(9, std::vector<int&gt;{4,8}, 7)
-- 代表輸入點9個、2個隱藏層分別是4節點和8節點，最後輸出層有7個節點。
+- LKYDeepNN::LKYDeepNN(9, std::vector<int&gt;{4,8}, 7) 代表輸入點9個、2個隱藏層分別是4節點和8節點，最後輸出層有7個節點。
 - 目前只能 Fully-Connected，未來會考慮實作 Dropout-Connected 或 Fuzzy-Connected
 
 ### 自由設定活化函數
