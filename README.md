@@ -34,7 +34,7 @@
 
 
 ### 歷史
-- 最早寫[論文](http://handle.ncl.edu.tw/11296/ndltd/22213658258720259065)用了 James D. McCaffrey 在 Blog 上公開的單層倒傳遞類神經網路做出成果。雖然自己小小修bug還增加功能，但是最核心的部份依然不夠了解。
+- 最早寫[論文](http://handle.ncl.edu.tw/11296/ndltd/22213658258720259065)用了 James D. McCaffrey 在 Blog 上公開的單隱藏層倒傳遞類神經網路做出成果。雖然自己小小修 bug 還增加功能，但是最核心的部份依然不夠了解。
 - 之後還從1層改為2層，但是改的過程中，才發現自己不懂倒傳遞的相關理論，但是自己卻能寫出應用類神經網路的論文，覺得相當慚愧。
 - 看到很多論文都一些特殊的網路結構，例如 dropout、AutoEncode 等等都只能望洋興嘆，覺得應該寫出自己完全了解、完全掌握修改彈性的類神經網路。
 - 看到 [FukuML](https://github.com/fukuball/fuku-ml) 和 [libDNN](https://github.com/botonchou/libdnn/)，讓我覺得相當佩服，他們都是台灣人，所以我應該也能寫得出來吧？我也想要寫出自己的機器學習函式庫。
