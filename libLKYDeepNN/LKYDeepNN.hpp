@@ -49,7 +49,7 @@ class LKYDeepNN
 
         for(HiddenLayer* aHiddenLayer : this->hiddenLayerArray)
         {
-            strMsg += "Hidden Layer " + to_string(aHiddenLayer->GetSerialNum())+ " Weights\n";
+            strMsg += "Hidden Layer " + to_string(aHiddenLayer->GetSerialNum())+ " Weights:\n";
             vector<vector<double>> array2D = aHiddenLayer->GetWeights();
             for(vector<double> array1D: array2D)
             {
@@ -59,14 +59,14 @@ class LKYDeepNN
                 }
             }strMsg += "\n\n";
 
-            strMsg += "Hidden Layer " + to_string(aHiddenLayer->GetSerialNum())+ " Biases\n";
+            strMsg += "Hidden Layer " + to_string(aHiddenLayer->GetSerialNum())+ " Biases:\n";
             for(double d: aHiddenLayer->GetBiases())
             {
                 strMsg += to_string(d) + " ";
             }strMsg += "\n\n";
         }
 
-        strMsg += "Output Layer Weights\n";
+        strMsg += "Output Layer Weights:\n";
         vector<vector<double>> array2D = this->outputLayer->GetWeights();
         for(vector<double> array1D: array2D)
         {
@@ -76,7 +76,7 @@ class LKYDeepNN
             }
         }strMsg += "\n\n";
 
-        strMsg += "Output Layer Biases\n";
+        strMsg += "Output Layer Biases:\n";
         for(double d: this->outputLayer->GetBiases())
         {
             strMsg += to_string(d) + " ";
