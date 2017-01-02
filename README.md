@@ -61,4 +61,4 @@
 - 測試資料的產生函式，大多是從這邊抓 js 來改 [Tensorflow Playground](https://github.com/tensorflow/playground) 
 
 ### 致謝
-- 由 ![MP](http://imgur.com/F904bhP) 贊助上班時間產出XD
+- 由 ![MP](http://i.imgur.com/F904bhP.jpg) 贊助上班時間產出XD
