@@ -31,8 +31,8 @@ class CrossEntropy: public LossFunction
         // bool isBinaryClassification = true;
         // if(isBinaryClassification)
         // {
-            double a = target*log(output);
-            double b = (1-target)*log(1-output);
+            double a = target*log10(output);
+            double b = (1-target)*log10(1-output);
             return a+b;
         // }
         //return target*log(output);

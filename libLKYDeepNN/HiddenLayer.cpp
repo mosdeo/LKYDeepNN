@@ -30,6 +30,10 @@ void HiddenLayer::ForwardPropagation()
         this->nodes[j] += this->intoBiases[j];
     }
 
+    //Matrix op
+    //this->nodes += this->previousLayer->nodes * this->intoWeights;
+    //this->nodes += this->intoBiases;
+
     //活化函數
     if(NULL != this->activation)
     {//將自身節點全部跑一次活化函數

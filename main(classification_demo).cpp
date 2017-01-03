@@ -15,9 +15,9 @@ void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector
 int main()
 {
     // vector<vector<double>> trainData = Make2DBinaryTrainingData();//
-    double bias = 0;
-    //vector<vector<double>> trainData = classifyCircleData(bias ,bias);//
-    vector<vector<double>> trainData = classifySpiralData(bias ,bias);
+    double bias = 2;
+    vector<vector<double>> trainData = classifyCircleData(bias ,bias);//
+    //vector<vector<double>> trainData = classifySpiralData(bias ,bias);
     //int numHiddenNodesInEachLayer = 8;
     //int numHiddenLayers = 3;
     //LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
@@ -28,7 +28,7 @@ int main()
 
     cout << "訓練開始" <<endl;
     double learningRate = 0.01;
-    int epochs = 2;//12345;
+    int epochs = 12345;
     printf("learningRate=%lf\n",learningRate);
     nn.Training(learningRate, epochs, trainData);
     cout << nn.WeightsToString()<<endl;
