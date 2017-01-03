@@ -26,7 +26,7 @@ void OutputLayer::ForwardPropagation()
     }
     else
     {
-        //cout << "WARNING: Output Layer 沒有配置活化函數，要做 Regression 嗎？ 那應該配置 Linear" << endl;
+        cout << "WARNING: Output Layer 沒有配置活化函數，要做 Regression 嗎？ 那應該配置 Linear" << endl;
         exit(EXIT_FAILURE);
     }
 }
@@ -48,6 +48,7 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
     for(size_t j=0 ; j < this->wDelta.size() ; j++)
     {
         double err = this->nodes[j] - desiredOutValues[j];//Output-target(Square Loss Function的微分)
+        //double err = this->lossFunction->Derivative(this->nodes[j], desiredOutValues[j]); 
         double derivativeActivation = this->activation->Derivative(this->nodes[j]);
 
         for(size_t i=0 ; i < this->wDelta[j].size() ; i++)
@@ -75,4 +76,9 @@ vector<double> OutputLayer::GetOutput()
 void OutputLayer::SetPrevLayer(HiddenLayer* pervLayer)
 {
     this->previousLayer.reset(pervLayer);
+}
+
+void OutputLayer::SetLossFunction(LossFunction* lossFunction)
+{
+    this->lossFunction.reset(lossFunction);
 }

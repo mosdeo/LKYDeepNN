@@ -1,7 +1,7 @@
 #ifndef _LKYDEEPNN_HPP_
 #define _LKYDEEPNN_HPP_
 
-#include "Layer.hpp"
+//#include "Layer.hpp"
 #include "InputLayer.hpp"
 #include "HiddenLayer.hpp"
 #include "OutputLayer.hpp"
@@ -144,7 +144,8 @@ class LKYDeepNN
 
         //輸出層連結
         this->outputLayer->SetPrevLayer(hiddenLayerArray.back());
-        this->outputLayer->SetNode(numOutputNodes);        
+        this->outputLayer->SetNode(numOutputNodes);
+        this->outputLayer->SetLossFunction(new Square());        
         //printf("最後一個隱藏層位址=%p\n",hiddenLayerArray.back());
         
         //===================== step 3: 統一權重初始化 =====================

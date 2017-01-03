@@ -11,36 +11,36 @@ class LossFunction
     public: virtual double Derivative(const double, const double)=0;
 };
 
-class Square: LossFunction
+class Square: public LossFunction
 {
-    public: double Error(const double target, const double output)
+    public: double Error(const double output, const double target)
     {
         return 0.5*pow(output - target, 2);
     }
 
-    public: double Derivative(const double, const double)
+    public: double Derivative(const double output, const double target)
     {
         return output - target;
     }
 };
 
-class CrossEntropy: LossFunction
+class CrossEntropy: public LossFunction
 {
-    public: double Error(const double target, const double output)
+    public: double Error(const double output, const double target)
     {
-        bool isBinaryClassification = true;
-        if(isBinaryClassification)
-        {
-            doube a = target*log(output);
-            doube b = (1-target)*log(1-output);
+        // bool isBinaryClassification = true;
+        // if(isBinaryClassification)
+        // {
+            double a = target*log(output);
+            double b = (1-target)*log(1-output);
             return a+b;
-        }
+        // }
         //return target*log(output);
     }
 
-    public: double Derivative(const double, const double)
+    public: double Derivative(const double output, const double target)
     {
-        return output - target;
+        return (output - target)*output*(1-output);
     }
 };
 

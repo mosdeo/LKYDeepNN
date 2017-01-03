@@ -18,7 +18,7 @@
             "-lopencv_imgproc",
             "/usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.3.0",
             "-g",
-            "-Ofast", 
+            //"-Ofast", 
             "-std=c++11",
             //"-D_GLIBCXX_USE_C99",
             "-o",

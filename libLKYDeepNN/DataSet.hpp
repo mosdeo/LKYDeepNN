@@ -38,22 +38,23 @@ vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 120)
     return trainData;
 }
 
-vector<vector<double>> classifySpiralData(int numSamples=120, double noise=0.1)
+vector<vector<double>> classifySpiralData(double xBias, double yBias, int numSamples=120, double noise=0.1)
 {
     vector<vector<double>> points;
     int n = numSamples / 2;
 
-    auto genSpiral = [](vector<vector<double>>& points, int numSamples, double noise, int deltaT, int label)
+    auto genSpiral = [](vector<vector<double>>& points, int numSamples, double xBias, double yBias, double noise, int deltaT, int label)
     {
         std::mt19937_64 rng(0);
+        
         std::uniform_real_distribution<double> uni_noise(-1, 1); // guaranteed unbiased
 
         for(int i=0; i < numSamples ; i++)
         {
             double r = 8*(double)i/numSamples;
             double t = 1.75 *i/numSamples*2 * M_PI + deltaT;
-            double x = r * sin(t) + uni_noise(rng) * noise;
-            double y = r * cos(t) + uni_noise(rng) * noise;
+            double x = xBias + r * sin(t) + uni_noise(rng) * noise;
+            double y = yBias + r * cos(t) + uni_noise(rng) * noise;
 
             // if(1==label)  points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 1, 0});
             // if(-1==label) points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 0, 1});
@@ -67,17 +68,17 @@ vector<vector<double>> classifySpiralData(int numSamples=120, double noise=0.1)
         }
     };
 
-    genSpiral(points,n,noise,0, 1); // Positive examples.
-    genSpiral(points,n,noise,M_PI, -1); // Negative examples.
+    genSpiral(points,n, xBias, yBias, noise,0, 1); // Positive examples.
+    genSpiral(points,n, xBias, yBias, noise,M_PI, -1); // Negative examples.
     return points;
 }
 
-vector<vector<double>> classifyCircleData(int numSamples=120, double noise=0.9)
+vector<vector<double>> classifyCircleData(double xBias, double yBias, int numSamples=120, double noise=0.9)
 {
     vector<vector<double>> points(0, vector<double>(4));
 
     auto GenSampleCircle = [](vector<vector<double>>& points,
-        int numSamples,double radius, double maxRadius, double minRadius, double noise ,bool label)
+        int numSamples,double xBias, double yBias ,double radius, double maxRadius, double minRadius, double noise ,bool label)
     {
         //std::random_device rd;     // only used once to initialise (seed) engine
         std::mt19937_64 rng(0);    // random-number engine used (Mersenne-Twister in this case)
@@ -91,8 +92,8 @@ vector<vector<double>> classifyCircleData(int numSamples=120, double noise=0.9)
         {
             double r = uni_r(rng);
             double angle = uni_angle(rng);
-            double x = r * sin(angle);
-            double y = r * cos(angle);
+            double x = xBias + r * sin(angle);
+            double y = yBias + r * cos(angle);
 
             double noiseX = uni_noise(rng) * noise;
             double noiseY = uni_noise(rng) * noise;
@@ -103,8 +104,8 @@ vector<vector<double>> classifyCircleData(int numSamples=120, double noise=0.9)
     };
 
     double radius = 5;
-    GenSampleCircle(points, numSamples/2, 5,        0, radius*0.5, noise, true);
-    GenSampleCircle(points, numSamples/2, 5, radius * 0.7, radius, noise, false);
+    GenSampleCircle(points, numSamples/2, xBias ,yBias , 5,        0, radius*0.5, noise, true);
+    GenSampleCircle(points, numSamples/2, xBias ,yBias , 5, radius * 0.7, radius, noise, false);
 
     return points;
 }

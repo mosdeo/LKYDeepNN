@@ -1,8 +1,9 @@
 #ifndef _OutputLayer_hpp_
 #define _OutputLayer_hpp_
 
-#include "Layer.hpp"
+//#include "Layer.hpp"
 #include "HiddenLayer.hpp"
+#include "LossFunction.hpp"
 #include <memory>
 
 class HiddenLayer;
@@ -11,6 +12,7 @@ class OutputLayer: public BackPropagationLayer
 {
     //前層
     //protected: shared_ptr<HiddenLayer> previousLayer;
+    private: shared_ptr<LossFunction> lossFunction;
 
     public: ~OutputLayer()
     {
@@ -33,6 +35,8 @@ class OutputLayer: public BackPropagationLayer
     public: string ToString(){ return "class OutputLayer";}
 
     public: void SetPrevLayer(HiddenLayer*);
+    public: void SetLossFunction(LossFunction* lossFunction);
+
 };
 
 #endif

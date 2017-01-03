@@ -93,7 +93,7 @@ class BackPropagationLayer : public Layer
             bias = uni_noise(rng);
         }
 
-        cout << "Completed output Layer InitializeWeights()" << endl;
+        cout << "Completed BackPropagation Layer InitializeWeights()" << endl;
     }
 };
 

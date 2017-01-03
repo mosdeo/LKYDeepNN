@@ -31,14 +31,14 @@ void HiddenLayer::ForwardPropagation()
     }
 
     //活化函數
-    if(NULL == this->activation)
-    {
-        cout << "ERROR: 忘記配置活化函數" << endl;
-        exit(EXIT_FAILURE);
-    }
-    else
+    if(NULL != this->activation)
     {//將自身節點全部跑一次活化函數
         this->nodes = this->activation->Forward(this->nodes);
+    }
+    else
+    {
+        cout << "ERROR: HiddenLayer 沒有配置活化函數" << endl;
+        exit(EXIT_FAILURE);
     }
 }
 
