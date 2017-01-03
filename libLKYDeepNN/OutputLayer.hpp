@@ -18,13 +18,9 @@ class OutputLayer: public BackPropagationLayer
     }
 
     public: void ForwardPropagation();
-
     public: void BackPropagation(double , vector<double>);
-
     public: vector<double> GetOutput();
-
     public: string ToString(){ return "class OutputLayer";}
-
     public: void SetPrevLayer(HiddenLayer*);
     public: void SetLossFunction(LossFunction* lossFunction);
 

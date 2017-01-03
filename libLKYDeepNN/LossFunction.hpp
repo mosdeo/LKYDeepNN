@@ -28,14 +28,9 @@ class CrossEntropy: public LossFunction
 {
     public: double Error(const double output, const double target)
     {
-        // bool isBinaryClassification = true;
-        // if(isBinaryClassification)
-        // {
-            double a = target*log10(output);
-            double b = (1-target)*log10(1-output);
-            return a+b;
-        // }
-        //return target*log(output);
+        double a = target*log10(output);
+        double b = (1-target)*log10(1-output);
+        return a+b;
     }
 
     public: double Derivative(const double output, const double target)

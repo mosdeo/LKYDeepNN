@@ -126,8 +126,8 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
     {
         for (int pixel_Y = 0 ; pixel_Y < canvasSize.height ; pixel_Y++)
         {
-            double resvY = pixel_Y/YscaleRate + Ymin; 
-            double resvX = pixel_X/XscaleRate + Xmin;
+            double resvY = pixel_Y/YscaleRate + Ymin; //正規化
+            double resvX = pixel_X/XscaleRate + Xmin; //正規化
             vector<double> result = _nn->ForwardPropagation(vector<double>{resvX,resvY});
 
             if(result[0] > result[1])

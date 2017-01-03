@@ -18,9 +18,7 @@ class InputLayer: public Layer
     }
 
     public: void Input(const vector<double>);
-
     public: string ToString(){ return "class InputLayer";}
-
     public: void SetNextLayer(HiddenLayer*);
 };
 
