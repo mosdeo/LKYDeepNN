@@ -38,7 +38,7 @@ vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 120)
     return trainData;
 }
 
-vector<vector<double>> classifySpiralData(int numSamples=120, double noise=0.4)
+vector<vector<double>> classifySpiralData(int numSamples=120, double noise=0.1)
 {
     vector<vector<double>> points;
     int n = numSamples / 2;
@@ -55,8 +55,10 @@ vector<vector<double>> classifySpiralData(int numSamples=120, double noise=0.4)
             double x = r * sin(t) + uni_noise(rng) * noise;
             double y = r * cos(t) + uni_noise(rng) * noise;
 
-            if(1==label)  points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 1, 0});
-            if(-1==label) points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 0, 1});
+            // if(1==label)  points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 1, 0});
+            // if(-1==label) points.push_back({x, y, x*y, 5*sin(x), 5*sin(y), 0, 1});
+            if(1==label)  points.push_back({x, y, 1, 0});
+            if(-1==label) points.push_back({x, y, 0, 1});
 
             for(double d:points.back())
             {

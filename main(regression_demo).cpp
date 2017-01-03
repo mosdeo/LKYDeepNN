@@ -7,8 +7,8 @@ void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector
     string strPutText = "Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainError().back());
     cv::Mat shot = Draw2DRegressionData("訓練途中", displayData, _nn, strPutText);
     //PNG maker
-     if(0 == currentEpochs % 10)
-         cv::imwrite(strPngName.c_str(), shot);
+    //  if(0 == currentEpochs % 10)
+    //      cv::imwrite(strPngName.c_str(), shot);
     //fgetc(stdin);
 }
 
