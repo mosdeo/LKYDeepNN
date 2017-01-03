@@ -51,7 +51,7 @@ vector<vector<double>> classifySpiralData(double xBias, double yBias, int numSam
 
         for(int i=0; i < numSamples ; i++)
         {
-            double r = 8*(double)i/numSamples;
+            double r = 5*(double)i/numSamples;
             double t = 1.75 *i/numSamples*2 * M_PI + deltaT;
             double x = xBias + r * sin(t) + uni_noise(rng) * noise;
             double y = yBias + r * cos(t) + uni_noise(rng) * noise;
@@ -124,10 +124,12 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
     //寫入機率密度分佈
     for (int pixel_X = 0 ; pixel_X < canvasSize.width ; pixel_X++)
     {
+        double resvX = pixel_X/XscaleRate + Xmin; //正規化
+
         for (int pixel_Y = 0 ; pixel_Y < canvasSize.height ; pixel_Y++)
         {
             double resvY = pixel_Y/YscaleRate + Ymin; //正規化
-            double resvX = pixel_X/XscaleRate + Xmin; //正規化
+            
             vector<double> result = _nn->ForwardPropagation(vector<double>{resvX,resvY});
 
             if(result[0] > result[1])
@@ -145,6 +147,8 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
             }
         }
     }
+
+    //cv::flip(canvas,canvas,1);
 
     //寫入每個資料點畫素
     for (size_t i = 0 ; i < XYData.size() ; i++)

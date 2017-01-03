@@ -15,7 +15,7 @@ void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector
 int main()
 {
     // vector<vector<double>> trainData = Make2DBinaryTrainingData();//
-    double bias = 1;
+    double bias = 0;
     //vector<vector<double>> trainData = classifyCircleData(bias ,bias);//
     vector<vector<double>> trainData = classifySpiralData(bias ,bias);
     //int numHiddenNodesInEachLayer = 8;

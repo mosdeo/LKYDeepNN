@@ -47,7 +47,7 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
     //[this][perv]
     for(size_t j=0 ; j < this->wDelta.size() ; j++)
     {
-        double err = (NULL == this->lossFunction) ?
+        double cost = (NULL == this->lossFunction) ?
             this->nodes[j] - desiredOutValues[j]://Output-target(Square Loss Function的微分)
             this->lossFunction->Derivative(this->nodes[j], desiredOutValues[j]); 
             
@@ -56,14 +56,14 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
         for(size_t i=0 ; i < this->wDelta[j].size() ; i++)
         {
             double pervInput = this->previousLayer->nodes[i];
-            this->wDelta[j][i] = err*derivativeActivation;
+            this->wDelta[j][i] = cost*derivativeActivation;
 
             //更新權重
             this->intoWeights[j][i] -= learningRate*(this->wDelta[j][i]*pervInput);
         }
 
         //更新基底權重
-        this->bDelta[j] = err*derivativeActivation;
+        this->bDelta[j] = cost*derivativeActivation;
         this->intoBiases[j] -= learningRate*this->bDelta[j];
     }
 
