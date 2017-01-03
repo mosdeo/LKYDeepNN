@@ -8,8 +8,9 @@
 - 訓練視覺化程式以 OpenCV 撰寫，但 LKYDeepNN 本身不依賴 OpenCV。
 - 繪圖功能僅以 function pointer 傳入物件中，在訓練過程中呼叫。
 - 下面這2張圖 ↓ ↓ ↓ ↓ 是 33fps 的 GIF。如果不會動的話，請按 F5 重新整理網頁，或是單獨對圖檔另開新視窗就可以看到動畫了。
+</br></br>
 ![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/training_demo_classification.gif "Classification Demo")　　![Alt text](https://github.com/mosdeo/LKYDeepNN/blob/master/training_demo_regression.gif "Cos(2*x) Regression Demo")
-
+</br></br>
 
 
 ### 隱藏層的層數和節點數可以任意設定，簡單又有彈性
