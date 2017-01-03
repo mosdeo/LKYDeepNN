@@ -51,7 +51,6 @@ class BackPropagationLayer : public Layer
     //順向進入的權重與基底
     protected: vector<vector<double>> intoWeights;
     protected: vector<double> intoBiases;
-
     public: vector<vector<double>> GetWeights(){ return intoWeights;}
     public: vector<double> GetBiases(){ return intoBiases;}
 
@@ -76,8 +75,8 @@ class BackPropagationLayer : public Layer
         const double hi = 1/(sqrt(this->nodes.size()));
         const double lo = -hi;
 
-        //std::random_device rd;     // only used once to initialise (seed) engine
-        std::mt19937_64 rng(0);    // random-number engine used (Mersenne-Twister in this case)
+        std::random_device rd;     // only used once to initialise (seed) engine
+        std::mt19937_64 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
         std::uniform_real_distribution<double> uni_noise(lo, hi); // guaranteed unbiased
 
         for (size_t j = 0; j < this->intoWeights.size(); ++j)

@@ -17,6 +17,7 @@ class LKYDeepNN
     private: OutputLayer* outputLayer;
     private: shared_ptr<Activation> hiddenActivation;
     private: shared_ptr<Activation> outputActivation;
+    private: shared_ptr<LossFunction> lossFunction;
 
     private: vector<double> trainError;
     public: vector<double> GetTrainError(){return this->trainError;}
@@ -38,6 +39,9 @@ class LKYDeepNN
         strMsg += "Activation Function: \n";
         strMsg += "  Hidden: "+string(typeid(*hiddenActivation).name()).substr(1)+"\n";
         strMsg += "  Output: "+string(typeid(*outputActivation).name()).substr(1)+"\n";
+
+        strMsg += "Loss Function: \n";
+        strMsg += "  Output: "+string(typeid(*lossFunction).name()).substr(2)+"\n";
         strMsg += "=======================\n";
 
         return strMsg;
@@ -144,8 +148,7 @@ class LKYDeepNN
 
         //輸出層連結
         this->outputLayer->SetPrevLayer(hiddenLayerArray.back());
-        this->outputLayer->SetNode(numOutputNodes);
-        this->outputLayer->SetLossFunction(new Square());        
+        this->outputLayer->SetNode(numOutputNodes);      
         //printf("最後一個隱藏層位址=%p\n",hiddenLayerArray.back());
         
         //===================== step 3: 統一權重初始化 =====================
@@ -177,6 +180,12 @@ class LKYDeepNN
             hiddenLayer->SetActivation(hiddenLayerActivation);
         }
         outputLayer->SetActivation(outputLayerActivation);
+    }
+
+    public: void SetLossFunction(LossFunction* lossFunction)
+    {
+        this->lossFunction.reset(lossFunction);
+        this->outputLayer->SetLossFunction(lossFunction);
     }
 
     // public: void SetActivation(shared_ptr<Activation> hiddenLayerActivation, shared_ptr<Activation> outputLayerActivation)
