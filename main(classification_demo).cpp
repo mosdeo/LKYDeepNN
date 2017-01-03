@@ -24,7 +24,7 @@ int main()
     LKYDeepNN nn(trainData.front().size()-2, vector<int>{8,8,8}, 2);
     nn.SetActivation(new ReLU(), new Softmax());
     cout << nn.ToString() << endl;
-    //nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
+    nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
     cout << "訓練開始" <<endl;
     double learningRate = 0.01;

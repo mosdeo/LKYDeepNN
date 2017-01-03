@@ -61,15 +61,12 @@ vector<vector<double>> classifySpiralData(double xBias, double yBias, int numSam
             if(1==label)  points.push_back({x, y, 1, 0});
             if(-1==label) points.push_back({x, y, 0, 1});
 
-            for(double d:points.back())
-            {
-                printf(" %lf,",d);
-            }printf("\n");
+            //for(double d:points.back()){ printf(" %lf,",d);　}printf("\n");
         }
     };
 
-    genSpiral(points,n, xBias, yBias, noise,0, 1); // Positive examples.
-    genSpiral(points,n, xBias, yBias, noise,M_PI, -1); // Negative examples.
+    genSpiral(points,n, xBias, yBias, noise, 0, 1); // Positive examples.
+    genSpiral(points,n, xBias, yBias, noise, M_PI, -1); // Negative examples.
     return points;
 }
 
