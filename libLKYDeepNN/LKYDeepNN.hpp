@@ -15,9 +15,9 @@ class LKYDeepNN
     private: InputLayer* inputLayer;
     private: vector<HiddenLayer*> hiddenLayerArray;
     private: OutputLayer* outputLayer;
-    private: shared_ptr<Activation> hiddenActivation;
-    private: shared_ptr<Activation> outputActivation;
-    private: shared_ptr<LossFunction> lossFunction;
+    private: shared_ptr<Activation> hiddenActivation = NULL;
+    private: shared_ptr<Activation> outputActivation = NULL;
+    private: shared_ptr<LossFunction> lossFunction = NULL;
 
     private: vector<double> trainError;
     public: vector<double> GetTrainError(){return this->trainError;}
@@ -239,11 +239,17 @@ class LKYDeepNN
             exit(EXIT_FAILURE);
         }
 
-        //檢查是否已經設置活化函數
-        this->ActivationExistCheck();
+        if(NULL == this->lossFunction)
+        {
+            cout << "ERROR: 沒有配置損失函數(Loss Function)"<<endl;
+            exit(EXIT_FAILURE);
+        }
+
+        this->ActivationExistCheck();   //檢查是否已經設置活化函數
+        this->LossFunctionExistCheck(); //檢查是否已經設置損失函數
         
-        vector<double> inputValues(inputLayer->NodesSize(),0);  // features
-        vector<double> targetValues(outputLayer->NodesSize(),0); // labels
+        vector<double> inputValues(inputLayer->NodesSize(), 0);  // features
+        vector<double> targetValues(outputLayer->NodesSize(), 0); // labels
         
         vector<int> sequence(trainData.size());
         for (size_t i = 0; i < trainData.size(); ++i)
@@ -317,7 +323,22 @@ class LKYDeepNN
     {//活化函數檢查
         if(NULL == this->hiddenActivation)
         {
-            cout << "ERROR: 沒有配置活化函數." << endl;
+            cout << "ERROR: 沒有配置 Hidden Layer 活化函數." << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        if(NULL == this->hiddenActivation)
+        {
+            cout << "ERROR: 沒有配置 Output Layer 活化函數." << endl;
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    private: void LossFunctionExistCheck()
+    {//活化函數檢查
+        if(NULL == this->lossFunction)
+        {
+            cout << "ERROR: 沒有配置損失函數 (Loss Function)." << endl;
             exit(EXIT_FAILURE);
         }
     }
