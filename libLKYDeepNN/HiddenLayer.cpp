@@ -15,7 +15,6 @@ void HiddenLayer::ForwardPropagation()
     }
 
     //節點的乘積與和
-    //cout << "this->nodes.size() = " << this->nodes.size() << endl;
     for (size_t j = 0; j < this->nodes.size(); ++j) // compute i-h sum of weights * inputNodes
     {
         //將自己的節點歸零，因為要存放上一級傳來的運算結果，不能累積。
@@ -53,8 +52,8 @@ void HiddenLayer::BackPropagation(double learningRate)
                 dynamic_pointer_cast<BackPropagationLayer>(this->nextLayer)->intoWeights[k][j];
         }
 
-        //此節點微分值
-        double derivativeActivation = this->activation->Derivative(get<0>(this->nodes[j]));
+        //此節點微分值 (get<0>:節點之前, get<1>:節點之後)
+        double derivativeActivation = this->activation->Derivative(get<1>(this->nodes[j]));
 
         for(size_t i=0 ; i < this->intoWeights[j].size() ; i++)
         {

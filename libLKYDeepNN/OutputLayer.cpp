@@ -46,12 +46,10 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
     //[this][perv]
     for(size_t j=0 ; j < this->wDelta.size() ; j++)
     {
-        double cost = (NULL == this->lossFunction) ?
-            get<0>(this->nodes[j]) - desiredOutValues[j]://Output-target(Square Loss Function的微分)
-            this->lossFunction->Derivative(get<0>(this->nodes[j]), desiredOutValues[j]); 
+        double cost = this->lossFunction->Derivative(get<1>(this->nodes[j]), desiredOutValues[j]); 
             
-        //求節點的微分
-        double derivativeActivation= this->activation->Derivative(get<0>(this->nodes[j]));
+        //此節點微分值 (get<0>:節點之前, get<1>:節點之後)
+        double derivativeActivation = this->activation->Derivative(get<1>(this->nodes[j]));
 
         for(size_t i=0 ; i < this->wDelta[j].size() ; i++)
         {
