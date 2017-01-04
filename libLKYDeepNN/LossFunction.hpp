@@ -15,7 +15,8 @@ class Square: public LossFunction
 {
     public: double Error(const double output, const double target)
     {
-        return 0.5*pow(output - target, 2);
+        cout << "ERROR" << endl;exit(EXIT_FAILURE);
+        //return 0.5*pow(output - target, 2);
     }
 
     public: double Derivative(const double output, const double target)
@@ -28,9 +29,10 @@ class CrossEntropy: public LossFunction
 {
     public: double Error(const double output, const double target)
     {
-        double a = target*log10(output);
-        double b = (1-target)*log10(1-output);
-        return a+b;
+        cout << "ERROR" << endl;exit(EXIT_FAILURE);
+        // double a = target*log10(output);
+        // double b = (1-target)*log10(1-output);
+        // return a+b;
     }
 
     public: double Derivative(const double output, const double target)

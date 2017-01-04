@@ -38,7 +38,7 @@ vector<vector<double>> Make2DBinaryTrainingData(int numTariningData = 120)
     return trainData;
 }
 
-vector<vector<double>> classifySpiralData(double xBias, double yBias, int numSamples=120, double noise=0.1)
+vector<vector<double>> classifySpiralData(double xBias, double yBias, int numSamples=230, double noise=0.1)
 {
     vector<vector<double>> points;
     int n = numSamples / 2;

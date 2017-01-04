@@ -23,7 +23,8 @@ int main()
     //LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
     LKYDeepNN nn(trainData.front().size()-2, vector<int>{8,8,8}, 2);
     nn.SetActivation(new ReLU(), new Softmax());
-    nn.SetLossFunction(new CrossEntropy());
+    //nn.SetLossFunction(new CrossEntropy());
+    nn.SetLossFunction(new Square());
     cout << nn.ToString() << endl;
     nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
