@@ -28,6 +28,9 @@ void HiddenLayer::ForwardPropagation()
         
         get<0>(this->nodes[j]) += this->intoBiases[j];  //加上基底
     }
+
+    //將自身節點全部跑一次活化函數
+    this->nodes = this->activation->Forward(this->nodes);
 }
 
 void HiddenLayer::BackPropagation(double learningRate)
