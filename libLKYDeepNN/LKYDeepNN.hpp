@@ -262,7 +262,6 @@ class LKYDeepNN
         for(int currentEpochs=0 ; currentEpochs < epochs ; ++currentEpochs)
         {
             Shuffle(sequence);//訓練順序亂數洗牌
-            //for(int i: sequence){cout << i << ",";}cout << endl;
 
             for (size_t i = 0; i < trainData.size(); ++i)
             {
@@ -294,7 +293,7 @@ class LKYDeepNN
 
             trainLoss.push_back(this->TrainingLoss(trainData));
             //if(0 == currentEpochs % 200)
-            cout << "Mean Squared Error = " << this->GetTrainLoss().back() << endl;
+            cout << "Training Loss = " << this->GetTrainLoss().back() << endl;
 
             // if(minusMSE > this->GetTrainLoss().back())
             // {
@@ -358,9 +357,10 @@ class LKYDeepNN
         vector<double> features(inputLayer->NodesSize());  // first numInputNodes values in trainData
         vector<double> targets(outputLayer->NodesSize()); // last numOutputNodes values
 
-        // walk thru each training case
+        //走訪所有訓練資料
         for (size_t i = 0; i < data.size(); ++i)
         {
+            //分離特徵和標籤
             std::copy(data[i].begin(), data[i].begin() + inputLayer->NodesSize(), features.begin());
             std::copy(data[i].begin() + inputLayer->NodesSize(),
                     data[i].begin() + inputLayer->NodesSize() + outputLayer->NodesSize(),
@@ -373,17 +373,20 @@ class LKYDeepNN
             // for (double const output : targets){ printf("t=%lf, ",output);}cout << endl;
             // cout << "==================" << endl;
 
+            //順傳遞一次得到標籤
             vector<double> yValues = this->ForwardPropagation(features);
 
+            //計算所有輸出的 Cost
             for (size_t j = 0; j < yValues.size(); ++j)
             {
-                sumCost = this->lossFunction->Error(targets[j], yValues[j]);
+                //cout << "CE Error" << this->lossFunction->Error(targets[j], yValues[j]) << endl;
+                sumCost =+ this->lossFunction->Error(targets[j], yValues[j]);
             }
         }
         return sumCost / data.size();
     } // Error
 
-    public: void (*eventInTraining)(LKYDeepNN* ,int ,int ,const vector<vector<double>>& displayData) = NULL;
+    public: void(*eventInTraining)(LKYDeepNN* ,int ,int ,const vector<vector<double>>& ) = NULL;
 
     // LKYDeepNN& operator=(const LKYDeepNN& Obj)
     // {

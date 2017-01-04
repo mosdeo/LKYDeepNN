@@ -8,50 +8,30 @@ int HiddenLayer::count = 0;
 
 void HiddenLayer::ForwardPropagation()
 {
-    // cout << "HiddenLayer::ForwardPropagation" << endl;
-    // cout << typeid(*(this->nextLayer)).name() << endl;
-    // cout << typeid(this->previousLayer).name() << endl;
-    // cout << "  prev Layer: " <<this->previousLayer->ToString() << endl;
-    // cout << "  next Layer: " << this->nextLayer->ToString() << endl;
-
-    //將自己的節點歸零，因為要存放上一級傳來的運算結果，不能累積。
-    this->nodes = vector<double>(this->nodes.size() ,0.0);
+    if(NULL == this->activation)
+    {
+        cout << "ERROR: Hidden Layer 沒有配置活化函數。" << endl;
+        exit(EXIT_FAILURE);
+    }
 
     //節點的乘積與和
     //cout << "this->nodes.size() = " << this->nodes.size() << endl;
     for (size_t j = 0; j < this->nodes.size(); ++j) // compute i-h sum of weights * inputNodes
     {
-        //cout << "this->previousLayer->nodes.size() = " << this->previousLayer->nodes.size() << endl;
+        //將自己的節點歸零，因為要存放上一級傳來的運算結果，不能累積。
+        get<0>(this->nodes[j]) = 0;
+
         for (size_t i = 0; i < this->previousLayer->NodesSize(); ++i)
         {
-            this->nodes[j] += this->previousLayer->nodes[i] * this->intoWeights[j][i]; // note +=
+            get<0>(this->nodes[j]) += get<1>(this->previousLayer->nodes[i]) * this->intoWeights[j][i]; // note +=
         }
-
-        this->nodes[j] += this->intoBiases[j];
-    }
-
-    //Matrix op
-    //this->nodes += this->previousLayer->nodes * this->intoWeights;
-    //this->nodes += this->intoBiases;
-
-    //活化函數
-    if(NULL != this->activation)
-    {//將自身節點全部跑一次活化函數
-        this->nodes = this->activation->Forward(this->nodes);
-    }
-    else
-    {
-        cout << "ERROR: HiddenLayer 沒有配置活化函數" << endl;
-        exit(EXIT_FAILURE);
+        
+        get<0>(this->nodes[j]) += this->intoBiases[j];  //加上基底
     }
 }
 
 void HiddenLayer::BackPropagation(double learningRate)
 {
-    // cout << "HiddenLayer::BackPropagation" << endl;
-    // cout << "  prev Layer: " <<this->previousLayer->ToString() << endl;
-    // cout << "  next Layer: " << this->nextLayer->ToString() << endl;
-    //printf("HiddenLayer: this->wDelta.size() = %ld, this->wDelta[0].size() = %ld\n", this->wDelta.size(), this->wDelta[0].size());
     if(NULL == this->previousLayer)
     {
         cout << "NULL == this->previousLayer" << endl;
@@ -71,12 +51,12 @@ void HiddenLayer::BackPropagation(double learningRate)
         }
 
         //此節點微分值
-        double derivativeActivation = this->activation->Derivative(this->nodes[j]);
+        double derivativeActivation = this->activation->Derivative(get<0>(this->nodes[j]));
 
         for(size_t i=0 ; i < this->intoWeights[j].size() ; i++)
         {
             this->wDelta[j][i] = sigmaDeltaWeight*derivativeActivation;
-            double pervNode = this->previousLayer->nodes[i];
+            double pervNode = get<1>(this->previousLayer->nodes[i]);
 
             //更新權重
             this->intoWeights[j][i] -= learningRate*this->wDelta[j][i]*pervNode;
@@ -87,11 +67,6 @@ void HiddenLayer::BackPropagation(double learningRate)
         this->intoBiases[j] -= learningRate*(this->bDelta[j]*sigmaDeltaWeight);
     }
     //cout << "end\n" << endl;
-}
-
-vector<double> HiddenLayer::GetOutput()
-{
-    return this->nodes;
 }
 
 void HiddenLayer::SetNextLayer(BackPropagationLayer* nextLayer)

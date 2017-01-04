@@ -7,6 +7,7 @@
 #include <random>
 #include <typeinfo>
 #include <memory>
+#include <tuple>
 #include "Activation.hpp"
 using namespace std;
 
@@ -16,7 +17,7 @@ class Layer
     friend class OutputLayer;
 
     //層節點
-    protected: vector<double> nodes;
+    protected: vector<tuple<double,double>> nodes;
     public: size_t NodesSize()
     {
         return this->nodes.size();
@@ -36,7 +37,7 @@ class Layer
 
     public: void SetNode(int numNodes)
     {
-        this->nodes  = vector<double>(numNodes);
+        this->nodes  = vector<tuple<double,double>>(numNodes);
     }
 };
 
@@ -93,6 +94,18 @@ class BackPropagationLayer : public Layer
         }
 
         cout << "Completed BackPropagation Layer InitializeWeights()" << endl;
+    }
+
+    public: vector<double> GetOutput()
+    {
+        vector<double> outputNodeArray(this->nodes.size());
+        
+        for(size_t i=0 ; i < this->Layer::nodes.size() ; ++i)
+        {
+            outputNodeArray[i] = get<1>(this->Layer::nodes[i]);
+        }
+        
+        return outputNodeArray;
     }
 };
 

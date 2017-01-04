@@ -7,7 +7,7 @@
 ### 附有訓練視覺化 demo 程式
 - 訓練視覺化程式以 OpenCV 撰寫，但 LKYDeepNN 本身不依賴 OpenCV。
 - 繪圖功能僅以 function pointer 傳入物件中，在訓練過程中呼叫。
-- 下面這2張圖 ↓ ↓ ↓ ↓ 是 33fps 的 GIF。如果不會動的話，請按 F5 重新整理網頁，或是單獨對圖檔另開新視窗就可以看到動畫了。
+- 下面這2張圖 ↓ ↓ ↓ ↓ 是 33fps 的 GIF，分別是 classification 和 regression。如果不會動的話，請按 F5 重新整理網頁，或是單獨對圖檔另開新視窗就可以看到動畫了。
 </br></br>
 ![classification_training_demo_Spiral.gif](https://github.com/mosdeo/LKYDeepNN/blob/master/classification_training_demo_Spiral.gif "Classification Demo")　　![regression_training_demo__2Cos(x).gif](https://github.com/mosdeo/LKYDeepNN/blob/master/regression_training_demo__2Cos(x).gif "Cos(2*x) Regression Demo")
 </br></br>
@@ -41,7 +41,7 @@
 ### 未來預計處理issue
 - 可保存和讀取的 Weights 和 Biases
 - 更豐富得測試資料集
-- Cross Entropy BP
+- Cross Entropy BP（進行中）
 - Early Stopping
 - L1 & L2 Regularization
 - Copy Constructor

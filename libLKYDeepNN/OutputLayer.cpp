@@ -5,30 +5,29 @@
 
 void OutputLayer::ForwardPropagation()
 {
-    //將自己的節點歸零，因為要存放上一級傳來的運算結果，不能累積。
-    this->nodes = vector<double>(this->nodes.size() ,0.0);
-
-    //節點的乘積與和 //[this][perv]
-    for (size_t j = 0; j < this->nodes.size(); ++j) // compute i-h sum of weights * inputNodes
-    {
-        for (size_t i = 0; i < this->previousLayer->nodes.size(); ++i)
-        {
-            this->nodes[j] += this->previousLayer->nodes[i] * this->intoWeights[j][i]; // note +=
-        }
-
-        this->nodes[j] += this->intoBiases[j];
-    }
-
-    //活化函數
-    if(NULL != this->activation)
-    {//將自身節點全部跑一次活化函數
-        this->nodes = this->activation->Forward(this->nodes);
-    }
-    else
+    if(NULL == this->activation)
     {
         cout << "WARNING: Output Layer 沒有配置活化函數，要做 Regression 嗎？ 那應該配置 Linear" << endl;
         exit(EXIT_FAILURE);
     }
+
+    //節點的乘積與和 //[this][perv]
+    for (size_t j = 0; j < this->nodes.size(); ++j) // compute i-h sum of weights * inputNodes
+    {
+        //將自己的節點歸零，因為要存放上一級傳來的運算結果，不能累積。
+        get<0>(this->nodes[j]) = 0;
+
+        for (size_t i = 0; i < this->previousLayer->nodes.size(); ++i)
+        {
+            get<0>(this->nodes[j]) += get<1>(this->previousLayer->nodes[i]) * this->intoWeights[j][i]; // note +=
+        }
+
+        get<0>(this->nodes[j]) += this->intoBiases[j];  //加上截距
+        //get<1>(this->nodes[j]) = this->activation->Forward(get<0>(this->nodes[j])); //活化函數
+    }
+
+    //將自身節點全部跑一次活化函數
+    this->nodes = this->activation->Forward(this->nodes);
 }
 
 void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOutValues)
@@ -48,14 +47,15 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
     for(size_t j=0 ; j < this->wDelta.size() ; j++)
     {
         double cost = (NULL == this->lossFunction) ?
-            this->nodes[j] - desiredOutValues[j]://Output-target(Square Loss Function的微分)
-            this->lossFunction->Derivative(this->nodes[j], desiredOutValues[j]); 
+            get<0>(this->nodes[j]) - desiredOutValues[j]://Output-target(Square Loss Function的微分)
+            this->lossFunction->Derivative(get<0>(this->nodes[j]), desiredOutValues[j]); 
             
-        double derivativeActivation = this->activation->Derivative(this->nodes[j]);
+        //求節點的微分
+        double derivativeActivation= this->activation->Derivative(get<0>(this->nodes[j]));
 
         for(size_t i=0 ; i < this->wDelta[j].size() ; i++)
         {
-            double pervInput = this->previousLayer->nodes[i];
+            double pervInput = get<1>(this->previousLayer->nodes[i]);
             this->wDelta[j][i] = cost*derivativeActivation;
 
             //更新權重
@@ -68,11 +68,6 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
     }
 
     //cout << "end\n" << endl;
-}
-
-vector<double> OutputLayer::GetOutput()
-{
-    return this->nodes;
 }
 
 void OutputLayer::SetPrevLayer(HiddenLayer* pervLayer)

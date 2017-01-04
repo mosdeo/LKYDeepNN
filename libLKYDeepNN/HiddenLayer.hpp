@@ -32,7 +32,6 @@ class HiddenLayer: public BackPropagationLayer
 
     public: void ForwardPropagation();
     public: void BackPropagation(double);
-    public: vector<double> GetOutput();
     public: string ToString(){ return "class HiddenLayer";} 
     public: void SetNextLayer(BackPropagationLayer*);
     public: void SetPrevLayer(Layer*);
