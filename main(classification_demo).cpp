@@ -4,7 +4,7 @@
 void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector<vector<double>>& displayData)
 { 
     string strPngName = "classification_Spiral_demo_PNGs/訓練途中" + to_string(currentEpochs) + ".png";
-    string strPutText = "LKYDeepNN, Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainError().back());
+    string strPutText = "LKYDeepNN, Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainLoss().back());
     cv::Mat shot = Draw2DClassificationData("訓練途中", displayData, _nn, strPutText);
 
     //PNG maker

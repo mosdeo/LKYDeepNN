@@ -19,8 +19,8 @@ class LKYDeepNN
     private: shared_ptr<Activation> outputActivation = NULL;
     private: shared_ptr<LossFunction> lossFunction = NULL;
 
-    private: vector<double> trainError;
-    public: vector<double> GetTrainError(){return this->trainError;}
+    private: vector<double> trainLoss;
+    public: vector<double> GetTrainLoss(){return this->trainLoss;}
 
     public: ~LKYDeepNN()
     {
@@ -292,17 +292,17 @@ class LKYDeepNN
                 }
             }
 
-            trainError.push_back(this->MeanSquaredError(trainData));
+            trainLoss.push_back(this->TrainingLoss(trainData));
             //if(0 == currentEpochs % 200)
-            cout << "Mean Squared Error = " << this->GetTrainError().back() << endl;
+            cout << "Mean Squared Error = " << this->GetTrainLoss().back() << endl;
 
-            // if(minusMSE > this->GetTrainError().back())
+            // if(minusMSE > this->GetTrainLoss().back())
             // {
-            //     minusMSE = this->GetTrainError().back();
+            //     minusMSE = this->GetTrainLoss().back();
             // }
             // else
             // {
-            //     if(minusMSE*1.1 < this->GetTrainError().back())
+            //     if(minusMSE*1.1 < this->GetTrainLoss().back())
             //     {
             //         cout << "MSE training 過大，提早終止, currentEpochs = " << currentEpochs << endl;
             //         break;
@@ -350,10 +350,11 @@ class LKYDeepNN
         std::random_shuffle(sequence.begin(), sequence.end());
     } // Shuffle
 
-    private: double MeanSquaredError(vector<vector<double>> data)
+    private: double TrainingLoss(vector<vector<double>> data)
     {
         // MSE == average squared error per training item
-        double sumSquaredError = 0.0;
+        //double sumSquaredError = 0.0;
+        double sumCost = 0.0;
         vector<double> features(inputLayer->NodesSize());  // first numInputNodes values in trainData
         vector<double> targets(outputLayer->NodesSize()); // last numOutputNodes values
 
@@ -376,11 +377,10 @@ class LKYDeepNN
 
             for (size_t j = 0; j < yValues.size(); ++j)
             {
-                double err = targets[j] - yValues[j];
-                sumSquaredError += err * err;
+                sumCost = this->lossFunction->Error(targets[j], yValues[j]);
             }
         }
-        return sumSquaredError / data.size();
+        return sumCost / data.size();
     } // Error
 
     public: void (*eventInTraining)(LKYDeepNN* ,int ,int ,const vector<vector<double>>& displayData) = NULL;
