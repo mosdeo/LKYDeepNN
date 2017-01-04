@@ -4,7 +4,7 @@
 void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector<vector<double>>& displayData)
 { 
     string strPngName = "classification_Spiral_demo_PNGs/訓練途中" + to_string(currentEpochs) + ".png";
-    string strPutText = "Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainError().back());
+    string strPutText = "LKYDeepNN, Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainError().back());
     
     //PNG maker
     if(0 == currentEpochs % 10)
@@ -26,8 +26,8 @@ int main()
     //LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
     LKYDeepNN nn(trainData.front().size()-2, vector<int>{8,8,8}, 2);
     nn.SetActivation(new ReLU(), new Softmax());
-    //nn.SetLossFunction(new CrossEntropy());
-    nn.SetLossFunction(new Square());
+    nn.SetLossFunction(new CrossEntropy());
+    //nn.SetLossFunction(new Square());
     cout << nn.ToString() << endl;
     nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
