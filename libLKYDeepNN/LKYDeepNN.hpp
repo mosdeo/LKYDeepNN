@@ -29,19 +29,23 @@ class LKYDeepNN
 
     public: string ToString()
     {
-        
         //-std=c++14 only
-        auto FixedTypeName = [&](const auto& obj) -> string
-        {
-            string strTypeName = typeid(obj).name();
-            size_t length = strTypeName.length();
+        // auto FixedTypeName = [&](const auto& obj) -> string
+        // {
+        //     string strTypeName = typeid(obj).name();
+        //     return (10 >= strTypeName.length()) ? 
+        //         strTypeName.substr(1):
+        //         strTypeName.substr(2);
+        // };
 
-            return (10 >= length) ? 
+        auto FixedTypeName = [&](const std::type_info& typeInfo) -> string
+        {
+            string strTypeName = typeInfo.name();
+
+            return (10 >= strTypeName.length()) ? 
                 strTypeName.substr(1):
                 strTypeName.substr(2);
         };
-
-        //cout << FixedTypeName(*hiddenActivation) << endl;
 
         string strMsg;
         strMsg  = "====== LKYDeepNN ======\n";
@@ -51,11 +55,11 @@ class LKYDeepNN
         strMsg += "  Output: "+to_string(outputLayer->NodesSize())+"\n";
 
         strMsg += "Activation Function: \n";
-        strMsg += "  Hidden: "+FixedTypeName(*hiddenActivation)+"\n";
-        strMsg += "  Output: "+FixedTypeName(*outputActivation)+"\n";
+        strMsg += "  Hidden: "+FixedTypeName(typeid(*hiddenActivation))+"\n";
+        strMsg += "  Output: "+FixedTypeName(typeid(*outputActivation))+"\n";
 
         strMsg += "Loss Function: \n";
-        strMsg += "  Output: "+FixedTypeName(*lossFunction)+"\n";
+        strMsg += "  Output: "+FixedTypeName(typeid(*lossFunction))+"\n";
         strMsg += "=======================\n";
 
         return strMsg;
