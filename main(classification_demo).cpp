@@ -21,7 +21,7 @@ int main()
     //int numHiddenNodesInEachLayer = 8;
     //int numHiddenLayers = 3;
     //LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
-    LKYDeepNN nn(trainData.front().size()-2, vector<int>{12,12,12}, 2);
+    LKYDeepNN nn(trainData.front().size()-2, vector<int>{8,8,8}, 2);
     nn.SetActivation(new ReLU(), new Softmax());
     nn.SetLossFunction(new CrossEntropy());
     cout << nn.ToString() << endl;

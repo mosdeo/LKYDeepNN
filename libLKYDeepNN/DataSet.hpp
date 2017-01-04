@@ -51,7 +51,7 @@ vector<vector<double>> classifySpiralData(double xBias, double yBias, int numSam
 
         for(int i=0; i < numSamples ; i++)
         {
-            double r = 5*(double)i/numSamples;
+            double r = 8*(double)i/numSamples;
             double t = 1.75 *i/numSamples*2 * M_PI + deltaT;
             double x = xBias + r * sin(t) + uni_noise(rng) * noise;
             double y = yBias + r * cos(t) + uni_noise(rng) * noise;
@@ -110,7 +110,7 @@ vector<vector<double>> classifyCircleData(double xBias, double yBias, int numSam
 cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XYData, LKYDeepNN* _nn, string strPutText="LKY",
     double Xmin = -10, double Xmax = 10, double Ymin = -10, double Ymax = 10)
 {
-    cv::Size canvasSize(400, 400); //畫布大小
+    cv::Size canvasSize(400, 400); //畫布大小(X,Y)
     cv::Mat canvas(canvasSize, CV_8UC3, cv::Scalar(0));//產生畫布
 
     //計算修正參數
@@ -135,14 +135,14 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
             if(result[0] > result[1])
             {
                 canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = violet + (white-violet)*(1-(result[0]-result[1]));
-                //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[0], 255, 255*2*result[0]);
+                //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[1], 255, 255*2*result[1]);
                 //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*(int)(result[0]+0.5), 255, 255*2*(int)(result[0]+0.5));
 
             }
             if(result[1] > result[0])
             {
                 canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = yellow + (white-yellow)*(1-(result[1]-result[0]));
-                //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[1], 255*2*result[1], 255);
+                //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*result[0], 255*2*result[0], 255);
                 //canvas.at<cv::Vec3b>(pixel_Y, pixel_X) = cv::Vec3b(255*2*(int)(result[1]+0.5), 255*2*(int)(result[1]+0.5), 255);
             }
         }
@@ -162,7 +162,7 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
 
         const int radius = 5;
         const int thickness = 2;
-        cv::circle(canvas, cv::Point(newY, newX), radius, circleColor, thickness);
+        cv::circle(canvas, cv::Point(newX, newY), radius, circleColor, thickness);
     }
 
     //cv::resize(canvas,canvas,cv::Size(800,800));
