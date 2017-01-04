@@ -46,7 +46,6 @@ vector<vector<double>> classifySpiralData(double xBias, double yBias, int numSam
     auto genSpiral = [](vector<vector<double>>& points, int numSamples, double xBias, double yBias, double noise, int deltaT, int label)
     {
         std::mt19937_64 rng(0);
-        
         std::uniform_real_distribution<double> uni_noise(-1, 1); // guaranteed unbiased
 
         for(int i=0; i < numSamples ; i++)
@@ -121,7 +120,7 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
     cv::Vec3b yellow(51, 153, 255);
     cv::Vec3b white(255, 255, 255);
     
-    //寫入機率密度分佈
+    //寫入對樣本空間的估計
     for (int pixel_X = 0 ; pixel_X < canvasSize.width ; pixel_X++)
     {
         double resvX = pixel_X/XscaleRate + Xmin; //正規化
@@ -129,7 +128,6 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
         for (int pixel_Y = 0 ; pixel_Y < canvasSize.height ; pixel_Y++)
         {
             double resvY = pixel_Y/YscaleRate + Ymin; //正規化
-            
             vector<double> result = _nn->ForwardPropagation(vector<double>{resvX,resvY});
 
             if(result[0] > result[1])
@@ -148,9 +146,7 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
         }
     }
 
-    //cv::flip(canvas,canvas,1);
-
-    //寫入每個資料點畫素
+    //寫入每個資料點，以圓圈代表
     for (size_t i = 0 ; i < XYData.size() ; i++)
     {
         int newY = YscaleRate*(XYData[i][1]-Ymin);
@@ -160,8 +156,7 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
         if(*(XYData[i].end()-2) == 1){circleColor = violet*0.7;}//顏色稍微調暗
         if(*(XYData[i].end()-1) == 1){circleColor = yellow*0.7;}//顏色稍微調暗
 
-        const int radius = 5;
-        const int thickness = 2;
+        const int radius = 5, thickness = 2;
         cv::circle(canvas, cv::Point(newX, newY), radius, circleColor, thickness);
     }
 

@@ -41,10 +41,7 @@ class LKYDeepNN
         auto FixedTypeName = [&](const std::type_info& typeInfo) -> string
         {
             string strTypeName = typeInfo.name();
-
-            return (10 >= strTypeName.length()) ? 
-                strTypeName.substr(1):
-                strTypeName.substr(2);
+            return (10 >= strTypeName.length()) ? strTypeName.substr(1):strTypeName.substr(2);
         };
 
         string strMsg;
@@ -205,18 +202,6 @@ class LKYDeepNN
         this->lossFunction.reset(lossFunction);
         this->outputLayer->SetLossFunction(lossFunction);
     }
-
-    // public: void SetActivation(shared_ptr<Activation> hiddenLayerActivation, shared_ptr<Activation> outputLayerActivation)
-    // {
-    //     this->hiddenActivation = hiddenLayerActivation;
-    //     this->outputActivation = outputLayerActivation;
-
-    //     for (auto hiddenLayer : this->hiddenLayerArray)
-    //     {
-    //         hiddenLayer->SetActivation(hiddenLayerActivation.get());
-    //     }
-    //     outputLayer->SetActivation(outputLayerActivation.get());
-    // }
 
     public: vector<double> ForwardPropagation(vector<double> aFeaturesAndLabels)
     {
