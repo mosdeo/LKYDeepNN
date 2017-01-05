@@ -162,7 +162,7 @@ cv::Mat Draw2DClassificationData(string strWindowName ,vector<vector<double>> XY
 
     //cv::resize(canvas,canvas,cv::Size(800,800));
     cv::putText(canvas,strPutText.c_str(), cv::Point(20,40), cv::FONT_HERSHEY_COMPLEX,0.5, cv::Scalar(0x00));
-    cv::putText(canvas,"Lin Kao-Yuan, mosdeo@gmail.com", cv::Point(20,canvas.rows-20), cv::FONT_HERSHEY_COMPLEX,0.5, cv::Scalar(0x00));
+    cv::putText(canvas,"LKYDeepNN, mosdeo@gmail.com", cv::Point(20,canvas.rows-20), cv::FONT_HERSHEY_COMPLEX,0.5, cv::Scalar(0x00));
 
     //顯示
     cv::imshow(strWindowName.c_str(), canvas);
@@ -212,7 +212,7 @@ cv::Mat Draw2DRegressionData(string strWindowName ,vector<vector<double>> XYData
     cv::dilate(canvas, canvas, cv::Mat()); //使畫素膨脹
 
     cv::putText(canvas,strPutText.c_str(),cv::Point(20,40), cv::FONT_HERSHEY_COMPLEX,0.5,cv::Scalar(255));
-    cv::putText(canvas,"Lin Kao-Yuan, mosdeo@gmail.com",cv::Point(20,canvas.rows-20), cv::FONT_HERSHEY_COMPLEX,0.5,cv::Scalar(127));
+    cv::putText(canvas,"LKYDeepNN, mosdeo@gmail.com",cv::Point(20,canvas.rows-20), cv::FONT_HERSHEY_COMPLEX,0.5,cv::Scalar(127));
 
     //顯示
     cv::imshow(strWindowName.c_str(), canvas);

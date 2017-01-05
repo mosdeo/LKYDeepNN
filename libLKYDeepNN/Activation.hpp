@@ -59,20 +59,30 @@ class Softmax: public Activation
     public: Softmax(){ cout << "Activation is Softmax." << endl;}
     public: ~Softmax(){cout << "~Softmax()" << endl;}
 
-    public: vector<tuple<double,double>> Forward(vector<tuple<double,double>>& nodeSum)
+    public: vector<tuple<double,double>> Forward(vector<tuple<double,double>>& nodeVector)
     {
-        // does all output nodes at once so scale
-        // doesn't have to be re-computed each time
+        if(nodeVector.size()<2)
+        {
+            cout << "小於兩個輸出點，使用 Softmax 活化得不到有意義的輸出結果。" << endl;
+            exit(EXIT_FAILURE);
+        }
 
-        // if (oSums.Length < 2) throw . . .
-        double sumExp= 0.0;
-        for (size_t i = 0; i < nodeSum.size(); ++i)
-            sumExp += exp(get<0>(nodeSum[i]));
+        //找出最大，作為後續計算偏移量
+        double maxNode = std::numeric_limits<double>::min();
+        for(auto& node :nodeVector)
+            if(maxNode < get<0>(node))
+                maxNode = get<0>(node);
 
-        for (size_t i = 0; i < nodeSum.size(); ++i)
-            get<1>(nodeSum[i]) = exp(get<0>(nodeSum[i])) / sumExp;
+        //計算分母
+        double sumExp = 0.0;
+        for(auto& node :nodeVector)
+            sumExp += exp((get<0>(node)));
 
-        return nodeSum; // now scaled so that xi sum to 1.0
+        //計算 分子/分母
+        for(auto& node :nodeVector)
+            get<1>(node) = exp(get<0>(node))/sumExp;
+
+        return nodeVector;
     }
 
     public: double Derivative(const double x)
@@ -120,7 +130,7 @@ class ReLU: public Activation
         if(x > 0){
             return 1;}
         else{
-            return 0.01;}
+            return 0;}
     }
 };
 

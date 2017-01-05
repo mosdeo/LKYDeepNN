@@ -4,7 +4,7 @@
 void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector<vector<double>>& displayData)
 { 
     string strPngName = "classification_Spiral_demo_PNGs/訓練途中" + to_string(currentEpochs) + ".png";
-    string strPutText = "LKYDeepNN, Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainLoss().back());
+    string strPutText = "Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainLoss().back());
     cv::Mat shot = Draw2DClassificationData("訓練途中", displayData, _nn, strPutText);
 
     //PNG maker
@@ -17,30 +17,31 @@ void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector
 
 int main()
 {
+    vector<tuple<double,double>> nodes{tuple<double, double>(-1000,0),
+                                       tuple<double, double>(2000,0),
+                                       tuple<double, double>(3000,0)};
 
-    vector<tuple<double,double>> nodes{tuple<double, double>(10,0),
-                                       tuple<double, double>(20,0),
-                                       tuple<double, double>(30,0)};
 
-    for(auto node : nodes)
-    {
-        printf("%lf ",get<0>(node));
-    }cout << endl;
 
     Softmax softmax;
     nodes = softmax.Forward(nodes);
 
     for(auto node : nodes)
     {
+        printf("%lf ",get<0>(node));
+    }cout << endl;
+
+    for(auto node : nodes)
+    {
         printf("%lf ",get<1>(node));
     }cout << endl;
 
-    exit(EXIT_SUCCESS);
+    // exit(EXIT_SUCCESS);
 
     // vector<vector<double>> trainData = Make2DBinaryTrainingData();//
     double bias = 0;
-    vector<vector<double>> trainData = classifyCircleData(bias ,bias);//
-    //vector<vector<double>> trainData = classifySpiralData(bias ,bias);
+    //vector<vector<double>> trainData = classifyCircleData(bias ,bias);//
+    vector<vector<double>> trainData = classifySpiralData(bias ,bias);
     //int numHiddenNodesInEachLayer = 8;
     //int numHiddenLayers = 3;
     //LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
@@ -52,7 +53,7 @@ int main()
     nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
     cout << "訓練開始" <<endl;
-    double learningRate = -0.03;
+    double learningRate = 0.007;
     int epochs = 3500;
     printf("learningRate=%lf\n",learningRate);
     nn.Training(learningRate, epochs, trainData);
