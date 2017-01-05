@@ -1,8 +1,7 @@
 #ifndef _OutputLayer_hpp_
 #define _OutputLayer_hpp_
 
-//#include "Layer.hpp"
-#include "HiddenLayer.hpp"
+#include "BackPropagationLayer.hpp"
 #include "LossFunction.hpp"
 #include <memory>
 

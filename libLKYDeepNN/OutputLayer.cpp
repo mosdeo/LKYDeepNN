@@ -1,4 +1,3 @@
-#include "Layer.hpp"
 #include "InputLayer.hpp"
 #include "HiddenLayer.hpp"
 #include "OutputLayer.hpp"

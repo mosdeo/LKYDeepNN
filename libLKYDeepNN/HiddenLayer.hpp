@@ -1,7 +1,7 @@
 #ifndef _HiddenLayer_hpp_
 #define _HiddenLayer_hpp_
 
-#include "Layer.hpp"
+#include "BackPropagationLayer.hpp"
 #include "InputLayer.hpp"
 #include "OutputLayer.hpp"
 

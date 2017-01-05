@@ -1,7 +1,6 @@
 #ifndef _LKYDEEPNN_HPP_
 #define _LKYDEEPNN_HPP_
 
-//#include "Layer.hpp"
 #include "InputLayer.hpp"
 #include "HiddenLayer.hpp"
 #include "OutputLayer.hpp"
