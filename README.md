@@ -41,7 +41,7 @@
 ### 未來預計處理issue
 - 可保存和讀取的 Weights 和 Biases
 - 更豐富得測試資料集
-- Cross Entropy BP（進行中）
+- Cross Entropy BP（測試中）
 - Early Stopping
 - L1 & L2 Regularization
 - Copy Constructor
