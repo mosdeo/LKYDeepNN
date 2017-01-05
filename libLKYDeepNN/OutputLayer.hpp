@@ -21,7 +21,6 @@ class OutputLayer: public BackPropagationLayer
     public: string ToString(){ return "class OutputLayer";}
     public: void SetPrevLayer(HiddenLayer*);
     public: void SetLossFunction(LossFunction* lossFunction);
-
 };
 
 #endif

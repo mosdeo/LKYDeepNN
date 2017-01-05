@@ -285,7 +285,7 @@ class LKYDeepNN
 
             trainLoss.push_back(this->TrainingLoss(trainData));
             //if(0 == currentEpochs % 200)
-            cout << "Training Loss = " << this->GetTrainLoss().back() << endl;
+            //cout << "Training Loss = " << this->GetTrainLoss().back() << endl;
 
             // if(minusMSE > this->GetTrainLoss().back())
             // {

@@ -58,6 +58,7 @@ class Softmax: public Activation
 {
     public: Softmax(){ cout << "Activation is Softmax." << endl;}
     public: ~Softmax(){cout << "~Softmax()" << endl;}
+    private: double sumExp;
 
     public: vector<tuple<double,double>> Forward(vector<tuple<double,double>>& nodeVector)
     {
@@ -67,27 +68,28 @@ class Softmax: public Activation
             exit(EXIT_FAILURE);
         }
 
-        //找出最大，作為後續計算偏移量
-        double maxNode = std::numeric_limits<double>::min();
-        for(auto& node :nodeVector)
-            if(maxNode < get<0>(node))
-                maxNode = get<0>(node);
+        // //找出最大，作為後續計算偏移量
+        // double maxNode = std::numeric_limits<double>::min();
+        // for(auto& node :nodeVector)
+        //     if(maxNode < get<0>(node))
+        //         maxNode = get<0>(node);
 
         //計算分母
-        double sumExp = 0.0;
+        this->sumExp = 0.0;
         for(auto& node :nodeVector)
-            sumExp += exp((get<0>(node)));
+            this->sumExp += exp((get<0>(node)));
 
         //計算 分子/分母
         for(auto& node :nodeVector)
-            get<1>(node) = exp(get<0>(node))/sumExp;
+            get<1>(node) = exp(get<0>(node))/this->sumExp;
 
         return nodeVector;
     }
 
     public: double Derivative(const double x)
     {
-        return x*(1-x);
+        double softmax = exp(x)/this->sumExp;
+        return softmax*(1-softmax);
     }
 };
 
