@@ -9,7 +9,7 @@
 - 繪圖功能僅以 function pointer 傳入物件中，在訓練過程中呼叫。
 - 下面這2張圖 ↓ ↓ ↓ ↓ 是 33fps 的 GIF，分別是 classification 和 regression。如果不會動的話，請按 F5 重新整理網頁，或是單獨對圖檔另開新視窗就可以看到動畫了。
 </br></br>
-![classification_training_demo_Spiral.gif](https://github.com/mosdeo/LKYDeepNN/blob/master/classification_training_demo_Spiral.gif "Classification Demo")　　![regression_training_demo__2Cos(x).gif](https://github.com/mosdeo/LKYDeepNN/blob/master/regression_training_demo__2Cos(x).gif "Cos(2*x) Regression Demo")
+![classification_training_demo_Spiral.gif](https://github.com/mosdeo/LKYDeepNN/blob/master/demo_animation/classification_training_demo_Spiral.gif "Classification Demo")　　![regression_training_demo_Cos(2x)+Sin(3x).gif](https://github.com/mosdeo/LKYDeepNN/blob/master/demo_animation/regression_training_demo__Cos(2x)+Sin(3x).gif "Cos(2*x) Regression Demo")
 </br></br>
 
 
