@@ -4,7 +4,7 @@
 void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector<vector<double>>& displayData)
 {
     string strPngName = "regression_demo_PNGs/訓練途中" + to_string(currentEpochs) + ".png";
-    string strPutText = "Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainError().back());
+    string strPutText = "Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainLoss().back());
     cv::Mat shot = Draw2DRegressionData("訓練途中", displayData, _nn, strPutText);
     //PNG maker
     //  if(0 == currentEpochs % 10)
@@ -20,6 +20,7 @@ int main()
     int numOutputLayer = 1;
     LKYDeepNN nn(trainData.front().size()-numOutputLayer, vector<int>{12,4,2}, numOutputLayer);
     nn.SetActivation(new Tanh(), new Linear());
+    nn.SetLossFunction(new Square());
     cout << nn.ToString() << endl;
     nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 

@@ -38,6 +38,9 @@ class LKYDeepNN
         //         strTypeName.substr(2);
         // };
 
+        this->ActivationExistCheck();   //檢查是否已經設置活化函數
+        this->LossFunctionExistCheck(); //檢查是否已經設置損失函數
+
         auto FixedTypeName = [&](const std::type_info& typeInfo) -> string
         {
             string strTypeName = typeInfo.name();
