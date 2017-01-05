@@ -15,7 +15,7 @@ void OutputLayer::ForwardPropagation()
     for (size_t j = 0; j < this->nodes.size(); ++j) // compute i-h sum of weights * inputNodes
     {
         //將自己的節點歸零，因為要存放上一級傳來的運算結果，不能累積。
-        get<0>(this->nodes[j]) = 0;
+        this->nodes[j] = make_tuple<double,double>(0,0);
 
         for (size_t i = 0; i < this->previousLayer->nodes.size(); ++i)
         {
@@ -41,27 +41,27 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
         exit(EXIT_FAILURE);
     }
 
-    //printf("OutputLayer: this->wDelta.size() = %ld, this->wDelta[0].size() = %ld\n", this->wDelta.size(), this->wDelta[0].size());
-
     //[this][perv]
     for(size_t j=0 ; j < this->wDelta.size() ; j++)
     {
-        double cost = this->lossFunction->Derivative(get<1>(this->nodes[j]), desiredOutValues[j]); 
+        //求損失函數微分
+        double cost = this->lossFunction->Derivative(get<1>(this->nodes[j]),desiredOutValues[j]); 
             
         //此節點微分值 (get<0>:節點之前, get<1>:節點之後)
-        double derivativeActivation = this->activation->Derivative(get<1>(this->nodes[j]));
+        double derivativeActivation = this->activation->Derivative(get<0>(this->nodes[j]));
+        double delta = cost * derivativeActivation;
 
         for(size_t i=0 ; i < this->wDelta[j].size() ; i++)
         {
+            this->wDelta[j][i] = delta;
             double pervInput = get<1>(this->previousLayer->nodes[i]);
-            this->wDelta[j][i] = cost*derivativeActivation;
 
             //更新權重
             this->intoWeights[j][i] -= learningRate*(this->wDelta[j][i]*pervInput);
         }
 
         //更新基底權重
-        this->bDelta[j] = cost*derivativeActivation;
+        this->bDelta[j] = delta;
         this->intoBiases[j] -= learningRate*this->bDelta[j];
     }
 

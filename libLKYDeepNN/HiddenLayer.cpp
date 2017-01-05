@@ -18,14 +18,15 @@ void HiddenLayer::ForwardPropagation()
     for (size_t j = 0; j < this->nodes.size(); ++j) // compute i-h sum of weights * inputNodes
     {
         //將自己的節點歸零，因為要存放上一級傳來的運算結果，不能累積。
-        get<0>(this->nodes[j]) = 0;
+        this->nodes[j] = make_tuple<double,double>(0,0);
 
         for (size_t i = 0; i < this->previousLayer->NodesSize(); ++i)
         {
             get<0>(this->nodes[j]) += get<1>(this->previousLayer->nodes[i]) * this->intoWeights[j][i]; // note +=
         }
         
-        get<0>(this->nodes[j]) += this->intoBiases[j];  //加上基底
+        get<0>(this->nodes[j]) += this->intoBiases[j];  //加上截距
+        //get<1>(this->nodes[j]) = this->activation->Forward(get<0>(this->nodes[j])); //活化函數
     }
 
     //將自身節點全部跑一次活化函數
@@ -53,7 +54,7 @@ void HiddenLayer::BackPropagation(double learningRate)
         }
 
         //此節點微分值 (get<0>:節點之前, get<1>:節點之後)
-        double derivativeActivation = this->activation->Derivative(get<1>(this->nodes[j]));
+        double derivativeActivation = this->activation->Derivative(get<0>(this->nodes[j]));
 
         for(size_t i=0 ; i < this->intoWeights[j].size() ; i++)
         {

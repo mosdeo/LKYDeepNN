@@ -17,22 +17,42 @@ void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector
 
 int main()
 {
+
+    vector<tuple<double,double>> nodes{tuple<double, double>(10,0),
+                                       tuple<double, double>(20,0),
+                                       tuple<double, double>(30,0)};
+
+    for(auto node : nodes)
+    {
+        printf("%lf ",get<0>(node));
+    }cout << endl;
+
+    Softmax softmax;
+    nodes = softmax.Forward(nodes);
+
+    for(auto node : nodes)
+    {
+        printf("%lf ",get<1>(node));
+    }cout << endl;
+
+    exit(EXIT_SUCCESS);
+
     // vector<vector<double>> trainData = Make2DBinaryTrainingData();//
     double bias = 0;
-    //vector<vector<double>> trainData = classifyCircleData(bias ,bias);//
-    vector<vector<double>> trainData = classifySpiralData(bias ,bias);
+    vector<vector<double>> trainData = classifyCircleData(bias ,bias);//
+    //vector<vector<double>> trainData = classifySpiralData(bias ,bias);
     //int numHiddenNodesInEachLayer = 8;
     //int numHiddenLayers = 3;
     //LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
     LKYDeepNN nn(trainData.front().size()-2, vector<int>{8,8,8}, 2);
     nn.SetActivation(new ReLU(), new Softmax());
-    nn.SetLossFunction(new CrossEntropy());
-    //nn.SetLossFunction(new Square());
+    //nn.SetLossFunction(new CrossEntropy());
+    nn.SetLossFunction(new Square());
     cout << nn.ToString() << endl;
     nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
     cout << "訓練開始" <<endl;
-    double learningRate = 0.007;
+    double learningRate = -0.03;
     int epochs = 3500;
     printf("learningRate=%lf\n",learningRate);
     nn.Training(learningRate, epochs, trainData);

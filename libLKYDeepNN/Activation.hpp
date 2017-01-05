@@ -65,12 +65,12 @@ class Softmax: public Activation
         // doesn't have to be re-computed each time
 
         // if (oSums.Length < 2) throw . . .
-        double sum = 0.0;
+        double sumExp= 0.0;
         for (size_t i = 0; i < nodeSum.size(); ++i)
-            sum += exp(get<0>(nodeSum[i]));
+            sumExp += exp(get<0>(nodeSum[i]));
 
         for (size_t i = 0; i < nodeSum.size(); ++i)
-            get<1>(nodeSum[i]) = exp(get<0>(nodeSum[i])) / sum;
+            get<1>(nodeSum[i]) = exp(get<0>(nodeSum[i])) / sumExp;
 
         return nodeSum; // now scaled so that xi sum to 1.0
     }
