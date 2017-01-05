@@ -234,7 +234,7 @@ vector<vector<double>> WaveData(int numTrainingData=80)
     for (int i = 0; i < numTrainingData; ++i)
     {
         double x = 2*M_PI*uni_noise(rng); // [0 to 2PI]
-        double sx = cos(2*x);
+        double sx = (cos(2*x)+sin(3*x));
         trainData[i][0] = x;
         //trainData[i][1] = sin(x);
         trainData[i].back() = sx;

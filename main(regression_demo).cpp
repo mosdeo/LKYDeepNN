@@ -7,8 +7,8 @@ void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector
     string strPutText = "Epoch:"+to_string(currentEpochs)+"/"+to_string(maxEpochs)+"  Err:" + to_string(_nn->GetTrainLoss().back());
     cv::Mat shot = Draw2DRegressionData("訓練途中", displayData, _nn, strPutText);
     //PNG maker
-    //  if(0 == currentEpochs % 10)
-    //      cv::imwrite(strPngName.c_str(), shot);
+      if(0 == currentEpochs % 10)
+          cv::imwrite(strPngName.c_str(), shot);
     //fgetc(stdin);
 }
 
@@ -18,7 +18,7 @@ int main()
     //int numHiddenNodesInEachLayer = 8;
     //int numHiddenLayers = 3;
     int numOutputLayer = 1;
-    LKYDeepNN nn(trainData.front().size()-numOutputLayer, vector<int>{12,4,2}, numOutputLayer);
+    LKYDeepNN nn(trainData.front().size()-numOutputLayer, vector<int>{8,8,8}, numOutputLayer);
     nn.SetActivation(new Tanh(), new Linear());
     nn.SetLossFunction(new Square());
     cout << nn.ToString() << endl;
