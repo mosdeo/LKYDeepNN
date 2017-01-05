@@ -47,13 +47,13 @@ int main()
     //LKYDeepNN nn(2, vector<int>(numHiddenLayers, numHiddenNodesInEachLayer), 2);
     LKYDeepNN nn(trainData.front().size()-2, vector<int>{8,8,8}, 2);
     nn.SetActivation(new ReLU(), new Softmax());
-    //nn.SetLossFunction(new CrossEntropy());
-    nn.SetLossFunction(new Square());
+    nn.SetLossFunction(new CrossEntropy());
+    //nn.SetLossFunction(new Square());
     cout << nn.ToString() << endl;
     nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
     cout << "訓練開始" <<endl;
-    double learningRate = 0.007;
+    double learningRate = 0.005*4;
     int epochs = 3500;
     printf("learningRate=%lf\n",learningRate);
     nn.Training(learningRate, epochs, trainData);
