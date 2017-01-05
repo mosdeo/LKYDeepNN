@@ -53,7 +53,7 @@ int main()
     nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
     cout << "訓練開始" <<endl;
-    double learningRate = 0.005*4;
+    double learningRate = 0.03;//0.005*4;
     int epochs = 3500;
     printf("learningRate=%lf\n",learningRate);
     nn.Training(learningRate, epochs, trainData);

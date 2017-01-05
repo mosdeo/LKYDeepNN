@@ -48,6 +48,7 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
         double cost = this->lossFunction->Derivative(get<1>(this->nodes[j]),desiredOutValues[j]); 
             
         //此節點微分值 (get<0>:節點之前, get<1>:節點之後)
+        //Softmax 微分比較麻煩，先暫時拿節點後的數值來運算
         double derivativeActivation = this->activation->Derivative(get<1>(this->nodes[j]));
         double delta = cost * derivativeActivation;
 
@@ -64,7 +65,6 @@ void OutputLayer::BackPropagation(double learningRate, vector<double> desiredOut
         this->bDelta[j] = delta;
         this->intoBiases[j] -= learningRate*this->bDelta[j];
     }
-
     //cout << "end\n" << endl;
 }
 
