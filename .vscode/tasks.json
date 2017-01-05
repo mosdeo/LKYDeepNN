@@ -20,7 +20,7 @@
             "-g",
             "-Ofast", 
             "-std=c++11",
-            //"-D_GLIBCXX_USE_C99",
+            "-D_GLIBCXX_USE_C99",
             "-o",
             "LKYDeepNN"]
 }

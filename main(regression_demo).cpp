@@ -1,5 +1,6 @@
 #include "libLKYDeepNN/LKYDeepNN.hpp"
 #include "libLKYDeepNN/DataSet.hpp"
+#include "DrawingAnimation.hpp"
 
 void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector<vector<double>>& displayData)
 {

@@ -171,10 +171,6 @@ class LKYDeepNN
         
         //===================== step 3: 統一權重初始化 =====================
         this->InitializeWeights();
-
-        //===================== step 4: 預設活化函數配置 =====================
-        //this->SetActivation(new Tanh(), new Softmax());
-        //this->SetActivation(make_shared<ReLU>(), make_shared<Softmax>());
     }
 
     public: void InitializeWeights()
@@ -239,12 +235,6 @@ class LKYDeepNN
         if(trainData.front().size() != (inputLayer->Layer::NodesSize()+outputLayer->NodesSize()))
         {
             cout << "ERROR: trainData.front().size() != (inputLayer->NodesSize()+outputLayer->NodesSize())" << endl;
-            exit(EXIT_FAILURE);
-        }
-
-        if(NULL == this->lossFunction)
-        {
-            cout << "ERROR: 沒有配置損失函數(Loss Function)"<<endl;
             exit(EXIT_FAILURE);
         }
 
@@ -325,13 +315,13 @@ class LKYDeepNN
     {//活化函數檢查
         if(NULL == this->hiddenActivation)
         {
-            cout << "ERROR: 沒有配置 Hidden Layer 活化函數." << endl;
+            cout << "ERROR: 沒有配置 Hidden Layer 活化函數, 請用 SetActivation()" << endl;
             exit(EXIT_FAILURE);
         }
 
-        if(NULL == this->hiddenActivation)
+        if(NULL == this->outputActivation)
         {
-            cout << "ERROR: 沒有配置 Output Layer 活化函數." << endl;
+            cout << "ERROR: 沒有配置 Output Layer 活化函數, 請用 SetActivation()" << endl;
             exit(EXIT_FAILURE);
         }
     }
@@ -340,7 +330,7 @@ class LKYDeepNN
     {//活化函數檢查
         if(NULL == this->lossFunction)
         {
-            cout << "ERROR: 沒有配置損失函數 (Loss Function)." << endl;
+            cout << "ERROR: 沒有配置損失函數 (Loss Function), 請用 SetLossFunction()" << endl;
             exit(EXIT_FAILURE);
         }
     }
