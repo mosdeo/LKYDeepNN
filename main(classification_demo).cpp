@@ -11,7 +11,7 @@ void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector
     if(0 == currentEpochs % 10)
     {
         cv::Mat shot = Draw2DClassificationData("訓練途中", displayData, _nn, strPutText);
-        cv::imwrite(strPngName.c_str(), shot);
+        //cv::imwrite(strPngName.c_str(), shot);
     }
 }
 
