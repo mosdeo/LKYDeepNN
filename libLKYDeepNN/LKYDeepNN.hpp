@@ -372,7 +372,7 @@ class LKYDeepNN
             for (size_t j = 0; j < yValues.size(); ++j)
             {
                 //cout << "CE Error" << this->lossFunction->Error(targets[j], yValues[j]) << endl;
-                sumCost =+ pow(targets[j]-yValues[j],2);
+                sumCost += pow(targets[j]-yValues[j],2);
                 //sumCost =+ this->lossFunction->Error(targets[j], yValues[j]);
             }
         }

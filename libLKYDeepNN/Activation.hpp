@@ -68,7 +68,7 @@ class Softmax: public Activation
             exit(EXIT_FAILURE);
         }
 
-        // //找出最大，作為後續計算偏移量
+        // //找出最大，作為後續計算偏移量 for stable issue
         // double maxNode = std::numeric_limits<double>::min();
         // for(auto& node :nodeVector)
         //     if(maxNode < get<0>(node))
