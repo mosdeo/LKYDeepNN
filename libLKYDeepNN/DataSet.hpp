@@ -43,7 +43,7 @@ vector<vector<double>> classifySpiralData(double xBias, double yBias, int numSam
     vector<vector<double>> points;
     int n = numSamples / 2;
 
-    auto genSpiral = [](vector<vector<double>>& points, int numSamples, double xBias, double yBias, double noise, int deltaT, int label)
+    auto genSpiral = [](vector<vector<double>>& points, int numSamples, double xBias, double yBias, double noise, double deltaT, int label)
     {
         std::mt19937_64 rng(0);
         std::uniform_real_distribution<double> uni_noise(-1, 1); // guaranteed unbiased
