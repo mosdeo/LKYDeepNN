@@ -136,4 +136,28 @@ class ReLU: public Activation
     }
 };
 
+class LReLU: public Activation
+{
+    public: LReLU() {cout << "Activation is LReLU." << endl;}
+    public: ~LReLU(){cout << "~LReLU()" << endl;}
+
+    public: vector<tuple<double,double>> Forward(vector<tuple<double,double>>& nodeVector)
+    {
+        for(tuple<double,double>& node : nodeVector)
+        {
+            double x = get<0>(node);
+            get<1>(node) = (x > 0) ? x : x*0.01;
+        }
+        return nodeVector;
+    }
+
+    public: double Derivative(const double x)
+    {
+        if(x > 0){
+            return 1;}
+        else{
+            return 0.01;}
+    }
+};
+
 #endif
