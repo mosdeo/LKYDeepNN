@@ -7,9 +7,8 @@
     "showOutput": "always",
     "args": [
             //"main.cpp",
-            //"main(regression_demo).cpp",
-            "main(classification_demo).cpp",
-            //"-stdlib=libstdc++",
+            "main(regression_demo).cpp",
+            //"main(classification_demo).cpp",
             "libLKYDeepNN/InputLayer.cpp","libLKYDeepNN/HiddenLayer.cpp","libLKYDeepNN/OutputLayer.cpp",
             "-Wall",
             //"-v",

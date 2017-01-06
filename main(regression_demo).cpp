@@ -10,7 +10,6 @@ void DrawTraining(LKYDeepNN* _nn, int maxEpochs, int currentEpochs, const vector
     //PNG maker
       if(0 == currentEpochs % 10)
           cv::imwrite(strPngName.c_str(), shot);
-    //fgetc(stdin);
 }
 
 int main()
@@ -26,11 +25,11 @@ int main()
     nn.eventInTraining = DrawTraining;//將包有視覺化的事件傳入
 
     cout << "訓練開始" <<endl;
-    double learningRate = 0.005;
+    double learningRate = 0.007;
     int epochs = 3500;
     printf("learningRate=%lf\n",learningRate);
     nn.Training(learningRate, epochs, trainData);
     cout << nn.WeightsToString()<<endl;
     cout << "訓練完成" <<endl;
-    cv::waitKey(0);
+    fgetc(stdin);
 }
