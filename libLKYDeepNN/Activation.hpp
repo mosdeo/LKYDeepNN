@@ -138,6 +138,10 @@ class ReLU: public Activation
 
 class LReLU: public Activation
 {
+    //Leaky Rectified Linear Unit.
+    //A Leaky ReLU can help fix the “dying ReLU” problem.
+    //ReLU’s can “die” if a large enough gradient changes the weights such
+    //that the neuron never activates on new data.
     public: LReLU() {cout << "Activation is LReLU." << endl;}
     public: ~LReLU(){cout << "~LReLU()" << endl;}
 
