@@ -30,10 +30,14 @@ class Hinge: public LossFunction
             double nowDer = nowError - this->pervError;
             this->pervError = nowError;
             
+            cout <<nowDer<< ","; 
             return nowDer;
         }
         else
+        {
+            cout <<0<< ",";
             return 0;
+        }
     }
 };
 
