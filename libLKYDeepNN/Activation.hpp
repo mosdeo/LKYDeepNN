@@ -143,14 +143,20 @@ class LReLU: public Activation
     //ReLU’s can “die” if a large enough gradient changes the weights such
     //that the neuron never activates on new data.
     public: LReLU() {cout << "Activation is LReLU." << endl;}
+    public: LReLU(double alpha)
+    {
+        this->alpha = alpha;
+        cout << "Activation is LReLU, alpha = " << this->alpha << "." << endl;
+    }
     public: ~LReLU(){cout << "~LReLU()" << endl;}
+    private: double alpha = 0.01;//default
 
     public: vector<tuple<double,double>> Forward(vector<tuple<double,double>>& nodeVector)
     {
         for(tuple<double,double>& node : nodeVector)
         {
             double x = get<0>(node);
-            get<1>(node) = (x > 0) ? x : x*0.01;
+            get<1>(node) = (x > 0) ? x : x*alpha;
         }
         return nodeVector;
     }
@@ -160,7 +166,7 @@ class LReLU: public Activation
         if(x > 0){
             return 1;}
         else{
-            return 0.01;}
+            return alpha;}
     }
 };
 

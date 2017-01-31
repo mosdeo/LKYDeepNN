@@ -250,7 +250,7 @@ class LKYDeepNN
         } 
         
         //開始訓練
-        double minusMSE = std::numeric_limits<double>::max();
+        //double minusMSE = std::numeric_limits<double>::max();
         for(int currentEpochs=0 ; currentEpochs < epochs ; ++currentEpochs)
         {
             Shuffle(sequence);//訓練順序亂數洗牌

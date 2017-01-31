@@ -1,7 +1,6 @@
 #ifndef _LossFunction_hpp_
 #define _LossFunction_hpp_
 
-#include <cstdlib>
 #include <vector>
 using namespace std;
 
@@ -18,26 +17,31 @@ class Hinge: public LossFunction
     private: double pervError=0;
 
     public: double Error(const double output, const double target)
-    {
-        return fmax(0, 1-output*target);
+    {//鼓勵輸出剛好接近目標就好，不要讓分類器過度自信
+        if(0<=output && output<=1)
+        {
+            return abs(target-output); 
+        }
+        else
+        {
+            return 2*abs(target-output);
+        }
     }
 
     public: double Derivative(const double output, const double target)
     {
-        if(1 > output*target)
-        {
+        // if(1 > output*target)
+        // {
             double nowError = this->Error(output, target);
             double nowDer = nowError - this->pervError;
             this->pervError = nowError;
             
-            cout <<nowDer<< ","; 
             return nowDer;
-        }
-        else
-        {
-            cout <<0<< ",";
-            return 0;
-        }
+        // }
+        // else
+        // {
+        //     return 0;
+        // }
     }
 };
 
