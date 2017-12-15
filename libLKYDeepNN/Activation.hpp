@@ -12,6 +12,34 @@ class Activation
     public: virtual double Derivative(const double)=0;
 };
 
+class SeLU: public Activation
+{
+    public: SeLU(){ cout << "Activation is SeLU." << endl;}
+    public: ~SeLU(){cout << "~SeLU()" << endl;}
+
+    private: const float lambda = 1.0507009873554804934193349852946; //λ
+    private: const float alpha = 1.6732632423543772848170429916717; //α
+
+    public: vector<tuple<double,double>> Forward(vector<tuple<double,double>>& nodeVector)
+    {
+        for(tuple<double,double>& node : nodeVector)
+        {
+            double x = get<0>(node);
+            get<1>(node) = (x > 0) ? x : alpha*(exp(x)-1);
+            get<1>(node) = lambda*get<1>(node);
+        }
+        return nodeVector;
+    }
+
+    public: double Derivative(const double x)
+    {
+        if(x > 0){
+            return lambda;}
+        else{
+            return lambda*alpha*exp(x);}
+    }
+};
+
 class Sigmoid: public Activation
 {
     public: Sigmoid(){ cout << "Activation is Sigmoid." << endl;}
