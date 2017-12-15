@@ -23,7 +23,7 @@
 - LKYDeepNN::SetActivation( 隱藏層 , 輸出層 )
 - LKYDeepNN::SetActivation( new Tanh() ,new Linear() )  //回歸推薦使用
 - LKYDeepNN::SetActivation( new ReLU() ,new Softmax() ) //分類推薦使用
-- 目前已經有: ReLU, Tanh, Softmax, Sigmoid, Linear
+- 目前已經有: SeLU, ReLU, Tanh, Softmax, Sigmoid, Linear
 - 可以繼承 abstract class Activation 自由實作任意活化函數
 
 ### 訓練
