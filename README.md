@@ -39,6 +39,8 @@
 - 真的寫下去，就要面對自己其實不懂倒傳遞演算法的羞恥心，紮實的拿起紙筆推導演算，不能再期望 code 亂打能 build 就會動。
 
 ### 未來預計處理issue
+- Xavier initialization
+- [He initialization](https://zhuanlan.zhihu.com/p/25110150)
 - 可保存和讀取的 Weights 和 Biases
 - 更豐富得測試資料集
 - Cross Entropy BP（測試中）
