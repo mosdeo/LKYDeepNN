@@ -3262,7 +3262,7 @@
 						class="st7" v:langID="1033">(</tspan><tspan class="st7" v:langID="1033">x</tspan>: <tspan class="st7"
 						v:langID="1033">const double</tspan><tspan class="st7" v:langID="1033">)</tspan>: <tspan class="st7"
 						v:langID="1033">double</tspan></text>		</g>
-		<g id="group560-795" transform="translate(1042.81,-3.58465)" v:mID="560" v:groupContext="group">
+		<g id="group560-795" transform="translate(1042.81,-0.75)" v:mID="560" v:groupContext="group">
 			<v:userDefs>
 				<v:ud v:nameU="msvStructureType" v:prompt="" v:val="VT4(List)"/>
 				<v:ud v:nameU="msvSDContainerResize" v:prompt="" v:val="VT0(2):26"/>
@@ -3304,9 +3304,9 @@
 					<v:ud v:nameU="Spacer" v:prompt="" v:val="VT0(0):26"/>
 					<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.6361595852322):1"/>
 				</v:userDefs>
-				<path d="M0 971.26 L167.24 971.26 L167.24 869.57 L0 869.57 L0 971.26 Z" class="st1"/>
+				<path d="M0 971.26 L167.24 971.26 L167.24 866.73 L0 866.73 L0 971.26 Z" class="st1"/>
 			</g>
-			<g id="shape562-798" v:mID="562" v:groupContext="shape" transform="translate(0,-101.691)">
+			<g id="shape562-798" v:mID="562" v:groupContext="shape" transform="translate(0,-104.526)">
 				<title>工作表.562</title>
 				<v:userDefs>
 					<v:ud v:nameU="msvStructureType" v:prompt="" v:val="VT4(Heading)"/>
@@ -3325,7 +3325,7 @@
 				</v:userDefs>
 				<path d="M0 971.26 L167.24 971.26 L167.24 925.45 L0 925.45 L0 971.26 Z" class="st13"/>
 			</g>
-			<g id="shape564-801" v:mID="564" v:groupContext="shape" transform="translate(158.74,-147.495)">
+			<g id="shape564-801" v:mID="564" v:groupContext="shape" transform="translate(158.74,-150.329)">
 				<title>工作表.564</title>
 				<desc>參數</desc>
 				<v:userDefs>
@@ -3339,10 +3339,10 @@
 			</g>
 			<g id="shape560-802" v:mID="560" v:groupContext="groupContent">
 				<v:textBlock v:margins="rect(8.5,4,8.5,4)" v:tabSpace="42.5197"/>
-				<v:textRect cx="83.622" cy="846.663" width="167.25" height="45.8035"/>
-				<text x="53.35" y="853.86" class="st3" v:langID="1028"><v:paragraph v:horizAlign="1"/><v:tabList/>LReLU</text>			</g>
+				<v:textRect cx="83.622" cy="843.829" width="167.25" height="45.8035"/>
+				<text x="53.35" y="851.03" class="st3" v:langID="1028"><v:paragraph v:horizAlign="1"/><v:tabList/>LReLU</text>			</g>
 		</g>
-		<g id="shape565-804" v:mID="565" v:groupContext="shape" transform="translate(1045.64,-78.4339)">
+		<g id="shape565-804" v:mID="565" v:groupContext="shape" transform="translate(1045.64,-75.5993)">
 			<title>成員.565</title>
 			<desc>+ LReLU()</desc>
 			<v:userDefs>
@@ -3372,7 +3372,7 @@
 			<rect x="0" y="959.253" width="161.575" height="12.0036" class="st16"/>
 			<text x="8.5" y="968.25" class="st17" v:langID="1028"><v:paragraph/><v:tabList/>+ LReLU<tspan class="st7"
 						v:langID="1033">()</tspan></text>		</g>
-		<g id="shape566-809" v:mID="566" v:groupContext="shape" transform="translate(1045.64,-54.4266)">
+		<g id="shape566-809" v:mID="566" v:groupContext="shape" transform="translate(1045.64,-51.592)">
 			<title>成員.566</title>
 			<desc>+ ~LReLU()</desc>
 			<v:userDefs>
@@ -3402,7 +3402,7 @@
 			<rect x="0" y="959.253" width="161.575" height="12.0036" class="st16"/>
 			<text x="8.5" y="968.25" class="st17" v:langID="1028"><v:paragraph/><v:tabList/>+ ~LReLU<tspan class="st7"
 						v:langID="1033">()</tspan></text>		</g>
-		<g id="shape567-814" v:mID="567" v:groupContext="shape" transform="translate(1045.64,-6.41929)">
+		<g id="shape567-814" v:mID="567" v:groupContext="shape" transform="translate(1045.64,-3.58465)">
 			<title>成員.567</title>
 			<desc>+ Forward(nodeVector: vector&#60;tuple&#60;double,double&#62;&#62;&#38;): vector&#60;...</desc>
 			<v:userDefs>
@@ -3442,7 +3442,7 @@
 						v:langID="1033">&#60;</tspan><tspan class="st7" v:langID="1033">double</tspan><tspan class="st7"
 						v:langID="1033">,</tspan><tspan class="st7" v:langID="1033">double</tspan><tspan class="st7"
 						v:langID="1033">&#62;&#62;</tspan></text>		</g>
-		<g id="shape568-838" v:mID="568" v:groupContext="shape" transform="translate(1045.64,-42.423)">
+		<g id="shape568-838" v:mID="568" v:groupContext="shape" transform="translate(1045.64,-39.5884)">
 			<title>成員.568</title>
 			<desc>+ Derivative(x: const double): double</desc>
 			<v:userDefs>
@@ -3474,7 +3474,7 @@
 						class="st7" v:langID="1033">(</tspan><tspan class="st7" v:langID="1033">x</tspan>: <tspan class="st7"
 						v:langID="1033">const double</tspan><tspan class="st7" v:langID="1033">)</tspan>: <tspan class="st7"
 						v:langID="1033">double</tspan></text>		</g>
-		<g id="shape569-848" v:mID="569" v:groupContext="shape" transform="translate(1045.64,-66.4303)">
+		<g id="shape569-848" v:mID="569" v:groupContext="shape" transform="translate(1045.64,-63.5956)">
 			<title>成員.569</title>
 			<desc>+ LReLU(alpha: double)</desc>
 			<v:userDefs>
@@ -3647,9 +3647,9 @@
 				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
 				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(0):32"/>
 				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(-2.5573398714112):1"/>
-				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(0.49999999999999):24"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(0.49999999999998):24"/>
 				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(-2.1608036537928):1"/>
-				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0.89653621761826):24"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0.89653621761828):24"/>
 				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(2.9485126512688):32"/>
 				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(2.748300387513):32"/>
 			</v:userDefs>
@@ -4613,6 +4613,19 @@
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="ItemIndex" v:prompt="" v:val="VT0(3):26"/>
+			</v:userDefs>
+			<path d="M0 969.84 L161.57 969.84 L0 969.84 Z" class="st11"/>
+			<path d="M0 969.84 L161.57 969.84" class="st19"/>
+		</g>
+		<g id="shape809-1127" v:mID="809" v:groupContext="shape" transform="translate(1045.64,-87.6029)">
+			<title>分隔符號.809</title>
+			<v:userDefs>
+				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Separator)"/>
+				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="ItemIndex" v:prompt="" v:val="VT0(-1):26"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
+				<v:ud v:nameU="ItemIndex" v:prompt="" v:val="VT0(2):26"/>
 			</v:userDefs>
 			<path d="M0 969.84 L161.57 969.84 L0 969.84 Z" class="st11"/>
 			<path d="M0 969.84 L161.57 969.84" class="st19"/>
