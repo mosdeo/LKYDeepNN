@@ -4,7 +4,8 @@
 - 可訓練的深度類神經網路 (Deep Neural Network) 函式庫。
 - 輕量，核心部份只依賴 C++11 標準函式庫，低相依性、好移植，方便在嵌入式系統上使用。
 
-![](UML/LKYDeepNN_UML.svg)
+### UML
+![this is UML SVG](UML/LKYDeepNN_UML.svg)
 
 ### 附有訓練視覺化 demo 程式
 - 訓練視覺化程式以 OpenCV 撰寫，但 LKYDeepNN 本身不依賴 OpenCV。
