@@ -1,10 +1,8 @@
 {
-    "version": "0.1.0",
+    "version": "2.0.0",
     //"command": "/opt/clanton-tiny/1.4.2/sysroots/i686-pokysdk-linux/usr/bin/i586-poky-linux-uclibc/i586-poky-linux-uclibc-g++",
     //"command": "g++",
     "command": "clang++",
-    "isShellCommand": true,
-    "showOutput": "always",
     "args": [
             "${file}",
             //"main(regression_demo).cpp",
@@ -13,7 +11,7 @@
             "-Wall",
             //"-v",
             "-pthread",
-            "-I /usr/local/lib/",
+            "-I /usr/local/Cellar/opencv/4.1.1_2/lib/",
             "-lopencv_core",
             "-lopencv_highgui",
             "-lopencv_imgproc",

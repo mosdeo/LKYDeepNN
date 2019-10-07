@@ -26,7 +26,7 @@
             "type": "cppdbg",
             "request": "attach",
             "program": "/home/lky/workspace/LKYDeepNN/LKYDeepNN",
-            "processId": "${command.pickProcess}",
+            "processId": "${command:pickProcess}",
             "linux": {
                 "MIMode": "gdb"
             },
