@@ -1,23 +1,29 @@
 {
     "version": "2.0.0",
-    //"command": "/opt/clanton-tiny/1.4.2/sysroots/i686-pokysdk-linux/usr/bin/i586-poky-linux-uclibc/i586-poky-linux-uclibc-g++",
-    //"command": "g++",
-    "command": "clang++",
-    "args": [
+    "tasks": [
+      {
+        "label": "Build with Clang",
+        "type": "shell",
+        "command": "clang++",
+        "args": [
+            "-std=c++11",
+            "-stdlib=libc++",
             "${file}",
-            //"main(regression_demo).cpp",
-            //"main(classification_demo).cpp",
+            //"main_RegressionDemo.cpp",
+            //"main_ClassificationDemo.cpp",
             "libLKYDeepNN/InputLayer.cpp","libLKYDeepNN/HiddenLayer.cpp","libLKYDeepNN/OutputLayer.cpp",
-            "-Wall",
-            //"-v",
-            "-pthread",
             "-I /usr/local/Cellar/opencv/4.1.1_2/lib/",
             "-lopencv_core",
             "-lopencv_highgui",
             "-lopencv_imgproc",
-            "-g",
-            "-std=c++11",
-            "-Ofast",
             "-o",
-            "LKYDeepNN"]
-}
+            "LKYDeepNN.out",
+            "--debug"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      }
+    ]
+  }
